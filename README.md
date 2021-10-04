@@ -11,4 +11,4 @@ requires:
 
 pip install django
 
-pip install decouple
+pip install python-decouple
