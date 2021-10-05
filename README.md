@@ -6,3 +6,9 @@ To run server, run the command:
 "python manage.py runserver "
 
 Note: can add a port number in front of runserver to conenct to a particular port, else defaults to port 8000
+
+requires:
+
+pip install django
+
+pip install python-decouple
