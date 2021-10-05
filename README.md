@@ -1,12 +1,12 @@
 
+
 # Capstone Project - restock_checker 
 **Danny Li, Alden Lee, Ethan Tam, Oscar Andrade, David Xue**
-
-** **
 
 ***A program to check for high in demand items to check if desired items are in stock.***
 
 # Django Section
+
 
 Note: Removed my Secret Django Key from being pushed to Github, unsure how others will test without key
 
@@ -20,4 +20,3 @@ requires:
 pip install django
 
 pip install python-decouple
-
