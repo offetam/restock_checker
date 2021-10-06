@@ -24,3 +24,5 @@ pip install python-decouple
 pip install mysqlclient
 
 (you will also need to have MYSQL installed as we'll be using MYSQL for our database)
+
+Note: you'll also need to set your mysql username to **root** , mysql password to **rootroot123** and have a mysql database called **restock** 
