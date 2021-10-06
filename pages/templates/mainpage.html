@@ -11,6 +11,27 @@
         <input type="text" name="product" placeholder="What Item?">
         <br>
         <input type="submit" value="Search!">
-      </form>
+    </form>
+    <h1>Products</h1>
+    <table border="1" width="1440">
+        <tr>
+            <td>SKU</td>
+            <td>Name</td>
+            <td>Price</td>
+            <td>Status</td>
+            <td>URL</td>
+            <td>Reviews</td>
+        </tr>
+        {% for product in all_enteries %}
+        <tr>
+            <td>{{product.SKU}}</td>
+            <td>{{product.Name}}</td>
+            <td>{{product.price}}</td>
+            <td>{{product.Status}}</td>
+            <td><a href={{product.URL}} target="__blank">Link</a></td>
+            <td>{{product.Reviews}}</td>
+        </tr>
+        {% endfor %}
+    </table>
 </body>
 </html>
