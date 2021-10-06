@@ -8,8 +8,6 @@
 # Django Section
 
 
-Note: Removed my Secret Django Key from being pushed to Github, unsure how others will test without key
-
 To run server, run the command:
 "python manage.py runserver "
 
