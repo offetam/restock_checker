@@ -13,10 +13,14 @@ Note: Removed my Secret Django Key from being pushed to Github, unsure how other
 To run server, run the command:
 "python manage.py runserver "
 
-Note: can add a port number in front of runserver to conenct to a particular port, else defaults to port 8000
+Note: can add a port number in front of runserver to connect to a particular port, else defaults to port 8000
 
 requires:
 
 pip install django
 
 pip install python-decouple
+
+pip install mysqlclient
+
+(you will also need to have MYSQL installed as we'll be using MYSQL for our database)
