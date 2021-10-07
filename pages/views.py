@@ -18,3 +18,6 @@ def home_view(request):
         #for i in all_enteries: #prints each product
             #print(str(i.SKU) + " " + i.Name + " " + str(i.price) + " " + i.Status + " " + i.URL + " " + str(i.Reviews))
     return render(request, 'mainpage.html',context)
+
+def login(request):
+    return render(request, 'login.html')

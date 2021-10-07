@@ -7,10 +7,15 @@
     <title>Document</title>
 </head>
 <body>
+    <header>
+        <a href="{% url 'login' %}"> Login </a>
+    </header>
     <form>
         <input type="text" name="product" placeholder="What Item?">
         <br>
-        <input type="submit" value="Search!">
+        <button type="submit" value="Search!">
+            Search!
+        </button>
     </form>
     <h1>Products</h1>
     <table border="1" width="1440">
