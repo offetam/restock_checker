@@ -10,3 +10,8 @@ class BestBuy(models.Model):
     Status = models.CharField(max_length=32)
     URL = models.CharField(max_length=256)
     Reviews = models.FloatField()
+
+class User(models.Model):
+    ID = models.AutoField(auto_created=True,primary_key=True)
+    email = models.CharField(max_length=256)
+    password = models.CharField(max_length=256)
