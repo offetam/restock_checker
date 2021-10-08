@@ -31,5 +31,5 @@ def login(request):
             print(blake2b(login_pass.encode()).hexdigest()) #hashes password
         elif(signup_email is not None and signup_pass is not None):
             print(signup_email)
-            print(signup_pass)  
+            print(blake2b(signup_pass.encode()).hexdigest())   
     return render(request, 'login.html')
