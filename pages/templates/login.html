@@ -7,8 +7,8 @@
     <title>Document</title>
 </head>
 <body>
-    <form>
-        <input type="text" name="login_email" placeholder="UserName">
+    <form method="POST">{% csrf_token %}
+        <input type="text" name="login_email" placeholder="Email">
         <input type="text" name="login_pass" placeholder="PassWord">
         <br>
         <button type="submit" value="Login">
@@ -16,8 +16,8 @@
         </button>
     </form>
     <br>
-    <form>
-        <input type="text" name="signup_email" placeholder="UserName">
+    <form method="POST">{% csrf_token %}
+        <input type="text" name="signup_email" placeholder="Email">
         <input type="text" name="signup_pass" placeholder="PassWord">
         <br>
         <button type="submit" value="SignUp">
