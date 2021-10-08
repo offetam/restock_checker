@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from pages.models import BestBuy
+from pages.models import User
 from hashlib import blake2b
 
 # Create your views here.
@@ -27,13 +28,28 @@ def login(request):
         signup_email = request.POST.get("signup_email")
         signup_pass = request.POST.get("signup_pass")
         if(login_email is not None and login_pass is not None):
-            print(blake2b(login_email.encode()).hexdigest())
+            #print(blake2b(login_email.encode()).hexdigest())
+            hash_login_mail = blake2b(login_email.encode()).hexdigest()
             salt = 'il0v3m3n'
             saltedpass = login_pass+salt
-            print(blake2b(saltedpass.encode()).hexdigest()) #hashes password
+            #print(blake2b(saltedpass.encode()).hexdigest()) #hashes password
+            hash_login_pass = blake2b(saltedpass.encode()).hexdigest()
+            x = User.objects.all().filter(email=hash_login_mail,password=hash_login_pass)
+            if( not x):
+                print("No such User")
+            else:
+                print("Hello")
         elif(signup_email is not None and signup_pass is not None):
-            print(blake2b(signup_email.encode()).hexdigest())
+            #print(blake2b(signup_email.encode()).hexdigest())
+            hash_sign_mail = blake2b(signup_email.encode()).hexdigest()
             salt = 'il0v3m3n'
             saltedpass = signup_pass+salt
-            print(blake2b(saltedpass.encode()).hexdigest())   
+            #print(blake2b(saltedpass.encode()).hexdigest())
+            hash_sign_pass = blake2b(saltedpass.encode()).hexdigest()
+            x = User.objects.all().filter(email=hash_sign_mail,password=hash_sign_pass)
+            if( not x):
+                new_user = User(email=hash_sign_mail,password=hash_sign_pass)
+                new_user.save()
+            else:
+                print("No")
     return render(request, 'login.html')
