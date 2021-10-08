@@ -28,8 +28,12 @@ def login(request):
         signup_pass = request.POST.get("signup_pass")
         if(login_email is not None and login_pass is not None):
             print(blake2b(login_email.encode()).hexdigest())
-            print(blake2b(login_pass.encode()).hexdigest()) #hashes password
+            salt = 'il0v3m3n'
+            saltedpass = login_pass+salt
+            print(blake2b(saltedpass.encode()).hexdigest()) #hashes password
         elif(signup_email is not None and signup_pass is not None):
             print(blake2b(signup_email.encode()).hexdigest())
-            print(blake2b(signup_pass.encode()).hexdigest())   
+            salt = 'il0v3m3n'
+            saltedpass = signup_pass+salt
+            print(blake2b(saltedpass.encode()).hexdigest())   
     return render(request, 'login.html')
