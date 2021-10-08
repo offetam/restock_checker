@@ -21,11 +21,11 @@ def home_view(request):
     return render(request, 'mainpage.html',context)
 
 def login(request):
-    if(request.method == 'GET'):
-        login_email = request.GET.get("login_email")
-        login_pass = request.GET.get("login_pass")
-        signup_email = request.GET.get("signup_email")
-        signup_pass = request.GET.get("signup_pass")
+    if(request.method == 'POST'):
+        login_email = request.POST.get("login_email")
+        login_pass = request.POST.get("login_pass")
+        signup_email = request.POST.get("signup_email")
+        signup_pass = request.POST.get("signup_pass")
         if(login_email is not None and login_pass is not None):
             print(blake2b(login_email.encode()).hexdigest())
             print(blake2b(login_pass.encode()).hexdigest()) #hashes password
