@@ -1,14 +1,30 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+		<link rel="stylesheet" type="text/css" href='{% static "/css/mainpage.css" %}'>
     <title>Document</title>
 </head>
+
+<div class = "header">
+		<div class = "inner_header">
+			<div class = "logo_container">
+				<a href="{% url 'home' %}"><img src = '{% static "imgs/restonks.png" %}' class = "logo" id = "logo_image"></a> <!-- clicking on this does nothing  -->
+			</div>
+
+			<nav>
+			  <ul class = "navigation"> <!--  Header to use on other pages -->
+				  <li>
+					</li>
+				</ul>
+			</nav>
+		</div>
+</div>
 <body>
     <header>
-        <a href="{% url 'home' %}">Home</a>
         <a href="{% url 'login' %}"> Login </a>
     </header>
     <form>
