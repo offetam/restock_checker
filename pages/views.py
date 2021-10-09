@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.http.response import HttpResponseRedirect
+from django.shortcuts import redirect, render
 from django.http import HttpResponse
 from pages.models import BestBuy
 from pages.models import User
@@ -36,9 +37,10 @@ def login(request):
             hash_login_pass = blake2b(saltedpass.encode()).hexdigest()
             x = User.objects.all().filter(email=hash_login_mail,password=hash_login_pass)
             if( not x):
-                print("No such User")
+                #print("No such User")
+                return redirect('/login?fail')
             else:
-                print("Hello")
+                return redirect('/')
         elif(signup_email is not None and signup_pass is not None):
             #print(blake2b(signup_email.encode()).hexdigest())
             hash_sign_mail = blake2b(signup_email.encode()).hexdigest()
@@ -50,6 +52,8 @@ def login(request):
             if( not x):
                 new_user = User(email=hash_sign_mail,password=hash_sign_pass)
                 new_user.save()
+                return redirect('/login?signup_success')
             else:
-                print("No")
+                #print("No")
+                return redirect('/login?signup_fail')
     return render(request, 'login.html')
