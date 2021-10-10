@@ -34,7 +34,15 @@
         <br>
         {% if messages %}
             {% for message in messages %}
-                {% if "signup" in message.tags %}
+                {% if "signup_fail" in message.tags %}
+                    {{message}}
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        
+        {% if messages %}
+            {% for message in messages %}
+                {% if "signup_success" in message.tags %}
                     {{message}}
                 {% endif %}
             {% endfor %}

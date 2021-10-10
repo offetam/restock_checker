@@ -55,10 +55,11 @@ def login(request):
             if( not x):
                 new_user = User(email=hash_sign_mail,password=hash_sign_pass)
                 new_user.save()
+                messages.success(request,"User successfully created, Please go Verify your account", extra_tags="signup_success")
                 return redirect('/login?signup_success')
             else:
                 #print("No")
-                messages.error(request, "User exists already", extra_tags='signup')
+                messages.error(request, "User exists already", extra_tags='signup_fail')
                 return redirect('/login?signup_fail')
     return render(request, 'login.html')
 
