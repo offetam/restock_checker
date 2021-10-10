@@ -16,9 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from pages.views import home_view #import our mainpage 
-from pages.views import login #import our login
-from pages.views import signout
+from pages.views import home_view, login, signout #import our mainpage 
 
 urlpatterns = [
     path('', home_view, name='home'), #added for mainpage
