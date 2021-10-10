@@ -14,16 +14,15 @@
 			<div class = "logo_container">
 				<a href="{% url 'home' %}"><img src = '{% static "imgs/restonks.png" %}' class = "logo" id = "logo_image"></a> <!-- clicking on this does nothing  -->
 			</div>
-
 			<nav>
 			  <ul class = "navigation"> <!--  Header to use on other pages -->
 				  <li>
-                    {% if request.session.email != '' %}
-                        <a href="{% url 'signout' %}">Sign Out</a>
-                        <h1>Welcome {{request.session.email}}</h1>
-                    {% else %}
-                        <a href="{% url 'login' %}"> Login </a>
-                    {% endif %}
+            {% if request.session.email != '' %}
+                <a href="{% url 'signout' %}">Sign Out</a>
+                <h1 style="color:#008080;">Welcome: {{request.session.email}}</h1>
+            {% else %}
+                <a href="{% url 'login' %}"> Login </a>
+            {% endif %}
 					</li>
 				</ul>
 			</nav>
@@ -37,7 +36,7 @@
             Search!
         </button>
     </form>
-    <h1>Products</h1>
+    <center><h1>Products</h1></center>
     <table border="1" width="1440">
         <tr>
             <td>SKU</td>
