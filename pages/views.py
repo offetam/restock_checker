@@ -40,6 +40,7 @@ def login(request):
                 #print("No such User")
                 return redirect('/login?fail')
             else:
+                request.session['email']=login_email
                 return redirect('/')
         elif(signup_email is not None and signup_pass is not None):
             #print(blake2b(signup_email.encode()).hexdigest())

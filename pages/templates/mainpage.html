@@ -19,6 +19,7 @@
 			  <ul class = "navigation"> <!--  Header to use on other pages -->
 				  <li>
                     <a href="{% url 'login' %}"> Login </a>
+                    <h1>Welcome {{request.session.email}}</h1>
 					</li>
 				</ul>
 			</nav>
