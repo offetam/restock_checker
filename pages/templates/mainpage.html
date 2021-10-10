@@ -18,8 +18,12 @@
 			<nav>
 			  <ul class = "navigation"> <!--  Header to use on other pages -->
 				  <li>
-                    <a href="{% url 'login' %}"> Login </a>
-                    <h1>Welcome {{request.session.email}}</h1>
+                    {% if request.session.email != '' %}
+                        <a href="{% url 'signout' %}">Sign Out</a>
+                        <h1>Welcome {{request.session.email}}</h1>
+                    {% else %}
+                        <a href="{% url 'login' %}"> Login </a>
+                    {% endif %}
 					</li>
 				</ul>
 			</nav>

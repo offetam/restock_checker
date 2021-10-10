@@ -58,3 +58,9 @@ def login(request):
                 #print("No")
                 return redirect('/login?signup_fail')
     return render(request, 'login.html')
+
+def signout(request):
+    #print(request.session['email'])
+    request.session['email']= '' #just changes the user that's currently using the page
+    #print(request.session['email'])
+    return home_view(request)
