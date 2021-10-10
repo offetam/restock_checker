@@ -18,9 +18,11 @@ from django.urls import path
 
 from pages.views import home_view #import our mainpage 
 from pages.views import login #import our login
+from pages.views import signout
 
 urlpatterns = [
     path('', home_view, name='home'), #added for mainpage
     path('login', login, name='login'),
+    path('signout/', signout, name='signout'),
     path('admin/', admin.site.urls),
 ]
