@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from pages.models import BestBuy
 from pages.models import User
 from hashlib import blake2b
+from django.contrib import messages
 
 # Create your views here.
 def home_view(request):
@@ -38,6 +39,7 @@ def login(request):
             x = User.objects.all().filter(email=hash_login_mail,password=hash_login_pass)
             if( not x):
                 #print("No such User")
+                messages.error(request, "Email or password is incorrect", extra_tags='login')
                 return redirect('/login?fail')
             else:
                 request.session['email']=login_email
@@ -56,6 +58,7 @@ def login(request):
                 return redirect('/login?signup_success')
             else:
                 #print("No")
+                messages.error(request, "User exists already", extra_tags='signup')
                 return redirect('/login?signup_fail')
     return render(request, 'login.html')
 

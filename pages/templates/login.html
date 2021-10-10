@@ -14,6 +14,14 @@
         <button type="submit" value="Login">
             Login
         </button>
+        <br>
+        {% if messages %}
+            {%for message in messages %}
+                {% if "login" in message.tags %}
+                    {{message}}
+                {% endif %}
+            {% endfor %}
+        {% endif %}
     </form>
     <br>
     <form method="POST">{% csrf_token %}
@@ -23,6 +31,14 @@
         <button type="submit" value="SignUp">
             Sign Up 
         </button>
+        <br>
+        {% if messages %}
+            {% for message in messages %}
+                {% if "signup" in message.tags %}
+                    {{message}}
+                {% endif %}
+            {% endfor %}
+        {% endif %}
     </form>
 </body>
 </html>
