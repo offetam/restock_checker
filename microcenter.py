@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 import re
 URL='https://www.microcenter.com/search/search_results.aspx?N=4294966937&NTK=all&page='
 end='&cat=Graphics-Cards-:-MicroCenter&myStore=false'
-agent={"User-Agent":'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36'}
+agent={"User-Agent":'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.61 Safari/537.36'}
 
 uniqueArr=[]
 for x in range(1,9,1):
@@ -18,7 +18,7 @@ for x in range(1,9,1):
     uniqueLink=re.findall('(?<=href=").*?(?=" id=)',title_string)
     for i in uniqueLink:
         uniqueArr.append(i)
-
+'''
 URL2='https://www.microcenter.com/search/search_results.aspx?N=4294966995&NTK=all&page='
 end2='&cat=Processors/CPUs-:-MicroCenter&myStore=false'
 for x in range(1,3,1):
@@ -29,3 +29,4 @@ for x in range(1,3,1):
     uniqueLink=re.findall('(?<=href=").*?(?=" id=)',title_string)
     for i in uniqueLink:
         uniqueArr.append(i)
+'''
