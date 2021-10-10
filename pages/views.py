@@ -25,39 +25,39 @@ def home_view(request):
 
 def login(request):
     if(request.method == 'POST'):
-        login_email = request.POST.get("login_email")
-        login_pass = request.POST.get("login_pass")
-        signup_email = request.POST.get("signup_email")
-        signup_pass = request.POST.get("signup_pass")
+        login_email = request.POST.get("login_email") #get login_email 
+        login_pass = request.POST.get("login_pass") #get login_pass
+        signup_email = request.POST.get("signup_email") #get signup_email
+        signup_pass = request.POST.get("signup_pass") #get signup_pass
         if(login_email is not None and login_pass is not None):
             #print(blake2b(login_email.encode()).hexdigest())
-            hash_login_mail = blake2b(login_email.encode()).hexdigest()
-            salt = 'il0v3m3n'
-            saltedpass = login_pass+salt
+            hash_login_mail = blake2b(login_email.encode()).hexdigest() #hash the user's login_email
+            salt = 'il0v3m3n' #salt string
+            saltedpass = login_pass+salt #concat login_pass with salt
             #print(blake2b(saltedpass.encode()).hexdigest()) #hashes password
-            hash_login_pass = blake2b(saltedpass.encode()).hexdigest()
-            x = User.objects.all().filter(email=hash_login_mail,password=hash_login_pass)
-            if( not x):
+            hash_login_pass = blake2b(saltedpass.encode()).hexdigest() #hash the new salted user password
+            x = User.objects.all().filter(email=hash_login_mail,password=hash_login_pass) #checks if the user's email and password exists
+            if( not x): #gives error message and redirect user back if failed
                 #print("No such User")
                 messages.error(request, "Email or password is incorrect", extra_tags='login')
                 return redirect('/login?fail')
-            else:
+            else: #logins if successful
                 request.session['email']=login_email
                 return redirect('/')
         elif(signup_email is not None and signup_pass is not None):
             #print(blake2b(signup_email.encode()).hexdigest())
-            hash_sign_mail = blake2b(signup_email.encode()).hexdigest()
-            salt = 'il0v3m3n'
-            saltedpass = signup_pass+salt
+            hash_sign_mail = blake2b(signup_email.encode()).hexdigest() #hash the user's signup_email
+            salt = 'il0v3m3n' #salt string
+            saltedpass = signup_pass+salt #concat signup_pass with salt
             #print(blake2b(saltedpass.encode()).hexdigest())
-            hash_sign_pass = blake2b(saltedpass.encode()).hexdigest()
-            x = User.objects.all().filter(email=hash_sign_mail,password=hash_sign_pass)
-            if( not x):
+            hash_sign_pass = blake2b(saltedpass.encode()).hexdigest() #hash the new salted user password
+            x = User.objects.all().filter(email=hash_sign_mail,password=hash_sign_pass) #checks if the user's email and password already exists
+            if( not x): # creates new User and gives success message to user 
                 new_user = User(email=hash_sign_mail,password=hash_sign_pass)
                 new_user.save()
                 messages.success(request,"User successfully created, Please go Verify your account", extra_tags="signup_success")
                 return redirect('/login?signup_success')
-            else:
+            else: #gives error message and redirects users back if there already exists a user 
                 #print("No")
                 messages.error(request, "User exists already", extra_tags='signup_fail')
                 return redirect('/login?signup_fail')
