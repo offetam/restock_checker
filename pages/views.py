@@ -20,8 +20,6 @@ def home_view(request):
         else:
             all_enteries = BestBuy.objects.all() #just gets all products if there's no input
             context = {'all_enteries': all_enteries} #creates a dictionary with our enteries
-        #for i in all_enteries: #prints each product
-            #print(str(i.SKU) + " " + i.Name + " " + str(i.price) + " " + i.Status + " " + i.URL + " " + str(i.Reviews))
     return render(request, 'mainpage.html',context)
 
 def login(request):
@@ -57,7 +55,11 @@ def login(request):
                 new_user = User(email=hash_sign_mail,password=hash_sign_pass)
                 new_user.save()
                 messages.success(request,"User successfully created, Please go Verify your account", extra_tags="signup_success")
-                send_mail('Hello User','This is a test message','restockcheck123@gmail.com',[signup_email],fail_silently=False)
+                send_mail('Hello User',
+                'This is a test message',
+                'restockcheck123@gmail.com',
+                [signup_email],
+                fail_silently=False)
                 return redirect('/login?signup_success')
             else: #gives error message and redirects users back if there already exists a user 
                 #print("No")
