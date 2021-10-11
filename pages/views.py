@@ -50,8 +50,8 @@ def login(request):
             saltedpass = signup_pass+salt #concat signup_pass with salt
             #print(blake2b(saltedpass.encode()).hexdigest())
             hash_sign_pass = blake2b(saltedpass.encode()).hexdigest() #hash the new salted user password
-            x = User.objects.all().filter(email=hash_sign_mail,password=hash_sign_pass) #checks if the user's email and password already exists
-            if( not x): # creates new User and gives success message to user 
+            x = User.objects.all().filter(email=hash_sign_mail).count() #checks if there's already an account with the inputted email
+            if(x ==0): # creates new User and gives success message to user 
                 new_user = User(email=hash_sign_mail,password=hash_sign_pass)
                 new_user.save()
                 messages.success(request,"User successfully created, Please go Verify your account", extra_tags="signup_success")
@@ -62,7 +62,6 @@ def login(request):
                 fail_silently=False)
                 return redirect('/login?signup_success')
             else: #gives error message and redirects users back if there already exists a user 
-                #print("No")
                 messages.error(request, "User exists already", extra_tags='signup_fail')
                 return redirect('/login?signup_fail')
     return render(request, 'login.html')
