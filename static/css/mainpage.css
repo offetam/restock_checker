@@ -38,12 +38,12 @@ body
 
 .inner_header
 {
-	display: flex;
 	align-items: center;
 }
 
 nav
 {
+	vertical-align: middle;
 	flex: 1;
 	text-align: right;
 	margin-right: 40px;
@@ -106,35 +106,34 @@ a:hover
 	height:80px;
 }
 
-
 .search_container
 {
-
-	padding-left: 38%;
+	height: 25px;
 }
 
 .search_form
 {
-  position: relative;
+	margin: 0 auto;
+	width: 600px;
 }
 
 .search_form input[type=text]
 {
-	height: 40px;
+	height: 80px;
 	float:left;
 	width: 65%;
 	flex: 1;
 	outline: none;
 	border : 2.5px solid gray;
 	border-radius: 5px;
-	text-align: right;
+	text-align: center;
 	font-size: 20px;
 	padding: 5px;
 }
 
 form.search_form button
 {
-	height: 40px;
+	height: 80px;
 	width: 35%;
 	color: white;
 	background: #2196F3;
