@@ -6,14 +6,23 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
 		<link rel="stylesheet" type="text/css" href='{% static "/css/mainpage.css" %}'>
-    <title>Document</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"> <!-- css for the search icon (fa fa-search) -->
+    <title>Restock - Main page</title>
 </head>
 
 <div class = "header">
+
 		<div class = "inner_header">
 			<div class = "logo_container">
 				<a href="{% url 'home' %}"><img src = '{% static "imgs/restonks.png" %}' class = "logo" id = "logo_image"></a> <!-- clicking on this does nothing  -->
 			</div>
+
+      <div class = "search_container">
+        <form id = "searchbar" class = "search_form">
+            <input type="text" class = "searchtext" name="product" placeholder="Search for Products"><button type="submit" value="Search!"><i class="fa fa-search" id = "search_button"></i> Search</button>
+        </form>
+      </div>
+
 			<nav>
 			  <ul class = "navigation"> <!--  Header to use on other pages -->
 				  <li>
@@ -27,16 +36,11 @@
 				</ul>
 			</nav>
 		</div>
+
 </div>
 <body>
-    <form>
-        <input type="text" name="product" placeholder="What Item?">
-        <br>
-        <button type="submit" value="Search!">
-            Search!
-        </button>
-    </form>
-    <center><h1>Products</h1></center>
+
+    <center><h1 style = "margin-top: 2.5%">Products</h1></center>
     <table border="1" width="1440">
         <tr>
             <td>SKU</td>
