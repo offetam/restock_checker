@@ -1,7 +1,7 @@
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
-from pages.models import BestBuy
+from pages.models import BestBuy, MicroCenter
 from pages.models import User
 from pages.models import products
 from hashlib import blake2b
@@ -19,14 +19,25 @@ def home_view(request):
             all_enteries = products.objects.all()
             for i in split_str:
                 all_enteries = all_enteries.filter(product__contains=i) #checks if any product name contains x
-            context = {'all_enteries': all_enteries} #creates a dictionary with our enteries
+            #context = {'all_enteries': all_enteries} #creates a dictionary with our enteries
             #print(all_enteries)
-            """
+            bbsku=[]
+            mcsku =[]
             for i in all_enteries:
                 print(i.BestBuy_SKU)
+                bbsku.append(i.BestBuy_SKU)
                 print(i.MicroCenter_SKU)
+                mcsku.append(i.MicroCenter_SKU)
                 print(" ")
-                """
+            combin_bb = BestBuy.objects.none()
+            combin_mc = MicroCenter.objects.none()
+            for i in bbsku:
+                combin_bb = combin_bb | BestBuy.objects.all().filter(BestBuy_SKU=i).exclude(BestBuy_SKU=0)
+                #print(combin)
+            for i in mcsku:
+                 combin_mc= combin_mc | MicroCenter.objects.all().filter(MicroCenter_SKU=i)
+            context = {'all_enteries' : all_enteries,'bb_product' : combin_bb, 'mc_product' : combin_mc}
+            
         else:
             all_enteries = products.objects.all() #just gets all products if there's no input
             context = {'all_enteries': all_enteries} #creates a dictionary with our enteries
