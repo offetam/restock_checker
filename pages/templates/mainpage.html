@@ -43,18 +43,60 @@
 
     <center><h1 style = "margin-top: 2.5%">Products</h1></center>
     <table border="1" width="1440">
+      <tr>
+          <td>Product_Name</td>
+          <td>MicroCenter_SKU</td>
+          <td>BestBuy_SKU</td>
+      </tr>
+      {% for product in all_enteries %}
+      <tr>
+          <td>{{product.product}}</td>
+          <td>{{product.MicroCenter_SKU}}</td>
+          <td>{{product.BestBuy_SKU}}</td>
+      </tr>
+      {% endfor %}
+  </table>
+    <table border="1" width="1440">
         <tr>
-            <td>Product_Name</td>
-            <td>MicroCenter_SKU</td>
+            <td>BestBuy_Name</td>
+            <td>BestBuy_price</td>
+            <td>BestBuy_Status</td>
+            <td>BestBuy_Rating</td>
+            <td>BestBuy_Review</td>
+            <td>BestBuy_ModelNumber</td>
             <td>BestBuy_SKU</td>
+            <td>BestBuy_URL</td>
         </tr>
-        {% for product in all_enteries %}
+        {% for product in bb_product %}
         <tr>
-            <td>{{product.product}}</td>
-            <td>{{product.MicroCenter_SKU}}</td>
+            <td>{{product.BestBuy_Name}}</td>
+            <td>{{product.BestBuy_price}}</td>
+            <td>{{product.BestBuy_Status}}</td>
+            <td>{{product.BestBuy_Ratings}}</td>
+            <td>{{product.BestBuy_Review}}</td>
+            <td>{{product.BestBuy_ModelNumber}}</td>
             <td>{{product.BestBuy_SKU}}</td>
+            <td><a href={{product.BestBuy_URL}}>Link</a></td>
         </tr>
         {% endfor %}
     </table>
+    <table border="1" width="1440">
+      <tr>
+          <td>MicroCenter_Name</td>
+          <td>MicroCenter_Price</td>
+          <td>MicroCenter_SKU</td>
+          <td>BMicroCenter_ModelNumber</td>
+          <td>MicroCenter_URL</td>
+      </tr>
+      {% for product in mc_product %}
+      <tr>
+          <td>{{product.MicroCenter_Name}}</td>
+          <td>{{product.MicroCenter_Price}}</td>
+          <td>{{product.MicroCenter_SKU}}</td>
+          <td>{{product.MicroCenter_ModelNumber}}</td>
+          <td><a href={{product.MicroCenter_URL}}>Link</a></td>
+      </tr>
+      {% endfor %}
+  </table>
 </body>
 </html>

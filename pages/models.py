@@ -7,7 +7,7 @@ from django.db.models.base import Model
 class BestBuy(models.Model):
     BestBuy_Name = models.CharField(max_length=256)
     BestBuy_price = models.DecimalField(max_digits=10,decimal_places=2)
-    BeestBuy_Status = models.CharField(max_length=32)
+    BestBuy_Status = models.CharField(max_length=32)
     BestBuy_Ratings = models.DecimalField(max_digits=3,decimal_places=2)
     BestBuy_Review = models.IntegerField()
     BestBuy_ModelNumber = models.CharField(max_length=128)
