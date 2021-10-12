@@ -35,7 +35,7 @@ def home_view(request):
                 combin_bb = combin_bb | BestBuy.objects.all().filter(BestBuy_SKU=i).exclude(BestBuy_SKU=0)
                 #print(combin)
             for i in mcsku:
-                 combin_mc= combin_mc | MicroCenter.objects.all().filter(MicroCenter_SKU=i)
+                 combin_mc= combin_mc | MicroCenter.objects.all().filter(MicroCenter_SKU=i).exclude(MicroCenter_SKU=0)
             context = {'all_enteries' : all_enteries,'bb_product' : combin_bb, 'mc_product' : combin_mc}
             
         else:
