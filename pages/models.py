@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models.base import Model
 
 # Create your models here.
 
@@ -15,3 +16,8 @@ class User(models.Model):
     ID = models.AutoField(auto_created=True,primary_key=True)
     email = models.CharField(max_length=256)
     password = models.CharField(max_length=256)
+
+class products(models.Model):
+    product = models.CharField(max_length=254,primary_key=True)
+    MicroCenter_SKU = models.IntegerField()
+    BestBuy_SKU = models.IntegerField()
