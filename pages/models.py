@@ -13,8 +13,7 @@ class BestBuy(models.Model):
     Reviews = models.DecimalField(max_digits=3,decimal_places=2)
 
 class User(models.Model):
-    ID = models.AutoField(auto_created=True,primary_key=True)
-    email = models.CharField(max_length=256)
+    email = models.CharField(max_length=254,primary_key=True)
     password = models.CharField(max_length=256)
 
 class products(models.Model):
