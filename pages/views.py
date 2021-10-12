@@ -3,6 +3,7 @@ from django.shortcuts import redirect, render
 from django.http import HttpResponse
 from pages.models import BestBuy
 from pages.models import User
+from pages.models import products
 from hashlib import blake2b
 from django.contrib import messages
 from django.core.mail import send_mail
@@ -14,11 +15,14 @@ def home_view(request):
         x = request.GET.get("product") #gets the product name if possible
         #print(x) #prints the product name the user enters (to check)
         if(x is not None): #checks if the values we're getting is not None
-            all_enteries = BestBuy.objects.all().filter(Name__contains=x) #checks if any product name contains x
+            split_str = x.split(' ')
+            all_enteries = products.objects.all()
+            for i in split_str:
+                all_enteries = all_enteries.filter(product__contains=i) #checks if any product name contains x
             context = {'all_enteries': all_enteries} #creates a dictionary with our enteries
             #print(all_enteries)
         else:
-            all_enteries = BestBuy.objects.all() #just gets all products if there's no input
+            all_enteries = products.objects.all() #just gets all products if there's no input
             context = {'all_enteries': all_enteries} #creates a dictionary with our enteries
     return render(request, 'mainpage.html',context)
 
