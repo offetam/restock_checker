@@ -8,4 +8,5 @@
 # Uniformed data
 
 MicroBestCombined.csv- MicroCenter and BestBuy matched data
+
 MicroBestGame.csv- MicroBestCombined.py with addition of GameStop data added
