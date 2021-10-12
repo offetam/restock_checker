@@ -21,6 +21,12 @@ def home_view(request):
                 all_enteries = all_enteries.filter(product__contains=i) #checks if any product name contains x
             context = {'all_enteries': all_enteries} #creates a dictionary with our enteries
             #print(all_enteries)
+            """
+            for i in all_enteries:
+                print(i.BestBuy_SKU)
+                print(i.MicroCenter_SKU)
+                print(" ")
+                """
         else:
             all_enteries = products.objects.all() #just gets all products if there's no input
             context = {'all_enteries': all_enteries} #creates a dictionary with our enteries
