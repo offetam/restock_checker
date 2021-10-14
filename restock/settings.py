@@ -140,3 +140,8 @@ EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'default from email'
+
+#include the necessary mimetypes for django to read js
+if DEBUG:
+    import mimetypes
+    mimetypes.add_type("application/javascript", ".js", True)
