@@ -23,6 +23,27 @@
               {% endfor %}
           {% endif %}
           </div>
+
+          <div class = "result_message">
+          {% if messages %}
+              {% for message in messages %}
+                  {% if "signup_fail" in message.tags %}
+                      {{message}}
+                  {% endif %}
+              {% endfor %}
+          {% endif %}
+          </div>
+
+          <div class = "result_message">
+          {% if messages %}
+              {% for message in messages %}
+                  {% if "signup_success" in message.tags %}
+                      {{message}}
+                  {% endif %}
+              {% endfor %}
+          {% endif %}
+          </div>
+
           <div class = "signup-input">
             <input type="text" name="login_email" autofocus placeholder="Email Address" class = "form-input">
             <br>
@@ -40,25 +61,6 @@
       <form method="POST" class = "form form-hidden" id = "account_form">{% csrf_token %}
 
           <h1 class = "form-title"> SIGN UP </h1>
-
-          <div class = "result_message">
-          {% if messages %}
-              {% for message in messages %}
-                  {% if "signup_fail" in message.tags %}
-                      {{message}}
-                  {% endif %}
-              {% endfor %}
-          {% endif %}
-          </div>
-          <div class = "result_message">
-          {% if messages %}
-              {% for message in messages %}
-                  {% if "signup_success" in message.tags %}
-                      {{message}}
-                  {% endif %}
-              {% endfor %}
-          {% endif %}
-          </div>
 
           <input type="text" name="signup_email" autofocus placeholder="Email" class = "form-input">
           <input type="password" name="signup_pass" autofocus placeholder="Password" class = "form-input">
