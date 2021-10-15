@@ -47,12 +47,22 @@
           <td>Product_Name</td>
           <td>MicroCenter_SKU</td>
           <td>BestBuy_SKU</td>
+          <td>GameStop_SKU</td>
+          <td>Adorama_SKU</td>
+          <td>BH_SKU</td>
+          <td>Amazon_SKU</td>
+          <td>UUID</td>
       </tr>
       {% for product in all_enteries %}
       <tr>
           <td>{{product.product}}</td>
           <td>{{product.MicroCenter_SKU}}</td>
           <td>{{product.BestBuy_SKU}}</td>
+          <td>{{product.GameStop_SKU}}</td>
+          <td>{{product.Adorama_SKU}}</td>
+          <td>{{product.BH_SKU}}</td>
+          <td>{{product.Amazon_SKU}}</td>
+          <td>{{product.UUID}}</td>
       </tr>
       {% endfor %}
   </table>
@@ -66,6 +76,7 @@
             <td>BestBuy_ModelNumber</td>
             <td>BestBuy_SKU</td>
             <td>BestBuy_URL</td>
+            <td>BestBuy_UUID</td>
         </tr>
         {% for product in bb_product %}
         <tr>
@@ -77,6 +88,7 @@
             <td>{{product.BestBuy_ModelNumber}}</td>
             <td>{{product.BestBuy_SKU}}</td>
             <td><a href={{product.BestBuy_URL}}>Link</a></td>
+            <td>{{product.BestBuy_UUID}}</td>
         </tr>
         {% endfor %}
     </table>
@@ -87,6 +99,7 @@
           <td>MicroCenter_SKU</td>
           <td>BMicroCenter_ModelNumber</td>
           <td>MicroCenter_URL</td>
+          <td>MicroCenter_UUID</td>
       </tr>
       {% for product in mc_product %}
       <tr>
@@ -95,6 +108,7 @@
           <td>{{product.MicroCenter_SKU}}</td>
           <td>{{product.MicroCenter_ModelNumber}}</td>
           <td><a href={{product.MicroCenter_URL}}>Link</a></td>
+          <td>{{product.MicroCenter_UUID}}</td>
       </tr>
       {% endfor %}
   </table>
