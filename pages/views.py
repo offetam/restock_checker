@@ -20,22 +20,15 @@ def home_view(request):
             for i in split_str:
                 all_enteries = all_enteries.filter(product__contains=i) #checks if any product name contains x
             #context = {'all_enteries': all_enteries} #creates a dictionary with our enteries
-            #print(all_enteries)
-            bbsku=[]
-            mcsku =[]
+            uids =[]
             for i in all_enteries:
-                print(i.BestBuy_SKU)
-                bbsku.append(i.BestBuy_SKU)
-                print(i.MicroCenter_SKU)
-                mcsku.append(i.MicroCenter_SKU)
-                print(" ")
+                print(i.UUID)
+                uids.append(i.UUID)
             combin_bb = BestBuy.objects.none()
             combin_mc = MicroCenter.objects.none()
-            for i in bbsku:
-                combin_bb = combin_bb | BestBuy.objects.all().filter(BestBuy_SKU=i).exclude(BestBuy_SKU=0)
-                #print(combin)
-            for i in mcsku:
-                 combin_mc= combin_mc | MicroCenter.objects.all().filter(MicroCenter_SKU=i).exclude(MicroCenter_SKU=0)
+            for i in uids:
+                combin_bb = combin_bb | BestBuy.objects.all().filter(BestBuy_UUID=i).exclude(BestBuy_SKU=0)
+                combin_mc= combin_mc | MicroCenter.objects.all().filter(MicroCenter_UUID=i).exclude(MicroCenter_SKU=0)
             context = {'all_enteries' : all_enteries,'bb_product' : combin_bb, 'mc_product' : combin_mc}
             
         else:
