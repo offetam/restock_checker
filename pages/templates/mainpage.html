@@ -112,5 +112,65 @@
       </tr>
       {% endfor %}
   </table>
+  <table border="1" width="1440">
+    <tr>
+        <td>Gamestop_Name</td>
+        <td>Gamestop_Price</td>
+        <td>GameStop_SKU</td>
+        <td>Gamestop_Status</td>
+        <td>Gamestop_URL</td>
+        <td>Gamestop_UUID</td>
+    </tr>
+    {% for product in gs_product %}
+    <tr>
+        <td>{{product.Gamestop_Name}}</td>
+        <td>{{product.Gamestop_price}}</td>
+        <td>{{product.Gamestop_SKU}}</td>
+        <td>{{product.Gamestop_Status}}</td>
+        <td><a href={{product.Gamestop_URL}}>Link</a></td>
+        <td>{{product.Gamestop_UUID}}</td>
+    </tr>
+    {% endfor %}
+</table>
+<table border="1" width="1440">
+    <tr>
+        <td>BH_Name</td>
+        <td>BH_Price</td>
+        <td>BH_SKU</td>
+        <td>BH_Status</td>
+        <td>BH_URL</td>
+        <td>BH_UUID</td>
+    </tr>
+    {% for product in bh_product %}
+    <tr>
+        <td>{{product.BH_Name}}</td>
+        <td>{{product.BH_price}}</td>
+        <td>{{product.BH_SKU}}</td>
+        <td>{{product.BH_Status}}</td>
+        <td><a href={{product.BH_URL}}>Link</a></td>
+        <td>{{product.BH_UUID}}</td>
+    </tr>
+    {% endfor %}
+</table>
+<table border="1" width="1440">
+    <tr>
+        <td>AD_Name</td>
+        <td>AD_Price</td>
+        <td>AD_SKU</td>
+        <td>AD_Status</td>
+        <td>AD_URL</td>
+        <td>AD_UUID</td>
+    </tr>
+    {% for product in ad_product %}
+    <tr>
+        <td>{{product.AD_Name}}</td>
+        <td>{{product.AD_price}}</td>
+        <td>{{product.AD_SKU}}</td>
+        <td>{{product.AD_Status}}</td>
+        <td><a href={{product.AD_URL}}>Link</a></td>
+        <td>{{product.AD_UUID}}</td>
+    </tr>
+    {% endfor %}
+</table>
 </body>
 </html>

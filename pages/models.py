@@ -23,6 +23,30 @@ class MicroCenter(models.Model):
     MicroCenter_URL = models.CharField(max_length=256)
     MicroCenter_UUID = models.CharField(max_length=128)
 
+class Gamestop(models.Model):
+    Gamestop_SKU = models.IntegerField(primary_key=True)
+    Gamestop_Name = models.CharField(max_length=256)
+    Gamestop_price = models.DecimalField(max_digits=10,decimal_places=2)
+    Gamestop_URL = models.CharField(max_length=256)
+    Gamestop_Status = models.CharField(max_length=32)
+    Gamestop_UUID = models.CharField(max_length=128)
+
+class BH(models.Model):
+    BH_SKU = models.CharField(max_length=32,primary_key=True)
+    BH_Name = models.CharField(max_length=256)
+    BH_price = models.DecimalField(max_digits=10,decimal_places=2)
+    BH_Status = models.CharField(max_length=32)
+    BH_URL = models.CharField(max_length=256)
+    BH_UUID = models.CharField(max_length=128)
+
+class AD(models.Model):
+    AD_SKU = models.CharField(max_length=32,primary_key=True)
+    AD_Name = models.CharField(max_length=256)
+    AD_price = models.DecimalField(max_digits=10,decimal_places=2)
+    AD_Status = models.CharField(max_length=32)
+    AD_URL = models.CharField(max_length=256)
+    AD_UUID = models.CharField(max_length=128)
+    
 class User(models.Model):
     email = models.CharField(max_length=254,primary_key=True)
     password = models.CharField(max_length=256)
