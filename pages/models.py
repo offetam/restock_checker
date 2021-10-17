@@ -26,7 +26,7 @@ class MicroCenter(models.Model):
     MicroCenter_UUID = models.ForeignKey(products,on_delete=CASCADE)
 
 class Gamestop(models.Model):
-    Gamestop_SKU = models.IntegerField(primary_key=True)
+    Gamestop_SKU = models.CharField(max_length=32,primary_key=True)
     Gamestop_price = models.DecimalField(max_digits=10,decimal_places=2)
     Gamestop_URL = models.CharField(max_length=256)
     Gamestop_Status = models.CharField(max_length=32)
