@@ -45,23 +45,11 @@
     <table border="1" width="1440">
       <tr>
           <td>Product_Name</td>
-          <td>MicroCenter_SKU</td>
-          <td>BestBuy_SKU</td>
-          <td>GameStop_SKU</td>
-          <td>Adorama_SKU</td>
-          <td>BH_SKU</td>
-          <td>Amazon_SKU</td>
           <td>UUID</td>
       </tr>
       {% for product in all_enteries %}
       <tr>
           <td>{{product.product}}</td>
-          <td>{{product.MicroCenter_SKU}}</td>
-          <td>{{product.BestBuy_SKU}}</td>
-          <td>{{product.GameStop_SKU}}</td>
-          <td>{{product.Adorama_SKU}}</td>
-          <td>{{product.BH_SKU}}</td>
-          <td>{{product.Amazon_SKU}}</td>
           <td>{{product.UUID}}</td>
       </tr>
       {% endfor %}
@@ -80,7 +68,7 @@
         </tr>
         {% for product in bb_product %}
         <tr>
-            <td>{{product.BestBuy_Name}}</td>
+            <td>{{product.BestBuy_UUID.product}}</td>
             <td>{{product.BestBuy_price}}</td>
             <td>{{product.BestBuy_Status}}</td>
             <td>{{product.BestBuy_Ratings}}</td>
@@ -91,84 +79,108 @@
             <td>{{product.BestBuy_UUID}}</td>
         </tr>
         {% endfor %}
+        </table>
+        <table border="1" width="1440">
+            <tr>
+                <td>MicroCenter_Name</td>
+                <td>MicroCenter_Price</td>
+                <td>MicroCenter_SKU</td>
+                <td>BMicroCenter_ModelNumber</td>
+                <td>MicroCenter_URL</td>
+                <td>MicroCenter_UUID</td>
+            </tr>
+            {% for product in mc_product %}
+            <tr>
+                <td>{{product.MicroCenter_UUID.product}}</td>
+                <td>{{product.MicroCenter_Price}}</td>
+                <td>{{product.MicroCenter_SKU}}</td>
+                <td>{{product.MicroCenter_ModelNumber}}</td>
+                <td><a href={{product.MicroCenter_URL}}>Link</a></td>
+                <td>{{product.MicroCenter_UUID}}</td>
+            </tr>
+            {% endfor %}
+        </table>
     </table>
     <table border="1" width="1440">
       <tr>
-          <td>MicroCenter_Name</td>
-          <td>MicroCenter_Price</td>
-          <td>MicroCenter_SKU</td>
-          <td>BMicroCenter_ModelNumber</td>
-          <td>MicroCenter_URL</td>
-          <td>MicroCenter_UUID</td>
+          <td>Gamestop_Name</td>
+          <td>Gamestop_Price</td>
+          <td>GameStop_SKU</td>
+          <td>Gamestop_Status</td>
+          <td>Gamestop_URL</td>
+          <td>Gamestop_UUID</td>
       </tr>
-      {% for product in mc_product %}
+      {% for product in gs_product %}
       <tr>
-          <td>{{product.MicroCenter_Name}}</td>
-          <td>{{product.MicroCenter_Price}}</td>
-          <td>{{product.MicroCenter_SKU}}</td>
-          <td>{{product.MicroCenter_ModelNumber}}</td>
-          <td><a href={{product.MicroCenter_URL}}>Link</a></td>
-          <td>{{product.MicroCenter_UUID}}</td>
+          <td>{{product.Gamestop_UUID.product}}</td>
+          <td>{{product.Gamestop_price}}</td>
+          <td>{{product.Gamestop_SKU}}</td>
+          <td>{{product.Gamestop_Status}}</td>
+          <td><a href={{product.Gamestop_URL}}>Link</a></td>
+          <td>{{product.Gamestop_UUID}}</td>
+      </tr>
+      {% endfor %}
+  </table>
+  <table border="1" width="1440">
+      <tr>
+          <td>BH_Name</td>
+          <td>BH_Price</td>
+          <td>BH_SKU</td>
+          <td>BH_Status</td>
+          <td>BH_URL</td>
+          <td>BH_UUID</td>
+      </tr>
+      {% for product in bh_product %}
+      <tr>
+          <td>{{product.BH_UUID.product}}</td>
+          <td>{{product.BH_price}}</td>
+          <td>{{product.BH_SKU}}</td>
+          <td>{{product.BH_Status}}</td>
+          <td><a href={{product.BH_URL}}>Link</a></td>
+          <td>{{product.BH_UUID}}</td>
+      </tr>
+      {% endfor %}
+  </table>
+  <table border="1" width="1440">
+      <tr>
+          <td>AD_Name</td>
+          <td>AD_Price</td>
+          <td>AD_SKU</td>
+          <td>AD_Status</td>
+          <td>AD_URL</td>
+          <td>AD_UUID</td>
+      </tr>
+      {% for product in ad_product %}
+      <tr>
+          <td>{{product.AD_UUID.product}}</td>
+          <td>{{product.AD_price}}</td>
+          <td>{{product.AD_SKU}}</td>
+          <td>{{product.AD_Status}}</td>
+          <td><a href={{product.AD_URL}}>Link</a></td>
+          <td>{{product.AD_UUID}}</td>
       </tr>
       {% endfor %}
   </table>
   <table border="1" width="1440">
     <tr>
-        <td>Gamestop_Name</td>
-        <td>Gamestop_Price</td>
-        <td>GameStop_SKU</td>
-        <td>Gamestop_Status</td>
-        <td>Gamestop_URL</td>
-        <td>Gamestop_UUID</td>
+        <td>Amazon_Name</td>
+        <td>Amazon_Price</td>
+        <td>Amazon_SKU</td>
+        <td>Amazon_Rating</td>
+        <td>Amzon_Review</td>
+        <td>Amazon_URL</td>
+        <td>Amazon_UUID</td>
     </tr>
-    {% for product in gs_product %}
+    {% for product in amzn_product %}
     <tr>
-        <td>{{product.Gamestop_Name}}</td>
-        <td>{{product.Gamestop_price}}</td>
-        <td>{{product.Gamestop_SKU}}</td>
-        <td>{{product.Gamestop_Status}}</td>
-        <td><a href={{product.Gamestop_URL}}>Link</a></td>
-        <td>{{product.Gamestop_UUID}}</td>
-    </tr>
-    {% endfor %}
-</table>
-<table border="1" width="1440">
-    <tr>
-        <td>BH_Name</td>
-        <td>BH_Price</td>
-        <td>BH_SKU</td>
-        <td>BH_Status</td>
-        <td>BH_URL</td>
-        <td>BH_UUID</td>
-    </tr>
-    {% for product in bh_product %}
-    <tr>
-        <td>{{product.BH_Name}}</td>
-        <td>{{product.BH_price}}</td>
-        <td>{{product.BH_SKU}}</td>
-        <td>{{product.BH_Status}}</td>
-        <td><a href={{product.BH_URL}}>Link</a></td>
-        <td>{{product.BH_UUID}}</td>
-    </tr>
-    {% endfor %}
-</table>
-<table border="1" width="1440">
-    <tr>
-        <td>AD_Name</td>
-        <td>AD_Price</td>
-        <td>AD_SKU</td>
-        <td>AD_Status</td>
-        <td>AD_URL</td>
-        <td>AD_UUID</td>
-    </tr>
-    {% for product in ad_product %}
-    <tr>
-        <td>{{product.AD_Name}}</td>
-        <td>{{product.AD_price}}</td>
-        <td>{{product.AD_SKU}}</td>
-        <td>{{product.AD_Status}}</td>
-        <td><a href={{product.AD_URL}}>Link</a></td>
-        <td>{{product.AD_UUID}}</td>
+        <td>{{product.Amazon_UUID.product}}</td>
+        <td>{{product.Amazon_price}}</td>
+        <td>{{product.Amazon_SKU}}</td>
+        <td>{{product.Amazon_Ratings}}</td>
+        <td>{{product.Amazon_Reviews}}</td>
+        <td>{{product.Amazon_Status}}</td>
+        <td><a href={{product.Amazon_URL}}>Link</a></td>
+        <td>{{product.Amazon_UUID}}</td>
     </tr>
     {% endfor %}
 </table>

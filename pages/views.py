@@ -1,7 +1,7 @@
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
-from pages.models import AD, BH, BestBuy, Gamestop, MicroCenter
+from pages.models import BestBuy, MicroCenter, Gamestop, BH, AD, Amazon
 from pages.models import User
 from pages.models import products
 from hashlib import blake2b
@@ -29,18 +29,22 @@ def home_view(request):
             combin_gs = Gamestop.objects.none()
             combin_bh = BH.objects.none()
             combin_ad = AD.objects.none()
+            combin_amzn = Amazon.objects.none()
             for i in uids:
-                combin_bb = combin_bb | BestBuy.objects.all().filter(BestBuy_UUID=i).exclude(BestBuy_SKU=0)
+                combin_bb = combin_bb | BestBuy.objects.all().filter(BestBuy_UUID=i)
+                #combin_bb = combin_bb | all_bb.filter(BestBuy_UUID=i).exclude(BestBuy_SKU=0)
                 combin_mc= combin_mc | MicroCenter.objects.all().filter(MicroCenter_UUID=i).exclude(MicroCenter_SKU=0)
-                combin_gs= combin_gs | Gamestop.objects.all().filter(Gamestop_UUID=i).exclude(Gamestop_SKU=0)
+                combin_gs= combin_gs | Gamestop.objects.all().filter(Gamestop_UUID=i)
                 combin_bh= combin_bh | BH.objects.all().filter(BH_UUID=i).exclude(BH_SKU="")
                 combin_ad= combin_ad | AD.objects.all().filter(AD_UUID=i).exclude(AD_SKU="")
+                combin_amzn = combin_amzn | Amazon.objects.all().filter(Amazon_UUID=i).exclude(Amazon_SKU="")
             context = {'all_enteries' : all_enteries,
             'bb_product' : combin_bb,
             'mc_product' : combin_mc,
-            'gs_product':combin_gs,
+            'gs_product' : combin_gs,
             'bh_product' : combin_bh,
-            'ad_product' : combin_ad}
+            'ad_product' : combin_ad,
+            'amzn_product' : combin_amzn}
             
         else:
             all_enteries = products.objects.all() #just gets all products if there's no input
