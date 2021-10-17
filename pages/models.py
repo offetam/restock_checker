@@ -51,8 +51,8 @@ class Amazon(models.Model):
     Amazon_price = models.DecimalField(max_digits=10,decimal_places=2)
     Amazon_Ratings = models.DecimalField(max_digits=3,decimal_places=2)
     Amazon_Reviews = models.IntegerField()
-    Amazon_Status = models.CharField(max_length=32)
-    Amazon_URL = models.CharField(max_length=256)
+    Amazon_Status = models.CharField(max_length=64)
+    Amazon_URL = models.CharField(max_length=512)
     Amazon_UUID =models.ForeignKey(products,on_delete=CASCADE)
 
 class User(models.Model):
