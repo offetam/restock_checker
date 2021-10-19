@@ -23,6 +23,13 @@ body
 	box-sizing: border-box;
 }
 
+#fa-home{
+	color: white;
+}
+
+#fa-home:hover{
+	color: blue;
+}
 
 .logo_container
 {
