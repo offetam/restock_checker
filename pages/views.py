@@ -49,6 +49,8 @@ def home_view(request):
         else:
             all_enteries = products.objects.all() #just gets all products if there's no input
             context = {'all_enteries': all_enteries} #creates a dictionary with our enteries
+        y = request.GET.getlist('id')
+        print(y)
     return render(request, 'mainpage.html',context)
 
 def login(request):
