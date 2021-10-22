@@ -61,9 +61,14 @@
       {% endfor %}
     </form>
   </table>
+	    <h1 style = "margin-top: 1rem" onclick = "javascript:alert('event has been triggered');">BestBuy
+			<img src='{% static "/imgs/bestbuy.png" %}'>
     <table border="1" width="1440">
-        <tr>
-            <td>BestBuy_Name</td>
+          <thead>
+        <tr class = "table-header" id = "bestbuy_table">
+            <th>BestBuy Product Name (Click prodcut for more details)</th>
+            <th>BestBuy Product Status</th>
+            <!--
             <td>BestBuy_price</td>
             <td>BestBuy_Status</td>
             <td>BestBuy_Rating</td>
@@ -71,19 +76,21 @@
             <td>BestBuy_ModelNumber</td>
             <td>BestBuy_SKU</td>
             <td>BestBuy_URL</td>
-            <td>BestBuy_UUID</td>
+            <td>BestBuy_UUID</td> -->
         </tr>
+      </thead>
         {% for product in bb_product %}
-        <tr>
-            <td>{{product.BestBuy_UUID.product}}</td>
-            <td>{{product.BestBuy_price}}</td>
+        <tr class = "table-header" id = "bestbuy_table">
+            <td class = "td-product-header" onclick = "javascript:alert('A Pop up of product info would show.');">{{product.BestBuy_UUID.product}}</td>
+            <td>{{product.BestBuy_Status}}</td>
+            <!-- <td>{{product.BestBuy_price}}</td>
             <td>{{product.BestBuy_Status}}</td>
             <td>{{product.BestBuy_Ratings}}</td>
             <td>{{product.BestBuy_Review}}</td>
             <td>{{product.BestBuy_ModelNumber}}</td>
             <td>{{product.BestBuy_SKU}}</td>
             <td><a href={{product.BestBuy_URL}}>Link</a></td>
-            <td>{{product.BestBuy_UUID}}</td>
+            <td>{{product.BestBuy_UUID}}</td> -->
         </tr>
         {% endfor %}
         </table>

@@ -4,11 +4,38 @@
 	box-sizing: border-box;
 }
 
+h1{
+	text-align: center;
+}
+
+h1:hover{
+	cursor: pointer;
+}
+
+#bestbuy_table{
+
+}
+
+img {
+	height: .85em;
+}
+
+table{
+	border: 2.5px solid gray;
+
+}
+
 body
 {
 	/*background: linear-gradient(to right, #6699ff 0%, #ffcc99 100%) !important;*/
 	height: 100%;
 	width: 100%;
+}
+
+.td-product-header:hover{
+	text-decoration: underline;
+	color: blue;
+	cursor: pointer;
 }
 
 .header
