@@ -59,3 +59,7 @@ class User(models.Model):
     email = models.CharField(max_length=254,primary_key=True)
     password = models.CharField(max_length=256)
 
+class Notification(models.Model):
+    IDUUID = models.AutoField(primary_key=True)
+    email = models.CharField(max_length=254)
+    product = models.CharField(max_length=254)
