@@ -8,5 +8,15 @@
 </head>
 <body>
     <a href="{% url 'home' %}">Home</a>
+    <table border="1" width="1440">
+        <tr>
+            <td>Products</td>
+        </tr>
+        {% for items in notify %}
+        <tr>
+            <td>{{items.product}}</td>
+        </tr>
+        {% endfor %}
+    </table>
 </body>
 </html>
