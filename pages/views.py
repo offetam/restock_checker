@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from pages.models import BestBuy, MicroCenter, Gamestop, BH, AD, Amazon
 from pages.models import User
 from pages.models import products
+from pages.models import Notification
 from hashlib import blake2b
 from django.contrib import messages
 from django.core.mail import send_mail
@@ -50,7 +51,16 @@ def home_view(request):
             all_enteries = products.objects.all() #just gets all products if there's no input
             context = {'all_enteries': all_enteries} #creates a dictionary with our enteries
         y = request.GET.getlist('id')
-        print(y)
+        for i in y:
+            print(i)
+            pro = products.objects.values('product').filter(UUID__contains=i)
+            print(pro)
+            if(request.session['email']==''):
+                return redirect('/login')
+            elif(Notification.objects.all().filter(email=request.session['email'], product__in=pro).count()>0):
+                print("NOOOOOOO")
+            else:
+                temp = Notification.objects.create(email=request.session['email'], product = pro)
     return render(request, 'mainpage.html',context)
 
 def login(request):
@@ -102,3 +112,7 @@ def signout(request):
     request.session['email']= '' #just changes the user that's currently using the page
     #print(request.session['email'])
     return home_view(request)
+
+def notification(request):
+
+    return render(request, 'notification.html')
