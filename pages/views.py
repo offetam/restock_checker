@@ -114,5 +114,7 @@ def signout(request):
     return home_view(request)
 
 def notification(request):
-
-    return render(request, 'notification.html')
+    notify = Notification.objects.all().filter(email=request.session['email'])
+    context = {}
+    context = {'notify' : notify}
+    return render(request, 'notification.html', context)
