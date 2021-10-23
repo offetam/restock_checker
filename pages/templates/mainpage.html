@@ -62,6 +62,16 @@
       {% endfor %}
     </form>
   </table>
+
+  Product Stuff In Tile
+    <div class = "wrapper">
+      {% for product in all_enteries %}
+    <!-- <input type="checkbox" id="product" name="id" value={{product.UUID}}> -->
+      <div class="box" style = "margin-top: 1rem;" onclick = "javascript:alert('event has been triggered');">{{product.product}}</div>
+
+      {% endfor %}
+    </div>
+
 	    <h1 style = "margin-top: 1rem" onclick = "javascript:alert('event has been triggered');">BestBuy
 			<img src='{% static "/imgs/bestbuy.png" %}'>
     <table border="1" width="1440">

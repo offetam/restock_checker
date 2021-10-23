@@ -16,13 +16,44 @@ h1:hover{
 
 }
 
+.wrapper{
+	display: grid;
+  grid-auto-rows: 200px;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-gap: 1rem;
+  background-color: #F8F8FF;
+  color: #444;
+	height: 50%;
+	margin: 0 auto;
+	width: 80%;
+}
+
+.box {
+  background-color: #444;
+  color: #fff;
+  border-radius: 5px;
+	padding: 1rem;
+  font-size: 150%;
+  cursor: pointer;
+	vertical-align: top;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+	font-family: sans-serif;
+	font-weight: bold;
+}
+
+.box:hover{
+	text-decoration: underline;
+	color: #00BFFF;
+}
+
 img {
 	height: .85em;
 }
 
 table{
 	border: 2.5px solid gray;
-
 }
 
 body
