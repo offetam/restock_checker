@@ -51,16 +51,25 @@ def home_view(request):
             all_enteries = products.objects.all() #just gets all products if there's no input
             context = {'all_enteries': all_enteries} #creates a dictionary with our enteries
         y = request.GET.getlist('id')
+        temp_arr = ""
         for i in y:
-            print(i)
+            #print(i)
             pro = products.objects.values('product').filter(UUID__contains=i)
-            print(pro)
+            #print(pro)
+            for q in pro:
+                temp_arr = temp_arr + q.get('product') + "\n "
             if(request.session['email']==''):
                 return redirect('/login')
             elif(Notification.objects.all().filter(email=request.session['email'], product__in=pro).count()>0):
                 print("NOOOOOOO")
             else:
                 temp = Notification.objects.create(email=request.session['email'], product = pro)
+        if(len(temp_arr) != 0):
+            send_mail('Notification',
+            'Hello '+request.session['email']+',\n The following items to be notified on: \n'+ temp_arr + "\n Thank you for signing up with Restock \n From,\n Restock Team",
+            'restockcheck123@gmail.com',
+            [request.session['email']],
+            fail_silently=False)
     return render(request, 'mainpage.html',context)
 
 def login(request):
