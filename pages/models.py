@@ -31,6 +31,8 @@ class Gamestop(models.Model):
     Gamestop_URL = models.CharField(max_length=256)
     Gamestop_Status = models.CharField(max_length=32)
     Gamestop_UUID = models.ForeignKey(products,on_delete=CASCADE)
+    Gamestop_Ratings = models.DecimalField(max_digits=3,decimal_places=2)
+    Gamestop_Reviews = models.IntegerField()
 
 class BH(models.Model):
     BH_SKU = models.CharField(max_length=32,primary_key=True)
@@ -38,6 +40,8 @@ class BH(models.Model):
     BH_Status = models.CharField(max_length=32)
     BH_URL = models.CharField(max_length=256)
     BH_UUID = models.ForeignKey(products,on_delete=CASCADE)
+    BH_Ratings = models.DecimalField(max_digits=3,decimal_places=2)
+    BH_Reviews = models.IntegerField()
 
 class AD(models.Model):
     AD_SKU = models.CharField(max_length=32,primary_key=True)
@@ -45,6 +49,8 @@ class AD(models.Model):
     AD_Status = models.CharField(max_length=32)
     AD_URL = models.CharField(max_length=256)
     AD_UUID = models.ForeignKey(products,on_delete=CASCADE)
+    AD_Ratings = models.DecimalField(max_digits=3,decimal_places=2)
+    AD_Reviews = models.IntegerField()
 
 class Amazon(models.Model):
     Amazon_SKU = models.CharField(max_length=32,primary_key=True)
