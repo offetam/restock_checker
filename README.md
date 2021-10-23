@@ -6,7 +6,7 @@
 
 # Update Scrapers
 
-*Modified webscrapers for BH, Adorama, Amazon, and Gamestop to scrape only SKU, price, stock, rating , number of review.
+*Modified webscrapers for BH, Adorama, Amazon, and Gamestop to scrape only SKU, price, stock, rating , number of review.*
 
 Added rating and review data to BH, Adorama and Gamestop.
 
