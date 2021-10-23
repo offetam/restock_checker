@@ -8,15 +8,23 @@
 </head>
 <body>
     <a href="{% url 'home' %}">Home</a>
+    <br>
     <table border="1" width="1440">
         <tr>
             <td>Products</td>
         </tr>
+        <form>
+            <button type="submit" value="submit">Remove from Notification</button><br>
         {% for items in notify %}
         <tr>
-            <td>{{items.product}}</td>
+            <td><input type="checkbox" id="product" name="id" value="{{items.product}}">
+                <label for="product">
+                    {{items.product}}
+                </label><br>
+            </td>
         </tr>
         {% endfor %}
+        </form>
     </table>
 </body>
 </html>

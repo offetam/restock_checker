@@ -114,6 +114,11 @@ def signout(request):
     return home_view(request)
 
 def notification(request):
+    if(request.method == 'GET'):
+        remove_notify = request.GET.getlist('id')
+        #print(remove_notify)
+        for pro in remove_notify:
+            Notification.objects.all().filter(email=request.session['email'], product=pro).delete()
     notify = Notification.objects.all().filter(email=request.session['email'])
     context = {}
     context = {'notify' : notify}
