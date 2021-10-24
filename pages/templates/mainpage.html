@@ -43,6 +43,7 @@
 <body>
 
     <center><h1 style = "margin-top: 2.5%">Products</h1></center>
+    <!--
     <table border="1" width="1440">
       <tr>
           <td>Product_Name</td>
@@ -62,14 +63,20 @@
       {% endfor %}
     </form>
   </table>
-
+-->
   Product Stuff In Tile
+    <form>
+        <button type="submit" value="submit">Notify</button><br>
     <div class = "wrapper">
       {% for product in all_enteries %}
-    <!-- <input type="checkbox" id="product" name="id" value={{product.UUID}}> -->
-      <div class="box" style = "margin-top: 1rem;" onclick = "javascript:alert('event has been triggered');">{{product.product}}</div>
+        <!--<input type="checkbox" id="product" name="id" value={{product.UUID}}> -->
+      <div class="box" style = "margin-top: 1rem;" onclick = "javascript:alert('event has been triggered');">
+        <input type="checkbox" id="product" name="id" value={{product.UUID}}>
+        {{product.product}}
+    </div>
 
       {% endfor %}
+      </form>
     </div>
 
 	    <h1 style = "margin-top: 1rem" onclick = "javascript:alert('event has been triggered');">BestBuy
