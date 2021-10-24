@@ -69,12 +69,12 @@
        <button type="submit" value="submit">Notify</button><br>
     <div class = "wrapper">
       {% for product in all_enteries %}
-    <!-- <input type="checkbox" id="product" name="id" value={{product.UUID}}> -->
-      <div class="box" style = "margin-top: 1rem;" onclick = "javascript:alert('event has been triggered');">
-
+    <div class="box" style = "margin-top: 1rem;">
+      <input type="checkbox" class = "notifcheck" id="product" name="id" value={{product.UUID}}>
+      <div class = "box_text" onclick = "javascript:alert('event has been triggered');">
         {{product.product}}
-
       </div>
+    </div>
 
       {% endfor %}
 
