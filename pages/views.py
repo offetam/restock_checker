@@ -70,6 +70,7 @@ def home_view(request):
             'restockcheck123@gmail.com',
             [request.session['email']],
             fail_silently=False)
+        #email_notify('BestBuy',['452d2196-6dd2-4503-b4fd-bfa5c7a07e43'])
     return render(request, 'mainpage.html',context)
 
 def login(request):
@@ -132,3 +133,28 @@ def notification(request):
     context = {}
     context = {'notify' : notify}
     return render(request, 'notification.html', context)
+
+#possible email notification based on items in stock (up for changes; currently testing only BestBuy)
+def email_notify(Storename, arr):
+    if(Storename=='BestBuy'):
+        for i in arr:
+            print(i)
+            link = BestBuy.objects.all().filter(BestBuy_UUID__UUID__contains=i)
+            print(link)
+            for l in link:
+                link_one = l.BestBuy_URL
+                print(link_one)
+            product_name_query = products.objects.values('product').filter(UUID__contains=i)
+            for j in product_name_query:
+                product_name = j.get('product')
+                print(product_name)
+            user_want_to_be_notify = Notification.objects.values('email').filter(product=product_name)
+            for k in user_want_to_be_notify:
+                user_email = k.get('email')
+                #print(user_email)
+                send_mail('IN STOCK NOW',
+                link_one,
+                'restockcheck123@gmail.com',
+                [user_email],
+                fail_silently=False)
+    return 0
