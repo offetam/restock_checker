@@ -15,7 +15,7 @@
 <div class = "header">
 		<div class = "inner_header">
       <div class = "logo_container">
-        <a href="{% url 'home' %}"><i class="fa fa-home fa-5x" id = "fa-home"aria-hidden="true"></i></a> <!-- clicking on this does nothing  -->
+        <a href="{% url 'home' %}"><i class="fa fa-home fa-5x" id = "fa-home"aria-hidden="true"></i></a>
       </div>
 
       <div class = "search_container">
@@ -29,20 +29,19 @@
 				  <li>
             {% if request.session.email != '' %}
                 <a href="{% url 'signout' %}">Sign Out</a>
-                <h1 style="color:#008080;">Welcome: {{request.session.email}}</h1>
             {% else %}
                 <a href="{% url 'login' %}"> Login </a>
             {% endif %}
-                <a href="{% url 'notification' %}">Notification</a>
 					</li>
+          <li>
+            <a href="{% url 'notification' %}">Notification</a>
+          </li>
 				</ul>
 			</nav>
 		</div>
 
 </div>
 <body>
-
-    <center><h1 style = "margin-top: 2.5%">Products</h1></center>
 <!--
     <table border="1" width="1440">
       <tr>
@@ -64,9 +63,12 @@
     </form>
   </table>
 -->
-  Product Stuff In Tile
   <form>
-       <button type="submit" value="submit">Notify</button><br>
+    {% if request.session.email != '' %}
+        <h1 style="color:#008080;">Welcome: {{request.session.email}}</h1>
+    {% endif %}
+         <h1 style = "margin-top: 1rem;">Products <button class= "notifbutton" type="submit" value="submit">Notify<i class="fa fa-clock-o"></i></button>
+         </h1>
     <div class = "wrapper">
       {% for product in all_enteries %}
     <div class="box" style = "margin-top: 1rem;">
@@ -75,10 +77,8 @@
         {{product.product}}
       </div>
     </div>
-
       {% endfor %}
-
-    </form>
+  </form>
     </div>
 
 	    <h1 style = "margin-top: 1rem" onclick = "javascript:alert('event has been triggered');">BestBuy
