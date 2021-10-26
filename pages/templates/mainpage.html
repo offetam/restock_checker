@@ -34,7 +34,9 @@
             {% endif %}
 					</li>
           <li>
+            {% if request.session.email != '' %}
             <a href="{% url 'notification' %}">Notification</a>
+            {% endif %}
           </li>
 				</ul>
 			</nav>
@@ -64,11 +66,13 @@
   </table>
 -->
   <form>
+    <div class = "header_container">
     {% if request.session.email != '' %}
-        <h1 style="color:#008080;">Welcome: {{request.session.email}}</h1>
+        <h1 style="color:#008080; text-align:right; padding-left: 1.75rem; position:absolute">Welcome: {{request.session.email}}</h1>
     {% endif %}
          <h1 style = "margin-top: 1rem;">Products <button class= "notifbutton" type="submit" value="submit">Notify<i style = "margin-left: 7.5px;" class="fa fa-clock-o"></i></button>
          </h1>
+    </div>
     <div class = "wrapper">
       {% for product in all_enteries %}
     <div class="box" style = "margin-top: 1rem;">
