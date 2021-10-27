@@ -84,7 +84,8 @@
       {% endfor %}
   </form>
     </div>
-
+    {% for x in all_enteries %}
+    <h1>{{x.UUID}}</h1>
 	    <h1 style = "margin-top: 1rem" onclick = "javascript:alert('event has been triggered');">BestBuy
 			<img src='{% static "/imgs/bestbuy.png" %}'>
     <table border="1" width="1440">
@@ -92,7 +93,6 @@
         <tr class = "table-header" id = "bestbuy_table">
             <th>BestBuy Product Name (Click prodcut for more details)</th>
             <th>BestBuy Product Status</th>
-            <!--
             <td>BestBuy_price</td>
             <td>BestBuy_Status</td>
             <td>BestBuy_Rating</td>
@@ -100,22 +100,24 @@
             <td>BestBuy_ModelNumber</td>
             <td>BestBuy_SKU</td>
             <td>BestBuy_URL</td>
-            <td>BestBuy_UUID</td> -->
+            <td>BestBuy_UUID</td>
         </tr>
       </thead>
         {% for product in bb_product %}
-        <tr class = "table-header" id = "bestbuy_table">
-            <td class = "td-product-header" onclick = "javascript:alert('A Pop up of product info would show.');">{{product.BestBuy_UUID.product}}</td>
-            <td>{{product.BestBuy_Status}}</td>
-            <!-- <td>{{product.BestBuy_price}}</td>
-            <td>{{product.BestBuy_Status}}</td>
-            <td>{{product.BestBuy_Ratings}}</td>
-            <td>{{product.BestBuy_Review}}</td>
-            <td>{{product.BestBuy_ModelNumber}}</td>
-            <td>{{product.BestBuy_SKU}}</td>
-            <td><a href={{product.BestBuy_URL}}>Link</a></td>
-            <td>{{product.BestBuy_UUID}}</td> -->
-        </tr>
+          {% if x.UUID == product.BestBuy_UUID.UUID %}
+            <tr class = "table-header" id = "bestbuy_table">
+                <td class = "td-product-header" onclick = "javascript:alert('A Pop up of product info would show.');">{{product.BestBuy_UUID.product}}</td>
+                <td>{{product.BestBuy_Status}}</td>
+                <td>{{product.BestBuy_price}}</td>
+                <td>{{product.BestBuy_Status}}</td>
+                <td>{{product.BestBuy_Ratings}}</td>
+                <td>{{product.BestBuy_Review}}</td>
+                <td>{{product.BestBuy_ModelNumber}}</td>
+                <td>{{product.BestBuy_SKU}}</td>
+                <td><a href={{product.BestBuy_URL}}>Link</a></td>
+                <td>{{product.BestBuy_UUID.UUID}}</td>
+            </tr>
+          {% endif %}
         {% endfor %}
         </table>
         <table border="1" width="1440">
@@ -128,14 +130,16 @@
                 <td>MicroCenter_UUID</td>
             </tr>
             {% for product in mc_product %}
-            <tr>
-                <td>{{product.MicroCenter_UUID.product}}</td>
-                <td>{{product.MicroCenter_Price}}</td>
-                <td>{{product.MicroCenter_SKU}}</td>
-                <td>{{product.MicroCenter_ModelNumber}}</td>
-                <td><a href={{product.MicroCenter_URL}}>Link</a></td>
-                <td>{{product.MicroCenter_UUID}}</td>
-            </tr>
+              {% if x.UUID == product.MicroCenter_UUID.UUID %}
+              <tr>
+                  <td>{{product.MicroCenter_UUID.product}}</td>
+                  <td>{{product.MicroCenter_Price}}</td>
+                  <td>{{product.MicroCenter_SKU}}</td>
+                  <td>{{product.MicroCenter_ModelNumber}}</td>
+                  <td><a href={{product.MicroCenter_URL}}>Link</a></td>
+                  <td>{{product.MicroCenter_UUID.UUID}}</td>
+              </tr>
+              {% endif %}
             {% endfor %}
         </table>
     </table>
@@ -151,16 +155,18 @@
           <td>Gamestop_UUID</td>
       </tr>
       {% for product in gs_product %}
-      <tr>
-          <td>{{product.Gamestop_UUID.product}}</td>
-          <td>{{product.Gamestop_price}}</td>
-          <td>{{product.Gamestop_SKU}}</td>
-          <td>{{product.Gamestop_Status}}</td>
-          <td>{{product.Gamestop_Ratings}}</td>
-          <td>{{product.Gamestop_Reviews}}</td>
-          <td><a href={{product.Gamestop_URL}}>Link</a></td>
-          <td>{{product.Gamestop_UUID}}</td>
-      </tr>
+        {% if x.UUID == product.Gamestop_UUID.UUID %}
+        <tr>
+            <td>{{product.Gamestop_UUID.product}}</td>
+            <td>{{product.Gamestop_price}}</td>
+            <td>{{product.Gamestop_SKU}}</td>
+            <td>{{product.Gamestop_Status}}</td>
+            <td>{{product.Gamestop_Ratings}}</td>
+            <td>{{product.Gamestop_Reviews}}</td>
+            <td><a href={{product.Gamestop_URL}}>Link</a></td>
+            <td>{{product.Gamestop_UUID.UUID}}</td>
+        </tr>
+        {% endif %}
       {% endfor %}
   </table>
   <table border="1" width="1440">
@@ -175,16 +181,18 @@
           <td>BH_UUID</td>
       </tr>
       {% for product in bh_product %}
-      <tr>
-          <td>{{product.BH_UUID.product}}</td>
-          <td>{{product.BH_price}}</td>
-          <td>{{product.BH_SKU}}</td>
-          <td>{{product.BH_Status}}</td>
-          <td>{{product.BH_Ratings}}</td>
-          <td>{{product.BH_Reviews}}</td>
-          <td><a href={{product.BH_URL}}>Link</a></td>
-          <td>{{product.BH_UUID}}</td>
-      </tr>
+        {% if x.UUID == product.BH_UUID.UUID %}
+        <tr>
+            <td>{{product.BH_UUID.product}}</td>
+            <td>{{product.BH_price}}</td>
+            <td>{{product.BH_SKU}}</td>
+            <td>{{product.BH_Status}}</td>
+            <td>{{product.BH_Ratings}}</td>
+            <td>{{product.BH_Reviews}}</td>
+            <td><a href={{product.BH_URL}}>Link</a></td>
+            <td>{{product.BH_UUID.UUID}}</td>
+        </tr>
+        {% endif %}
       {% endfor %}
   </table>
   <table border="1" width="1440">
@@ -199,16 +207,18 @@
           <td>AD_UUID</td>
       </tr>
       {% for product in ad_product %}
-      <tr>
-          <td>{{product.AD_UUID.product}}</td>
-          <td>{{product.AD_price}}</td>
-          <td>{{product.AD_SKU}}</td>
-          <td>{{product.AD_Status}}</td>
-          <td>{{product.AD_Ratings}}</td>
-          <td>{{product.AD_Reviews}}</td>
-          <td><a href={{product.AD_URL}}>Link</a></td>
-          <td>{{product.AD_UUID}}</td>
-      </tr>
+        {% if x.UUID == product.AD_UUID.UUID %}
+        <tr>
+            <td>{{product.AD_UUID.product}}</td>
+            <td>{{product.AD_price}}</td>
+            <td>{{product.AD_SKU}}</td>
+            <td>{{product.AD_Status}}</td>
+            <td>{{product.AD_Ratings}}</td>
+            <td>{{product.AD_Reviews}}</td>
+            <td><a href={{product.AD_URL}}>Link</a></td>
+            <td>{{product.AD_UUID.UUID}}</td>
+        </tr>
+        {% endif %}
       {% endfor %}
   </table>
   <table border="1" width="1440">
@@ -222,17 +232,20 @@
         <td>Amazon_UUID</td>
     </tr>
     {% for product in amzn_product %}
-    <tr>
-        <td>{{product.Amazon_UUID.product}}</td>
-        <td>{{product.Amazon_price}}</td>
-        <td>{{product.Amazon_SKU}}</td>
-        <td>{{product.Amazon_Ratings}}</td>
-        <td>{{product.Amazon_Reviews}}</td>
-        <td>{{product.Amazon_Status}}</td>
-        <td><a href={{product.Amazon_URL}}>Link</a></td>
-        <td>{{product.Amazon_UUID}}</td>
-    </tr>
+      {% if x.UUID == product.Amazon_UUID.UUID %}
+      <tr>
+          <td>{{product.Amazon_UUID.product}}</td>
+          <td>{{product.Amazon_price}}</td>
+          <td>{{product.Amazon_SKU}}</td>
+          <td>{{product.Amazon_Ratings}}</td>
+          <td>{{product.Amazon_Reviews}}</td>
+          <td>{{product.Amazon_Status}}</td>
+          <td><a href={{product.Amazon_URL}}>Link</a></td>
+          <td>{{product.Amazon_UUID.UUID}}</td>
+      </tr>
+      {% endif %}
     {% endfor %}
 </table>
+{% endfor %}
 </body>
 </html>
