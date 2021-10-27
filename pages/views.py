@@ -71,6 +71,10 @@ def home_view(request):
             [request.session['email']],
             fail_silently=False)
         #email_notify('BestBuy',['452d2196-6dd2-4503-b4fd-bfa5c7a07e43'])
+        #email_notify('Gamestop',['a6def6f3-ee36-4029-8b07-a72652435b6a'])
+        #email_notify('Amazon',['52c5d4f1-e686-44ae-830f-bfa3ffbc4c41'])
+        #email_notify('AD',['20e99032-c794-4abf-949a-414518796cc9'])
+        #email_notify('BH',['07e82650-a7c6-462a-9172-f661363a4475'])
     return render(request, 'mainpage.html',context)
 
 def login(request):
@@ -136,25 +140,45 @@ def notification(request):
 
 #possible email notification based on items in stock (up for changes; currently testing only BestBuy)
 def email_notify(Storename, arr):
-    if(Storename=='BestBuy'):
-        for i in arr:
-            print(i)
+    for i in arr:
+        #print(i)
+        if(Storename=='BestBuy'):
             link = BestBuy.objects.all().filter(BestBuy_UUID__UUID__contains=i)
-            print(link)
             for l in link:
                 link_one = l.BestBuy_URL
                 print(link_one)
-            product_name_query = products.objects.values('product').filter(UUID__contains=i)
-            for j in product_name_query:
-                product_name = j.get('product')
-                print(product_name)
-            user_want_to_be_notify = Notification.objects.values('email').filter(product=product_name)
-            for k in user_want_to_be_notify:
-                user_email = k.get('email')
-                #print(user_email)
-                send_mail('IN STOCK NOW',
-                'Hi '+ user_email +', \n The following product is now available: \n'+ product_name+'\n Here is the link to the product: \n'+link_one + '\n Thanks you for choosing Restock. \n From, \n Restock Team',
-                'restockcheck123@gmail.com',
-                [user_email],
-                fail_silently=False)
+        elif(Storename=='Gamestop'):
+            link = Gamestop.objects.all().filter(Gamestop_UUID__UUID__contains=i)
+            for l in link:
+                link_one = l.Gamestop_URL
+                print(link_one)
+        elif(Storename=='Amazon'):
+            link = Amazon.objects.all().filter(Amazon_UUID__UUID__contains=i)
+            for l in link:
+                link_one = l.Amazon_URL
+                print(link_one)
+        elif(Storename=='AD'):
+            link = AD.objects.all().filter(AD_UUID__UUID__contains=i)
+            for l in link:
+                link_one = l.AD_URL
+                print(link_one)
+        elif(Storename=='BH'):
+            link = BH.objects.all().filter(BH_UUID__UUID__contains=i)
+            for l in link:
+                link_one = l.BH_URL
+                print(link_one)
+        print(link)
+        product_name_query = products.objects.values('product').filter(UUID__contains=i)
+        for j in product_name_query:
+            product_name = j.get('product')
+            print(product_name)
+        user_want_to_be_notify = Notification.objects.values('email').filter(product=product_name)
+        for k in user_want_to_be_notify:
+            user_email = k.get('email')
+            #print(user_email)
+            send_mail('IN STOCK NOW',
+            'Hi '+ user_email +', \n The following product is now available: \n'+ product_name+'\n Here is the link to the product: \n'+link_one + '\n Thanks you for choosing Restock. \n From, \n Restock Team',
+            'restockcheck123@gmail.com',
+            [user_email],
+            fail_silently=False)
     return 0
