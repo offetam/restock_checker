@@ -153,7 +153,7 @@ def email_notify(Storename, arr):
                 user_email = k.get('email')
                 #print(user_email)
                 send_mail('IN STOCK NOW',
-                link_one,
+                'Hi '+ user_email +', \n The following product is now available: \n'+ product_name+'\n Here is the link to the product: \n'+link_one + '\n Thanks you for choosing Restock. \n From, \n Restock Team',
                 'restockcheck123@gmail.com',
                 [user_email],
                 fail_silently=False)
