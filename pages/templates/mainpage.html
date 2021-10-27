@@ -44,27 +44,6 @@
 
 </div>
 <body>
-<!--
-    <table border="1" width="1440">
-      <tr>
-          <td>Product_Name</td>
-          <td>UUID</td>
-      </tr>
-      <form>
-        <button type="submit" value="submit">Notify</button><br>
-      {% for product in all_enteries %}
-      <tr>
-            <td><input type="checkbox" id="product" name="id" value={{product.UUID}}>
-                <label for="product">
-                    {{product.product}}
-                </label><br>
-            </td>
-          <td>{{product.UUID}}</td>
-      </tr>
-      {% endfor %}
-    </form>
-  </table>
--->
   <form>
     <div class = "header_container">
     {% if request.session.email != '' %}
