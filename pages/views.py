@@ -49,7 +49,19 @@ def home_view(request):
             
         else:
             all_enteries = products.objects.all() #just gets all products if there's no input
-            context = {'all_enteries': all_enteries} #creates a dictionary with our enteries
+            combin_bb = BestBuy.objects.all()
+            combin_mc = MicroCenter.objects.all()
+            combin_gs = Gamestop.objects.all()
+            combin_bh = BH.objects.all()
+            combin_ad = AD.objects.all()
+            combin_amzn = Amazon.objects.all()
+            context = {'all_enteries' : all_enteries,
+            'bb_product' : combin_bb,
+            'mc_product' : combin_mc,
+            'gs_product' : combin_gs,
+            'bh_product' : combin_bh,
+            'ad_product' : combin_ad,
+            'amzn_product' : combin_amzn} #creates a dictionary with our enteries
         y = request.GET.getlist('id')
         temp_arr = ""
         for i in y:
