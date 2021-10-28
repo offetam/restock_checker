@@ -8,8 +8,9 @@ h1{
 	text-align: center;
 }
 
-h1:hover{
-	cursor: pointer;
+.logo_img{
+	height: 80px;
+	width: auto;
 }
 
 .wrapper{
