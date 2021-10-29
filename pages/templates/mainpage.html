@@ -115,14 +115,16 @@
         {% for product in mc_product %}
           {% if x.UUID == product.MicroCenter_UUID.UUID %}
         <table class = "table-header" border="1">
+          <thead>
             <tr>
-                <td>MicroCenter Product Name</td>
-                <td>MicroCenter Price</td>
-                <td>MicroCenter SKU</td>
-                <td>MicroCenter ModelNumber</td>
-                <td>MicroCenter URL</td>
-                <td>MicroCenter UUID</td>
+                <th>MicroCenter Product Name</th>
+                <th>MicroCenter Price</th>
+                <th>MicroCenter SKU</th>
+                <th>MicroCenter ModelNumber</th>
+                <th>MicroCenter URL</th>
+                <th>MicroCenter UUID</th>
             </tr>
+          </thead>
             <tr>
               <td>{{product.MicroCenter_UUID.product}}</td>
               <td>{{product.MicroCenter_Price}}</td>
@@ -137,16 +139,18 @@
     {% for product in gs_product %}
       {% if x.UUID == product.Gamestop_UUID.UUID %}
         <table class = "table-header" border="1">
+        <thead>
           <tr>
-            <td>Gamestop Product Name</td>
-            <td>Gamestop Price</td>
-            <td>GameStop SKU</td>
-            <td>Gamestop Product Status</td>
-            <td>Gamestop Ratings</td>
-            <td>Gamestop Number of Reviews</td>
-            <td>Gamestop URL</td>
-            <td>Gamestop UUID</td>
+            <th>Gamestop Product Name</th>
+            <th>Gamestop Price</th>
+            <th>GameStop SKU</th>
+            <th>Gamestop Product Status</th>
+            <th>Gamestop Ratings</th>
+            <th>Gamestop Number of Reviews</th>
+            <th>Gamestop URL</th>
+            <th>Gamestop UUID</th>
           </tr>
+        </thead>
         <tr>
             <td>{{product.Gamestop_UUID.product}}</td>
             <td>{{product.Gamestop_price}}</td>
@@ -163,16 +167,18 @@
     {% for product in bh_product %}
       {% if x.UUID == product.BH_UUID.UUID %}
         <table class = "table-header" border="1">
+        <thead>
           <tr>
-            <td>BH Product Name</td>
-            <td>BH Price</td>
-            <td>BH SKU</td>
-            <td>BH Product Status</td>
-            <td>BH Ratings</td>
-            <td>BH Number of Reviews</td>
-            <td>BH URL</td>
-            <td>BH UUID</td>
-        </tr>
+            <th>BH Product Name</th>
+            <th>BH Price</th>
+            <th>BH SKU</th>
+            <th>BH Product Status</th>
+            <th>BH Ratings</th>
+            <th>BH Number of Reviews</th>
+            <th>BH URL</th>
+            <th>BH UUID</th>
+          </tr>
+        </thead>
           <tr>
             <td>{{product.BH_UUID.product}}</td>
             <td>{{product.BH_price}}</td>
@@ -189,16 +195,18 @@
   {% for product in ad_product %}
     {% if x.UUID == product.AD_UUID.UUID %}
       <table class = "table-header" border="1">
+      <thead>
         <tr>
-          <td>AD Product Name</td>
-          <td>AD Price</td>
-          <td>AD SKU</td>
-          <td>AD Product Status</td>
-          <td>AD Ratings</td>
-          <td>AD Number of Reviews</td>
-          <td>AD URL</td>
-          <td>AD UUID</td>
-      </tr>
+          <th>AD Product Name</th>
+          <th>AD Price</th>
+          <th>AD SKU</th>
+          <th>AD Product Status</th>
+          <th>AD Ratings</th>
+          <th>AD Number of Reviews</th>
+          <th>AD URL</th>
+          <th>AD UUID</th>
+        </tr>
+      </thead>
         <tr>
             <td>{{product.AD_UUID.product}}</td>
             <td>{{product.AD_price}}</td>
@@ -215,16 +223,18 @@
   {% for product in amzn_product %}
     {% if x.UUID == product.Amazon_UUID.UUID %}
       <table class = "table-header" border="1">
+      <thead>
         <tr>
-          <td>Amazon Product Name</td>
-          <td>Amazon Price</td>
-          <td>Amazon SKU</td>
-          <td>Amazon Product Status</td>
-          <td>Amazon Rating</td>
-          <td>Amazon Number of Review</td>
-          <td>Amazon URL</td>
-          <td>Amazon UUID</td>
+          <th>Amazon Product Name</th>
+          <th>Amazon Price</th>
+          <th>Amazon SKU</th>
+          <th>Amazon Product Status</th>
+          <th>Amazon Rating</th>
+          <th>Amazon Number of Review</th>
+          <th>Amazon URL</th>
+          <th>Amazon UUID</th>
         </tr>
+      </thead>
       <tr>
           <td>{{product.Amazon_UUID.product}}</td>
           <td>{{product.Amazon_price}}</td>
