@@ -210,6 +210,10 @@ form.search_form button
 	border-radius: 5px;
 }
 
+.table-header{
+	width: 50%;
+}
+
 .fakepopup_data{
 	position: fixed;
 	background-color: rgba(0,0,0,0.5);
@@ -218,6 +222,10 @@ form.search_form button
 	left: 0px;
 	right: 0px;
 	bottom: 0px;
+}
+
+.exit_popup:hover{
+	cursor: pointer;
 }
 
 .notifbutton{
