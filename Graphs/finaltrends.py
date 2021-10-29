@@ -139,21 +139,5 @@ for vendor in vendors:
 
         ########################## update product ###############################
         df3.loc[apples_indices_list[0], todays_date] = status_value
-        #print(status_value)
-
-        #print(df3)
+      
         df3.to_csv(input_file_3,index=False)
-'''
-name = input_product
-plt.plot(date, stock)
-plt.title(name)
-plt.suptitle(vendor)
-plt.xlabel('date')
-plt.ylabel('stock trend')
-plt.xticks(rotation=20)
-plt.plot(figsize = (8, 8))
-plt.savefig("stock.png")
-plt.show()
-
-
-'''
