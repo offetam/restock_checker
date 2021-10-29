@@ -123,7 +123,7 @@ def login(request):
                 new_user.save()
                 messages.success(request,"User successfully created, Please go Verify your account", extra_tags="signup_success")
                 send_mail('Hello User',
-                'This is a test message',
+                'Hi ' + signup_email + ', \n Thank you for signing up with Restock. We hope we will meet your product needs. \n From, \n Restock Team',
                 'restockcheck123@gmail.com',
                 [signup_email],
                 fail_silently=False)
