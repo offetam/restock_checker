@@ -10,5 +10,6 @@ function displayInfo(){
 
 
 function hideDisplayInfo(){
+  document.getElementById("fakepopup_data").style.display = "none";
   console.log("hiding....");
 }
