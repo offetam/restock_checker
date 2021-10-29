@@ -55,9 +55,9 @@
     </div>
     <div class = "wrapper">
       {% for product in all_enteries %}
-    <div class="box" style = "margin-top: 1rem;">
+    <div class="box" style = "margin-top: 1rem;" value = {{product.UUID}}>
       <input type="checkbox" class = "notifcheck" id="product" name="id" value={{product.UUID}}>
-      <div class = "box_text" onclick = "displayInfo();return false;">
+      <div class = "box_text" onclick = "displayInfo('{{product.UUID.strip}}','{{product.product.strip}}');return false;">
         {{product.product}}
       </div>
       <div class = "testing-val" style = "display: none;"> <!-- to be used for displaying later? -->
@@ -68,9 +68,10 @@
 
   </form>
   </div>
+
   <div class = "fakepopup_data" id = "fakepopup_data" style = "display: none;">
-      <div class = "popup_data_info">
-        
+      <div class = "popup_data_info" id = "fakepopup_data_main" value = "">
+
       </div>
 
       <div class = "exit_popup" onclick = "hideDisplayInfo();return false;">
