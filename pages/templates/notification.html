@@ -13,7 +13,7 @@
 <div class = "header">
 		<div class = "inner_header">
       <div class = "logo_container">
-        <a href="{% url 'home' %}"><img class = "logo_img" src = "https://cdn.discordapp.com/attachments/699409346399961119/902730605312225280/logo3.png"></img></a>
+        <a href="{% url 'home' %}"><img class = "logo_img" src = '{% static "/imgs/logo3.png" %}'></img></a>
       </div>
       <div class = "empty_container">
         <!-- format for our li tags -->
@@ -40,7 +40,7 @@
 <body>
     <table border="1" width="1440">
         <tr>
-            <th>Products</th>
+            <th>Notifications List</th>
         </tr>
         <form>
           <div class = "header_container" style = "padding: 1rem;">
