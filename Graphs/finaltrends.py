@@ -122,9 +122,9 @@ for vendor in vendors:
         #print(stock)
 
         ######################### UPDATE TRENDS ##################################
-        if todays_date != todays_date:
+        if len(date) > 12:
             df3 = df3.drop(columns=first_date)
-            df3[todays_date] = 'na'
+            #df3[todays_date] = 'na'
         df3 = df3.fillna("na")
 
         ########################## update date and stock list ####################
