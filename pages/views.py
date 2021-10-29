@@ -158,32 +158,32 @@ def email_notify(Storename, arr):
             link = BestBuy.objects.all().filter(BestBuy_UUID__UUID__contains=i)
             for l in link:
                 link_one = l.BestBuy_URL
-                print(link_one)
+                #print(link_one)
         elif(Storename=='Gamestop'):
             link = Gamestop.objects.all().filter(Gamestop_UUID__UUID__contains=i)
             for l in link:
                 link_one = l.Gamestop_URL
-                print(link_one)
+                #print(link_one)
         elif(Storename=='Amazon'):
             link = Amazon.objects.all().filter(Amazon_UUID__UUID__contains=i)
             for l in link:
                 link_one = l.Amazon_URL
-                print(link_one)
+                #print(link_one)
         elif(Storename=='AD'):
             link = AD.objects.all().filter(AD_UUID__UUID__contains=i)
             for l in link:
                 link_one = l.AD_URL
-                print(link_one)
+                #print(link_one)
         elif(Storename=='BH'):
             link = BH.objects.all().filter(BH_UUID__UUID__contains=i)
             for l in link:
                 link_one = l.BH_URL
-                print(link_one)
-        print(link)
+                #print(link_one)
+        #print(link)
         product_name_query = products.objects.values('product').filter(UUID__contains=i)
         for j in product_name_query:
             product_name = j.get('product')
-            print(product_name)
+            #print(product_name)
         user_want_to_be_notify = Notification.objects.values('email').filter(product=product_name)
         for k in user_want_to_be_notify:
             user_email = k.get('email')
@@ -193,4 +193,36 @@ def email_notify(Storename, arr):
             'restockcheck123@gmail.com',
             [user_email],
             fail_silently=False)
+    return 0
+def update(StoreName,arr):
+    if(StoreName=='BestBuy'):
+        for i in range(len(arr[0])):
+            user_obj=BestBuy.objects.get(BestBuy_SKU=int(arr[1][i]))
+            if arr[2][i]>0:
+                user_obj.BestBuy_price=arr[2][i]
+            if len(arr[3][i])>0:    
+                user_obj.BestBuy_Status=arr[3][i]
+            user_obj.save()
+    if(StoreName=='Micro'):
+        for i in range(len(arr[0])):
+            user_obj=MicroCenter.objects.get(MicroCenter_SKU=int(arr[1][i]))
+            if arr[2][i]>0:
+                user_obj.MicroCenter_Price=arr[2][i]
+            user_obj.save()
+    if(StoreName=='Amazon'):
+        for i in range(len(arr[0])):
+            user_obj=Amazon.objects.get(Amazon_SKU=str(arr[1][i]))
+            if float(arr[2][i])>0:
+                user_obj.Amazon_price=arr[2][i]
+            if len(arr[3][i])>0:
+                user_obj.Amazon_Status=arr[3][i]
+            user_obj.save()
+    if(StoreName=='Gamestop'):
+        for i in range(len(arr[0])):
+            user_obj=Gamestop.objects.get(GameStop_SKU=str(arr[1][i]))
+            if arr[2][i]>0:
+                user_obj.Gamestop_price=arr[2][i]
+            if len(arr[3][i])>0:
+                user_obj.Gamestop_Status=arr[3][i]
+            user_obj.save()
     return 0
