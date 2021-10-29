@@ -83,24 +83,24 @@
           <thead>
         <tr id = "bestbuy_table">
             <th>BestBuy Product Name</th>
-            <th>BestBuy Product Status</th>
             <td>BestBuy_price</td>
+            <td>BestBuy_SKU</td>
+            <th>BestBuy Product Status</th>
             <td>BestBuy_Rating</td>
             <td>BestBuy_Review</td>
             <td>BestBuy_ModelNumber</td>
-            <td>BestBuy_SKU</td>
             <td>BestBuy_URL</td>
             <td>BestBuy_UUID</td>
         </tr>
       </thead>
         <tr class = "table-header" id = "bestbuy_table">
             <td class = "td-product-header" onclick = "javascript:alert('A Pop up of product info would show.');">{{product.BestBuy_UUID.product}}</td>
-            <td>{{product.BestBuy_Status}}</td>
             <td>{{product.BestBuy_price}}</td>
+            <td>{{product.BestBuy_SKU}}</td>
+            <td>{{product.BestBuy_Status}}</td>
             <td>{{product.BestBuy_Ratings}}</td>
             <td>{{product.BestBuy_Review}}</td>
             <td>{{product.BestBuy_ModelNumber}}</td>
-            <td>{{product.BestBuy_SKU}}</td>
             <td><a href={{product.BestBuy_URL}}>Link</a></td>
             <td>{{product.BestBuy_UUID.UUID}}</td>
         </tr>
@@ -214,9 +214,9 @@
           <td>Amazon_Name</td>
           <td>Amazon_Price</td>
           <td>Amazon_SKU</td>
+          <td>Amazon_Status</td>
           <td>Amazon_Rating</td>
           <td>Amazon_Review</td>
-          <td>Amazon_Status</td>
           <td>Amazon_URL</td>
           <td>Amazon_UUID</td>
         </tr>
@@ -224,9 +224,9 @@
           <td>{{product.Amazon_UUID.product}}</td>
           <td>{{product.Amazon_price}}</td>
           <td>{{product.Amazon_SKU}}</td>
+          <td>{{product.Amazon_Status}}</td>
           <td>{{product.Amazon_Ratings}}</td>
           <td>{{product.Amazon_Reviews}}</td>
-          <td>{{product.Amazon_Status}}</td>
           <td><a href={{product.Amazon_URL}}>Link</a></td>
           <td>{{product.Amazon_UUID.UUID}}</td>
       </tr>
