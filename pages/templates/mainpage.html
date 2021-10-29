@@ -1,16 +1,243 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
-    <title>Document</title>
+		<link rel="stylesheet" type="text/css" href='{% static "/css/mainpage.css" %}'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"> <!-- css for the search icon (fa fa-search) -->
+    <script src = '{% static "/js/main.js" %}'></script> <!-- js file -->
+    <title>Restock - Main page</title>
 </head>
+
+
+
+<div class = "header">
+		<div class = "inner_header">
+      <div class = "logo_container">
+        <a href="{% url 'home' %}"><img class = "logo_img" src = '{% static "/imgs/logo3.png" %}'></img></a>
+      </div>
+
+      <div class = "search_container">
+        <form id = "searchbar" class = "search_form">
+            <input type="text" class = "searchtext" name="product" placeholder="Search for Products"><button type="submit" value="Search!"><i class="fa fa-search" id = "search_button"></i> Search</button>
+        </form>
+      </div>
+
+			<nav>
+			  <ul class = "navigation"> <!--  Header to use on other pages -->
+				  <li>
+            {% if request.session.email != '' %}
+                <a href="{% url 'signout' %}">Sign Out</a>
+            {% else %}
+                <a href="{% url 'login' %}"> Login </a>
+            {% endif %}
+					</li>
+          <li>
+            {% if request.session.email != '' %}
+            <a href="{% url 'notification' %}">Notification</a>
+            {% endif %}
+          </li>
+				</ul>
+			</nav>
+		</div>
+
+</div>
 <body>
-    <form>
-        <input type="text" name="product" placeholder="What Item?">
-        <br>
-        <input type="submit" value="Search!">
-      </form>
+  <form>
+    <div class = "header_container">
+    {% if request.session.email != '' %}
+        <h1 style="color:#008080; text-align:right; padding-left: 1.75rem; position:absolute">Welcome: {{request.session.email}}</h1>
+    {% endif %}
+         <h1 style = "margin-top: 1rem;">Products <button class= "notifbutton" type="submit" value="submit">Notify<i style = "margin-left: 7.5px;" class="fa fa-clock-o"></i></button>
+         </h1>
+    </div>
+    <div class = "wrapper">
+      {% for product in all_enteries %}
+    <div class="box" style = "margin-top: 1rem;">
+      <input type="checkbox" class = "notifcheck" id="product" name="id" value={{product.UUID}}>
+      <div class = "box_text" onclick = "displayInfo();return false;">
+        {{product.product}}
+      </div>
+      <div class = "testing-val" style = "display: none;"> <!-- to be used for displaying later? -->
+        {{product.UUID}}
+      </div>
+    </div>
+      {% endfor %}
+
+  </form>
+  </div>
+  <div class = "fakepopup_data" id = "fakepopup_data" style = "display: none;">
+      <div class = "popup_data_info">
+        INFO DISPLAYED HERE
+      </div>
+
+      <div class = "exit_popup" onclick = "hideDisplayInfo();return false;">
+        EXIT
+      </div>
+  </div>
+    {% for x in all_enteries %}
+    <h1>{{x.UUID}}</h1>
+    {% for product in bb_product %}
+      {% if x.UUID == product.BestBuy_UUID.UUID %}
+	    <h1 style = "margin-top: 1rem" onclick = "javascript:alert('event has been triggered');">BestBuy
+			<img src='{% static "/imgs/bestbuy.png" %}'>
+      </h1>
+    <table class = "table-header" border="1">
+          <thead>
+        <tr id = "bestbuy_table">
+            <th>BestBuy Product Name</th>
+            <td>BestBuy_price</td>
+            <td>BestBuy_SKU</td>
+            <th>BestBuy Product Status</th>
+            <td>BestBuy_Rating</td>
+            <td>BestBuy_Review</td>
+            <td>BestBuy_ModelNumber</td>
+            <td>BestBuy_URL</td>
+            <td>BestBuy_UUID</td>
+        </tr>
+      </thead>
+        <tr class = "table-header" id = "bestbuy_table">
+            <td class = "td-product-header" onclick = "javascript:alert('A Pop up of product info would show.');">{{product.BestBuy_UUID.product}}</td>
+            <td>{{product.BestBuy_price}}</td>
+            <td>{{product.BestBuy_SKU}}</td>
+            <td>{{product.BestBuy_Status}}</td>
+            <td>{{product.BestBuy_Ratings}}</td>
+            <td>{{product.BestBuy_Review}}</td>
+            <td>{{product.BestBuy_ModelNumber}}</td>
+            <td><a href={{product.BestBuy_URL}}>Link</a></td>
+            <td>{{product.BestBuy_UUID.UUID}}</td>
+        </tr>
+        </table>
+          {% endif %}
+        {% endfor %}
+        {% for product in mc_product %}
+          {% if x.UUID == product.MicroCenter_UUID.UUID %}
+        <table class = "table-header" border="1">
+            <tr>
+                <td>MicroCenter_Name</td>
+                <td>MicroCenter_Price</td>
+                <td>MicroCenter_SKU</td>
+                <td>BMicroCenter_ModelNumber</td>
+                <td>MicroCenter_URL</td>
+                <td>MicroCenter_UUID</td>
+            </tr>
+            <tr>
+              <td>{{product.MicroCenter_UUID.product}}</td>
+              <td>{{product.MicroCenter_Price}}</td>
+              <td>{{product.MicroCenter_SKU}}</td>
+              <td>{{product.MicroCenter_ModelNumber}}</td>
+              <td><a href={{product.MicroCenter_URL}}>Link</a></td>
+              <td>{{product.MicroCenter_UUID.UUID}}</td>
+          </tr>
+        </table>
+          {% endif %}
+        {% endfor %}
+    {% for product in gs_product %}
+      {% if x.UUID == product.Gamestop_UUID.UUID %}
+        <table class = "table-header" border="1">
+          <tr>
+            <td>Gamestop_Name</td>
+            <td>Gamestop_Price</td>
+            <td>GameStop_SKU</td>
+            <td>Gamestop_Status</td>
+            <td>Gamestop_Ratings</td>
+            <td>Gamestop_Reviews</td>
+            <td>Gamestop_URL</td>
+            <td>Gamestop_UUID</td>
+          </tr>
+        <tr>
+            <td>{{product.Gamestop_UUID.product}}</td>
+            <td>{{product.Gamestop_price}}</td>
+            <td>{{product.Gamestop_SKU}}</td>
+            <td>{{product.Gamestop_Status}}</td>
+            <td>{{product.Gamestop_Ratings}}</td>
+            <td>{{product.Gamestop_Reviews}}</td>
+            <td><a href={{product.Gamestop_URL}}>Link</a></td>
+            <td>{{product.Gamestop_UUID.UUID}}</td>
+        </tr>
+      </table>
+      {% endif %}
+    {% endfor %}
+    {% for product in bh_product %}
+      {% if x.UUID == product.BH_UUID.UUID %}
+        <table class = "table-header" border="1">
+          <tr>
+            <td>BH_Name</td>
+            <td>BH_Price</td>
+            <td>BH_SKU</td>
+            <td>BH_Status</td>
+            <td>BH_Ratings</td>
+            <td>BH_Reviews</td>
+            <td>BH_URL</td>
+            <td>BH_UUID</td>
+        </tr>
+          <tr>
+            <td>{{product.BH_UUID.product}}</td>
+            <td>{{product.BH_price}}</td>
+            <td>{{product.BH_SKU}}</td>
+            <td>{{product.BH_Status}}</td>
+            <td>{{product.BH_Ratings}}</td>
+            <td>{{product.BH_Reviews}}</td>
+            <td><a href={{product.BH_URL}}>Link</a></td>
+            <td>{{product.BH_UUID.UUID}}</td>
+        </tr>
+    </table>
+    {% endif %}
+  {% endfor %}
+  {% for product in ad_product %}
+    {% if x.UUID == product.AD_UUID.UUID %}
+      <table class = "table-header" border="1">
+        <tr>
+          <td>AD_Name</td>
+          <td>AD_Price</td>
+          <td>AD_SKU</td>
+          <td>AD_Status</td>
+          <td>AD_Ratings</td>
+          <td>AD_Reviews</td>
+          <td>AD_URL</td>
+          <td>AD_UUID</td>
+      </tr>
+        <tr>
+            <td>{{product.AD_UUID.product}}</td>
+            <td>{{product.AD_price}}</td>
+            <td>{{product.AD_SKU}}</td>
+            <td>{{product.AD_Status}}</td>
+            <td>{{product.AD_Ratings}}</td>
+            <td>{{product.AD_Reviews}}</td>
+            <td><a href={{product.AD_URL}}>Link</a></td>
+            <td>{{product.AD_UUID.UUID}}</td>
+        </tr>
+    </table>
+    {% endif %}
+  {% endfor %}
+  {% for product in amzn_product %}
+    {% if x.UUID == product.Amazon_UUID.UUID %}
+      <table class = "table-header" border="1">
+        <tr>
+          <td>Amazon_Name</td>
+          <td>Amazon_Price</td>
+          <td>Amazon_SKU</td>
+          <td>Amazon_Status</td>
+          <td>Amazon_Rating</td>
+          <td>Amazon_Review</td>
+          <td>Amazon_URL</td>
+          <td>Amazon_UUID</td>
+        </tr>
+      <tr>
+          <td>{{product.Amazon_UUID.product}}</td>
+          <td>{{product.Amazon_price}}</td>
+          <td>{{product.Amazon_SKU}}</td>
+          <td>{{product.Amazon_Status}}</td>
+          <td>{{product.Amazon_Ratings}}</td>
+          <td>{{product.Amazon_Reviews}}</td>
+          <td><a href={{product.Amazon_URL}}>Link</a></td>
+          <td>{{product.Amazon_UUID.UUID}}</td>
+      </tr>
+  </table>
+  {% endif %}
+{% endfor %}
+{% endfor %}
 </body>
 </html>

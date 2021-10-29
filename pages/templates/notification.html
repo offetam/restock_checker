@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href='{% static "/css/notification.css" %}'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"> <!-- css for the search icon (fa fa-search) -->
+    <title>Restock - Notification</title>
+</head>
+
+<div class = "header">
+		<div class = "inner_header">
+      <div class = "logo_container">
+        <a href="{% url 'home' %}"><img class = "logo_img" src = "https://cdn.discordapp.com/attachments/699409346399961119/902730605312225280/logo3.png"></img></a>
+      </div>
+      <div class = "empty_container">
+        <!-- format for our li tags -->
+      </div>
+			<nav>
+			  <ul class = "navigation"> <!--  Header to use on other pages -->
+				  <li>
+            {% if request.session.email != '' %}
+                <a href="{% url 'signout' %}">Sign Out</a>
+            {% else %}
+                <a href="{% url 'login' %}"> Login </a>
+            {% endif %}
+					</li>
+          <li>
+            <a href="{% url 'notification' %}">Notification</a>
+          </li>
+				</ul>
+			</nav>
+
+		</div>
+
+</div>
+
+<body>
+    <table border="1" width="1440">
+        <tr>
+            <th>Products</th>
+        </tr>
+        <form>
+          <div class = "header_container" style = "padding: 1rem;">
+          {% if request.session.email != '' %}
+              <h1 style="color:#008080; text-align:right; padding-left: 1.25rem; position:absolute">Welcome: {{request.session.email}}</h1>
+          {% endif %}
+            <h1>
+                  <button class= "notifbutton" type="submit" value="submit">Remove from Notification<i style = "margin-left: 7.5px; margin-right: 7.5px;" class="fa fa-times" aria-hidden="true"></i></button>
+            </h1>
+          </div>
+        {% for items in notify %}
+        <tr>
+            <td><input style = "margin-right: 7.5px;" type="checkbox" id="product" name="id" value="{{items.product}}">
+                <label for="product">
+                    {{items.product}}
+                </label><br>
+            </td>
+        </tr>
+        {% endfor %}
+        </form>
+    </table>
+</body>
+</html>
