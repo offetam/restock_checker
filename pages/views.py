@@ -23,7 +23,7 @@ def home_view(request):
             #context = {'all_enteries': all_enteries} #creates a dictionary with our enteries
             uids =[]
             for i in all_enteries:
-                print(i.UUID)
+                #print(i.UUID)
                 uids.append(i.UUID)
             combin_bb = BestBuy.objects.none()
             combin_mc = MicroCenter.objects.none()
