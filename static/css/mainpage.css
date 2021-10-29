@@ -210,6 +210,20 @@ form.search_form button
 	border-radius: 5px;
 }
 
+.table-header{
+	width: 70%;
+}
+
+.fakepopup_data{
+	position: fixed;
+	background-color: rgba(0,0,0,0.5);
+	z-index: 100000;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+}
+
 .notifbutton{
 	height: 80px;
 	color: white;

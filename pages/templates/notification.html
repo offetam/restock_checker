@@ -45,7 +45,7 @@
         <form>
           <div class = "header_container" style = "padding: 1rem;">
           {% if request.session.email != '' %}
-              <h1 style="color:#008080; text-align:right; padding-left: 1.75rem; position:absolute">Welcome: {{request.session.email}}</h1>
+              <h1 style="color:#008080; text-align:right; padding-left: 1.25rem; position:absolute">Welcome: {{request.session.email}}</h1>
           {% endif %}
             <h1>
                   <button class= "notifbutton" type="submit" value="submit">Remove from Notification<i style = "margin-left: 7.5px; margin-right: 7.5px;" class="fa fa-times" aria-hidden="true"></i></button>
