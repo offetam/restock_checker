@@ -230,9 +230,13 @@ form.search_form button
 
 .popup_data_info{
 	position: absolute;
-	left: 45%;
+	left: 30%;
 	top: 20%;
-
+	width: 100%;
+	max-width: 900px;
+	background: white;
+	height: 750px;
+	border-radius: 5px;
 }
 
 .notifbutton{
