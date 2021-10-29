@@ -228,6 +228,13 @@ form.search_form button
 	cursor: pointer;
 }
 
+.popup_data_info{
+	position: absolute;
+	left: 45%;
+	top: 20%;
+
+}
+
 .notifbutton{
 	height: 80px;
 	color: white;
