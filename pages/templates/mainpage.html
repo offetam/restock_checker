@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
 		<link rel="stylesheet" type="text/css" href='{% static "/css/mainpage.css" %}'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"> <!-- css for the search icon (fa fa-search) -->
+    <script src = '{% static "/js/main.js" %}'></script> <!-- js file -->
     <title>Restock - Main page</title>
 </head>
 
@@ -56,23 +57,32 @@
       {% for product in all_enteries %}
     <div class="box" style = "margin-top: 1rem;">
       <input type="checkbox" class = "notifcheck" id="product" name="id" value={{product.UUID}}>
-      <div class = "box_text" onclick = "javascript:alert('event has been triggered');">
+      <div class = "box_text" onclick = "displayInfo();return false;">
         {{product.product}}
+      </div>
+      <div class = "testing-val" style = "display: none;"> <!-- to be used for displaying later? -->
+        {{product.UUID}}
       </div>
     </div>
       {% endfor %}
+
   </form>
-    </div>
+  </div>
+  <div class = "fakepopup_data" id = "fakepopup_data" style = "display: none;">
+      <div class = "popup_data_info">
+      </div>
+  </div>
     {% for x in all_enteries %}
     <h1>{{x.UUID}}</h1>
     {% for product in bb_product %}
       {% if x.UUID == product.BestBuy_UUID.UUID %}
 	    <h1 style = "margin-top: 1rem" onclick = "javascript:alert('event has been triggered');">BestBuy
 			<img src='{% static "/imgs/bestbuy.png" %}'>
-    <table border="1" width="1440">
+      </h1>
+    <table class = "table-header" border="1">
           <thead>
-        <tr class = "table-header" id = "bestbuy_table">
-            <th>BestBuy Product Name (Click prodcut for more details)</th>
+        <tr id = "bestbuy_table">
+            <th>BestBuy Product Name</th>
             <th>BestBuy Product Status</th>
             <td>BestBuy_price</td>
             <td>BestBuy_Status</td>
@@ -101,7 +111,7 @@
         {% endfor %}
         {% for product in mc_product %}
           {% if x.UUID == product.MicroCenter_UUID.UUID %}
-        <table border="1" width="1440">
+        <table class = "table-header" border="1">
             <tr>
                 <td>MicroCenter_Name</td>
                 <td>MicroCenter_Price</td>
@@ -123,7 +133,7 @@
         {% endfor %}
     {% for product in gs_product %}
       {% if x.UUID == product.Gamestop_UUID.UUID %}
-        <table border="1" width="1440">
+        <table class = "table-header" border="1">
           <tr>
             <td>Gamestop_Name</td>
             <td>Gamestop_Price</td>
@@ -149,7 +159,7 @@
     {% endfor %}
     {% for product in bh_product %}
       {% if x.UUID == product.BH_UUID.UUID %}
-        <table border="1" width="1440">
+        <table class = "table-header" border="1">
           <tr>
             <td>BH_Name</td>
             <td>BH_Price</td>
@@ -175,7 +185,7 @@
   {% endfor %}
   {% for product in ad_product %}
     {% if x.UUID == product.AD_UUID.UUID %}
-      <table border="1" width="1440">
+      <table class = "table-header" border="1">
         <tr>
           <td>AD_Name</td>
           <td>AD_Price</td>
@@ -201,7 +211,7 @@
   {% endfor %}
   {% for product in amzn_product %}
     {% if x.UUID == product.Amazon_UUID.UUID %}
-      <table border="1" width="1440">
+      <table class = "table-header" border="1">
         <tr>
           <td>Amazon_Name</td>
           <td>Amazon_Price</td>
