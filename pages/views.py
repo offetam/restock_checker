@@ -23,7 +23,7 @@ def home_view(request):
             #context = {'all_enteries': all_enteries} #creates a dictionary with our enteries
             uids =[]
             for i in all_enteries:
-                print(i.UUID)
+                #print(i.UUID)
                 uids.append(i.UUID)
             combin_bb = BestBuy.objects.none()
             combin_mc = MicroCenter.objects.none()
@@ -73,7 +73,7 @@ def home_view(request):
             if(request.session['email']==''):
                 return redirect('/login')
             elif(Notification.objects.all().filter(email=request.session['email'], product__in=pro).count()>0):
-                print("NOOOOOOO")
+                break
             else:
                 temp = Notification.objects.create(email=request.session['email'], product = pro)
         if(len(temp_arr) != 0):
@@ -158,32 +158,32 @@ def email_notify(Storename, arr):
             link = BestBuy.objects.all().filter(BestBuy_UUID__UUID__contains=i)
             for l in link:
                 link_one = l.BestBuy_URL
-                print(link_one)
+                #print(link_one)
         elif(Storename=='Gamestop'):
             link = Gamestop.objects.all().filter(Gamestop_UUID__UUID__contains=i)
             for l in link:
                 link_one = l.Gamestop_URL
-                print(link_one)
+                #print(link_one)
         elif(Storename=='Amazon'):
             link = Amazon.objects.all().filter(Amazon_UUID__UUID__contains=i)
             for l in link:
                 link_one = l.Amazon_URL
-                print(link_one)
+                #print(link_one)
         elif(Storename=='AD'):
             link = AD.objects.all().filter(AD_UUID__UUID__contains=i)
             for l in link:
                 link_one = l.AD_URL
-                print(link_one)
+                #print(link_one)
         elif(Storename=='BH'):
             link = BH.objects.all().filter(BH_UUID__UUID__contains=i)
             for l in link:
                 link_one = l.BH_URL
-                print(link_one)
-        print(link)
+                #print(link_one)
+        #print(link)
         product_name_query = products.objects.values('product').filter(UUID__contains=i)
         for j in product_name_query:
             product_name = j.get('product')
-            print(product_name)
+            #print(product_name)
         user_want_to_be_notify = Notification.objects.values('email').filter(product=product_name)
         for k in user_want_to_be_notify:
             user_email = k.get('email')
