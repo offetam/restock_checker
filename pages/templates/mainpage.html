@@ -7,7 +7,8 @@
     <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
 		<link rel="stylesheet" type="text/css" href='{% static "/css/mainpage.css" %}'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"> <!-- css for the search icon (fa fa-search) -->
-    <script src = '{% static "/js/main.js" %}'></script> <!-- js file -->
+    <!-- <script src = '{% static "/js/main.js" %}'></script>  js file  -->
+
     <title>Restock - Main page</title>
 </head>
 
@@ -57,13 +58,30 @@
       {% for product in all_enteries %}
     <div class="box" style = "margin-top: 1rem;" value = {{product.UUID}}>
       <input type="checkbox" class = "notifcheck" id="product" name="id" value={{product.UUID}}>
-      <div class = "box_text" onclick = "displayInfo('{{product.UUID.strip}}','{{product.product.strip}}');return false;">
+      <div class = "box_text" onclick = "displayInfo('{{product.UUID.strip}}','{{product.product.strip}}', '{{product.BestBuy_price}}');return false;">
         {{product.product}}
       </div>
       <div class = "testing-val" style = "display: none;"> <!-- to be used for displaying later? -->
         {{product.UUID}}
       </div>
+
     </div>
+    <!-- {% for bproduct in bb_product %}
+    {% if product.UUID == bproduct.BestBuy_UUID.UUID %}
+    <div class = "checker">
+      {{product.UUID}} is the one.
+      Some useful data here:
+      {{bproduct.BestBuy_price}}
+      {{bproduct.BestBuy_SKU}}
+      {{bproduct.BestBuy_Status}}
+      {{bproduct.BestBuy_Ratings}}
+      {{bproduct.BestBuy_Review}}
+      {{bproduct.BestBuy_ModelNumber}}
+      <a href={{product.BestBuy_URL}}>Link</a>
+      {{product.BestBuy_UUID.UUID}}
+    </div>
+    {% endif %}
+    {% endfor %} -->
       {% endfor %}
 
   </form>
@@ -251,4 +269,52 @@
 {% endfor %}
 {% endfor %}
 </body>
+<script type = "text/javascript">
+/* */
+// var bbuy_table = document.getElementById("bestbuy_table"); old test code. Ignore.
+// var popup_data = document.getElementById("fakepopup_data");
+var dataArray = []; //data array to store products to compare.
+var checker = document.getElementById("fakepopup_data_main");
+{% for bproduct in bb_product %}
+  dataArray.push('{{bproduct.BestBuy_UUID.UUID.strip}}, {{bproduct.BestBuy_UUID.product}}, {{bproduct.BestBuy_Status}}, {{bproduct.BestBuy_Ratings}}, {{bproduct.BestBuy_Review}}, {{bproduct.BestBuy_URL}}')
+{% endfor %}
+
+function displayInfo(product_id, productName, bestbuyData){
+  console.log(product_id)
+  document.getElementById("fakepopup_data").style.display = "block";
+  document.getElementById("fakepopup_data_main").value = product_id;
+  console.log("New value: " + document.getElementById("fakepopup_data_main").value);
+  //document.getElementById("fakepopup_data_main").innerHTML = productName;
+
+  for(var i = 0; i < dataArray.length; i++){
+    console.log(dataArray[i]);
+    var compareUUID = dataArray[i].split(","); //split data to grab just UUID.
+
+    console.log(compareUUID[0]);
+    if(product_id == compareUUID[0]){
+      document.getElementById("fakepopup_data_main").innerHTML += compareUUID;
+      document.getElementById("fakepopup_data_main").innerHTML += "<br>";
+    }
+
+  }
+  //dataArray.forEach(element => console.log(element));
+  console.log(dataArray);
+//  console.log("revealingData");
+}
+
+
+function hideDisplayInfo(){
+  document.getElementById("fakepopup_data").style.display = "none";
+  console.log("InnerHTML: " + checker.innerHTML);
+  checker.innerHTML = ""; //empty the popup data container
+  console.log("Should be cleared..... : " + checker.innerHTML);
+  //console.log("hiding....");
+}
+
+
+
+
+
+</script>
+
 </html>
