@@ -334,6 +334,29 @@ function displayInfo(product_id, productName, bestbuyData){
       if(product_id == compareUUID[0]){
         if(firstCompare == false && brand == "bestbuy"){ //if statements to check brand name and if it's the first comparison of the brand (to be modified/cleaned up later)
           firstCompare = true;
+          document.getElementById("fakepopup_data_main").innerHTML += "<table class = 'table-header' border='1'> \
+      <thead> \
+        <tr id = 'bestbuy_table'> \
+            <th>BestBuy Product Name</th> \
+            <th>BestBuy Price</th> \
+            <th>BestBuy Product Status</th> \
+            <th>BestBuy Ratings</th> \
+            <th>BestBuy Number of Reviews</th> \
+            <th>BestBuy URL</th> \
+            <th>BestBuy UUID</th> \
+        </tr> \
+      </thead> \
+        <tr> \
+          <tr class = 'table-header' id = 'bestbuy_table'> \
+            <td>"+compareUUID[1]+"</td> \
+            <td>"+compareUUID[2]+"</td> \
+            <td>"+compareUUID[3]+"</td> \
+            <td>"+compareUUID[4]+"</td> \
+            <td>"+compareUUID[5]+"</td> \
+            <td><a href="+compareUUID[6]+">Link</a></td> \
+            <td>"+compareUUID[0]+"</td> \
+        </tr> \
+        </table>";
           document.getElementById("fakepopup_data_main").innerHTML += "<h1> This is bestbuy data: </h1><br>"; //header for each brand, when we find our first match - display the brand since product is there (but only once)
         }
         if(firstCompare == false && brand == "bh"){
