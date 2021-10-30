@@ -96,7 +96,7 @@
         EXIT
       </div>
   </div>
-    {% for x in all_enteries %}
+    <!-- {% for x in all_enteries %}
     <h1>{{x.UUID}}</h1>
     {% for product in bb_product %}
       {% if x.UUID == product.BestBuy_UUID.UUID %}
@@ -171,14 +171,15 @@
           </tr>
         </thead>
         <tr>
-            <td>{{product.Gamestop_UUID.product}}</td>
-            <td>{{product.Gamestop_price}}</td>
-            <td>{{product.Gamestop_SKU}}</td>
-            <td>{{product.Gamestop_Status}}</td>
-            <td>{{product.Gamestop_Ratings}}</td>
-            <td>{{product.Gamestop_Reviews}}</td>
-            <td><a href={{product.Gamestop_URL}}>Link</a></td>
-            <td>{{product.Gamestop_UUID.UUID}}</td>
+
+          <td>{{product.Gamestop_UUID.product}}</td>
+          <td>{{product.Gamestop_price}}</td>
+          <td>{{product.Gamestop_SKU}}</td>
+          <td>{{product.Gamestop_Status}}</td>
+          <td>{{product.Gamestop_Ratings}}</td>
+          <td>{{product.Gamestop_Reviews}}</td>
+          <td><a href={{product.Gamestop_URL}}>Link</a></td>
+          <td>{{product.Gamestop_UUID.UUID}}</td>
         </tr>
       </table>
       {% endif %}
@@ -261,23 +262,51 @@
           <td>{{product.Amazon_Status}}</td>
           <td>{{product.Amazon_Ratings}}</td>
           <td>{{product.Amazon_Reviews}}</td>
-          <td><a href={{product.Amazon_URL}}>Link</a></td>
+          <td><a href={{product.Amazon_URL}}>Link<a href=</td>
           <td>{{product.Amazon_UUID.UUID}}</td>
       </tr>
   </table>
   {% endif %}
 {% endfor %}
-{% endfor %}
+{% endfor %} -->
 </body>
 <script type = "text/javascript">
 /* */
 // var bbuy_table = document.getElementById("bestbuy_table"); old test code. Ignore.
 // var popup_data = document.getElementById("fakepopup_data");
-var dataArray = []; //data array to store products to compare.
+var bestbuyArray = []; //data array to store products to compare.
+var bharray = [];
+var mcArray = [];
+var adArray = [];
+var gsArray = [];
+var amznArray = [];
+
 var checker = document.getElementById("fakepopup_data_main");
-{% for bproduct in bb_product %}
-  dataArray.push('{{bproduct.BestBuy_UUID.UUID.strip}}, {{bproduct.BestBuy_UUID.product}}, {{bproduct.BestBuy_Status}}, {{bproduct.BestBuy_Ratings}}, {{bproduct.BestBuy_Review}}, {{bproduct.BestBuy_URL}}')
+{% for bproduct in bb_product %} //push bestbuy data to the array
+  bestbuyArray.push('{{bproduct.BestBuy_UUID.UUID.strip}}, {{bproduct.BestBuy_UUID.product}}, {{bproduct.BestBuy_price}}, {{bproduct.BestBuy_Status}}, {{bproduct.BestBuy_Ratings}}, {{bproduct.BestBuy_Review}}, {{bproduct.BestBuy_URL}}')
 {% endfor %}
+
+{% for bhproduct in bh_product %} //push BH data to the array
+  bharray.push('{{bhproduct.BH_UUID.UUID.strip}}, {{bhproduct.BH_price}}, {{bhproduct.BH_Status}}, {{bhproduct.BH_Ratings}}, {{bhproduct.BH_Review}}, {{bhproduct.BH_URL}}')
+{% endfor %}
+
+{% for product in mc_product %} //push mc data to the array
+  mcArray.push('{{product.MicroCenter_UUID.UUID.strip}}, {{product.MicroCenter_UUID.product}}, {{product.MicroCenter_Price}}, {{product.MicroCenter_ModelNumber}}, {{product.MicroCenter_URL}}')
+{% endfor %}
+
+{% for product in amzn_product %} //push amzn data to the array
+  amznArray.push('{{product.Amazon_UUID.UUID.strip}}, {{product.Amazon_UUID.product}}, {{product.Amazon_price}}, {{product.Amazon_SKU}}, {{product.Amazon_Status}}, {{product.Amazon_Ratings}}, {{product.Amazon_Reviews}}, {{product.Amazon_URL}}')
+{% endfor %}
+
+{% for product in gs_product %} //push gs data to the array
+  gsArray.push('{{product.Gamestop_UUID.UUID.strip}}, {{product.Gamestop_UUID.product}}, {{product.Gamestop_price}}, {{product.Gamestop_SKU}}, {{product.Gamestop_Status}}, {{product.Gamestop_Ratings}}, {{product.Gamestop_Reviews}}, {{product.Gamestop_URL}}')
+{% endfor %}
+
+{% for product in ad_product %}//push ad data to the array
+  adArray.push('{{product.AD_UUID.UUID.strip}}, {{product.AD_UUID.product}}, {{product.AD_price}}, {{product.AD_SKU}}, {{product.AD_Status}}, {{product.AD_Ratings}}, {{product.AD_Reviews}}, {{product.AD_URL}}')
+{% endfor %}
+
+//note that console.log is a print function for javascript.
 
 function displayInfo(product_id, productName, bestbuyData){
   console.log(product_id)
@@ -285,29 +314,62 @@ function displayInfo(product_id, productName, bestbuyData){
   document.getElementById("fakepopup_data_main").value = product_id;
   console.log("New value: " + document.getElementById("fakepopup_data_main").value);
   //document.getElementById("fakepopup_data_main").innerHTML = productName;
+  checkArrayHelper(bestbuyArray, product_id, "bestbuy");
+  checkArrayHelper(bharray, product_id, "bh");
+  checkArrayHelper(mcArray, product_id, "mc");
+  checkArrayHelper(amznArray, product_id, "amzn");
+  checkArrayHelper(gsArray, product_id, "gamestop");
+  checkArrayHelper(adArray, product_id, "ad");
 
-  for(var i = 0; i < dataArray.length; i++){
-    console.log(dataArray[i]);
-    var compareUUID = dataArray[i].split(","); //split data to grab just UUID.
+  console.log("info has been displayed.")
+}
 
-    console.log(compareUUID[0]);
-    if(product_id == compareUUID[0]){
-      document.getElementById("fakepopup_data_main").innerHTML += compareUUID;
-      document.getElementById("fakepopup_data_main").innerHTML += "<br>";
+  function checkArrayHelper(arrayToCheck, product_id, brand){ //helper function to print data - arguments taken: array and brand (what brand it is)
+    var firstCompare = false;
+    for(var i = 0; i < arrayToCheck.length; i++){ //loop through a given array
+      console.log(arrayToCheck[i]);
+      var compareUUID = arrayToCheck[i].split(","); //split data to grab just UUID.
+      console.log(compareUUID[0]);
+      if(product_id == compareUUID[0]){
+        if(firstCompare == false && brand == "bestbuy"){ //if statements to check brand name and if it's the first comparison of the brand (to be modified/cleaned up later)
+          firstCompare = true;
+          document.getElementById("fakepopup_data_main").innerHTML += "<h1> This is bestbuy data: </h1><br>"; //header for each brand, when we find our first match - display the brand since product is there (but only once)
+        }
+        if(firstCompare == false && brand == "bh"){
+          firstCompare = true;
+          document.getElementById("fakepopup_data_main").innerHTML += "<h1>This is BH data: </h1><br>"; //header for each brand, when we find our first match - display the brand since product is there (but only once)
+        }
+        if(firstCompare == false && brand == "mc"){
+          firstCompare = true;
+          document.getElementById("fakepopup_data_main").innerHTML += "<h1>This is MC data: </h1><br>"; //header for each brand, when we find our first match - display the brand since product is there (but only once)
+        }
+        if(firstCompare == false && brand == "amzn"){
+          firstCompare = true;
+          document.getElementById("fakepopup_data_main").innerHTML += "<h1>This is Amazon data: </h1><br>"; //header for each brand, when we find our first match - display the brand since product is there (but only once)
+        }
+        if(firstCompare == false && brand == "gamestop"){
+          firstCompare = true;
+          document.getElementById("fakepopup_data_main").innerHTML += "<h1>This is Gamestop data: </h1><br>"; //header for each brand, when we find our first match - display the brand since product is there (but only once)
+        }
+        if(firstCompare == false && brand == "ad"){
+          firstCompare = true;
+          document.getElementById("fakepopup_data_main").innerHTML += "<h1>This is AD data: </h1><br>"; //header for each brand, when we find our first match - display the brand since product is there (but only once)
+        }
+        document.getElementById("fakepopup_data_main").innerHTML += compareUUID;
+        document.getElementById("fakepopup_data_main").innerHTML += "<br>";
     }
-
   }
   //dataArray.forEach(element => console.log(element));
-  console.log(dataArray);
+//  console.log(dataArray);
 //  console.log("revealingData");
 }
 
 
 function hideDisplayInfo(){
   document.getElementById("fakepopup_data").style.display = "none";
-  console.log("InnerHTML: " + checker.innerHTML);
+  //console.log("InnerHTML: " + checker.innerHTML);
   checker.innerHTML = ""; //empty the popup data container
-  console.log("Should be cleared..... : " + checker.innerHTML);
+  console.log("Clearing values...");
   //console.log("hiding....");
 }
 
