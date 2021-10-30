@@ -11,6 +11,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 import numpy as np
 from pages.views import update,email_notify
 import schedule
+from datetime import date
 chrome_options = Options()
 chrome_options.add_argument("User-Agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.81 Safari/537.36")
 chrome_options.add_argument("--headless")
@@ -73,6 +74,7 @@ def updateBest():
         update('BestBuy',listchange)
     if(len(inStock)>0):
         email_notify('BestBuy',inStock)
+        uptrends(inStock)
     combinedf['BestBuy_Price']=combinedf.apply(lambda x: x['newPrice'] if x['change']==True else x['BestBuy_Price'],axis=1)
     combinedf['BestBuy_Status']=combinedf.apply(lambda x: x['newStatus'] if x['change']==True else x['BestBuy_Status'],axis=1)
     combinedf=combinedf.drop(columns=['newStatus','newPrice','change'])
@@ -191,6 +193,7 @@ def updateAMZN():
         update('Amazon',listchange)
     if len(inStock)>0:
         email_notify('Amazon',inStock)
+        uptrends(inStock)
     combinedf['price']=combinedf.apply(lambda x: x['newPrice'] if x['change']==True else x['price'],axis=1)
     combinedf['stock']=combinedf.apply(lambda x: x['newStock'] if x['change']==True else x['stock'],axis=1)
     combinedf=combinedf.drop(columns=['ASIN','newPrice','newStock','change'])
@@ -248,6 +251,7 @@ def updateGame():
         update('GameStop',listchange)
     if len(inStock)>0:
         email_notify('Gamestop',inStock)
+        uptrends(inStock)
     combinedf['Product_Price']=combinedf.apply(lambda x: x['newPrice'] if x['change']== True else x['Product_Price'],axis=1)
     combinedf['Product_Stock']=combinedf.apply(lambda x: x['newStock'] if x['change']== True else x['Product_Stock'],axis=1)
     combinedf=combinedf.drop(columns=['newPrice','newStock','change'])
@@ -357,6 +361,24 @@ def updateAD():
                 if record:
                     records.append(extract_info(item))
         time.sleep(5)        
+def trends():
+    df=pd.read_csv('Trends.csv')
+    today = date.today()
+    d1=today.strftime("%m/%d/%Y")
+    if(len(df.columns)<17):
+       df[d1]=0
+    else:
+        df=df.drop(df.columns[2],axis=1)
+        df[d1]=0
+    df.to_csv('Trends.csv',index=False)
+def uptrends(arr):
+    df=pd.read_csv('Trends.csv')
+    today = date.today()
+    d1=today.strftime("%m/%d/%Y")
+    for i in arr:
+        df[d1]=df.apply(lambda x: 1 if x['UUID']==i and x[d1]!= 1 else x[d1],axis=1)
+    df.to_csv('Trends.csv',index=False)
+
 
 def doupdate():
     updateBest()
@@ -368,8 +390,8 @@ def doupdate():
     updateGame()
     print(4)
 
-
 schedule.every(1).minutes.do(doupdate)
+schedule.every().day.at("00:01").do(trends)
 while 1:
     schedule.run_pending()
     time.sleep(1)
