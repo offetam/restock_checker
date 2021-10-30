@@ -288,7 +288,7 @@ var checker = document.getElementById("fakepopup_data_main");
 {% endfor %}
 
 {% for bhproduct in bh_product %} //push BH data to the array
-  bharray.push('{{bhproduct.BH_UUID.UUID.strip}}, {{bhproduct.BH_price}}, {{bhproduct.BH_Status}}, {{bhproduct.BH_Ratings}}, {{bhproduct.BH_Review}}, {{bhproduct.BH_URL}}')
+  bharray.push('{{bhproduct.BH_UUID.UUID.strip}}, {{bhproduct.BH_UUID.product}},{{bhproduct.BH_price}}, {{bhproduct.BH_Status}}, {{bhproduct.BH_Ratings}}, {{bhproduct.BH_Reviews}}, {{bhproduct.BH_URL}}')
 {% endfor %}
 
 {% for product in mc_product %} //push mc data to the array
