@@ -87,7 +87,7 @@
   </form>
   </div>
 
-  <div class = "fakepopup_data" id = "fakepopup_data" style = "display: none;">
+  <div class = "fakepopup_data" id = "fakepopup_data" style = "display: none; font-family: sans-serif;">
       <div class = "popup_data_info" id = "fakepopup_data_main" value = "">
 
       </div>
@@ -282,6 +282,8 @@ var adArray = [];
 var gsArray = [];
 var amznArray = [];
 
+var bestbuyimg = "/static/imgs/bestbuy.png";
+
 var checker = document.getElementById("fakepopup_data_main");
 {% for bproduct in bb_product %} //push bestbuy data to the array
   bestbuyArray.push('{{bproduct.BestBuy_UUID.UUID.strip}}, {{bproduct.BestBuy_UUID.product}}, {{bproduct.BestBuy_price}}, {{bproduct.BestBuy_Status}}, {{bproduct.BestBuy_Ratings}}, {{bproduct.BestBuy_Review}}, {{bproduct.BestBuy_URL}}')
@@ -292,15 +294,15 @@ var checker = document.getElementById("fakepopup_data_main");
 {% endfor %}
 
 {% for product in mc_product %} //push mc data to the array
-  mcArray.push('{{product.MicroCenter_UUID.UUID.strip}}, {{product.MicroCenter_UUID.product}}, {{product.MicroCenter_Price}}, {{product.MicroCenter_ModelNumber}}, {{product.MicroCenter_URL}}')
+  mcArray.push('{{product.MicroCenter_UUID.UUID.strip}}, {{product.MicroCenter_UUID.product}}, {{product.MicroCenter_Price}}, {{product.MicroCenter_URL}}')
 {% endfor %}
 
 {% for product in amzn_product %} //push amzn data to the array
-  amznArray.push('{{product.Amazon_UUID.UUID.strip}}, {{product.Amazon_UUID.product}}, {{product.Amazon_price}}, {{product.Amazon_SKU}}, {{product.Amazon_Status}}, {{product.Amazon_Ratings}}, {{product.Amazon_Reviews}}, {{product.Amazon_URL}}')
+  amznArray.push('{{product.Amazon_UUID.UUID.strip}}, {{product.Amazon_UUID.product}}, {{product.Amazon_price}}, {{product.Amazon_Status}}, {{product.Amazon_Ratings}}, {{product.Amazon_Reviews}}, {{product.Amazon_URL}}')
 {% endfor %}
 
 {% for product in gs_product %} //push gs data to the array
-  gsArray.push('{{product.Gamestop_UUID.UUID.strip}}, {{product.Gamestop_UUID.product}}, {{product.Gamestop_price}}, {{product.Gamestop_SKU}}, {{product.Gamestop_Status}}, {{product.Gamestop_Ratings}}, {{product.Gamestop_Reviews}}, {{product.Gamestop_URL}}')
+  gsArray.push('{{product.Gamestop_UUID.UUID.strip}}, {{product.Gamestop_UUID.product}}, {{product.Gamestop_price}}, {{product.Gamestop_Status}}, {{product.Gamestop_Ratings}}, {{product.Gamestop_Reviews}}, {{product.Gamestop_URL}}')
 {% endfor %}
 
 {% for product in ad_product %}//push ad data to the array
@@ -310,10 +312,10 @@ var checker = document.getElementById("fakepopup_data_main");
 //note that console.log is a print function for javascript.
 
 function displayInfo(product_id, productName, bestbuyData){
-  console.log(product_id)
+  //console.log(product_id)
   document.getElementById("fakepopup_data").style.display = "block";
   document.getElementById("fakepopup_data_main").value = product_id;
-  console.log("New value: " + document.getElementById("fakepopup_data_main").value);
+  //console.log("New value: " + document.getElementById("fakepopup_data_main").value);
   //document.getElementById("fakepopup_data_main").innerHTML = productName;
   checkArrayHelper(bestbuyArray, product_id, "bestbuy");
   checkArrayHelper(bharray, product_id, "bh");
@@ -322,67 +324,66 @@ function displayInfo(product_id, productName, bestbuyData){
   checkArrayHelper(gsArray, product_id, "gamestop");
   checkArrayHelper(adArray, product_id, "ad");
 
-  console.log("info has been displayed.")
+  console.log("info has been displayed.");
 }
 
   function checkArrayHelper(arrayToCheck, product_id, brand){ //helper function to print data - arguments taken: array and brand (what brand it is)
     var firstCompare = false;
     for(var i = 0; i < arrayToCheck.length; i++){ //loop through a given array
-      console.log(arrayToCheck[i]);
+      //console.log(arrayToCheck[i]);
+      //console.log(i);
       var compareUUID = arrayToCheck[i].split(","); //split data to grab just UUID.
-      console.log(compareUUID[0]);
+      //console.log(compareUUID[0]);
       if(product_id == compareUUID[0]){
         if(firstCompare == false && brand == "bestbuy"){ //if statements to check brand name and if it's the first comparison of the brand (to be modified/cleaned up later)
           firstCompare = true;
-          document.getElementById("fakepopup_data_main").innerHTML += "<table class = 'table-header' border='1'> \
-      <thead> \
-        <tr id = 'bestbuy_table'> \
-            <th>BestBuy Product Name</th> \
-            <th>BestBuy Price</th> \
-            <th>BestBuy Product Status</th> \
-            <th>BestBuy Ratings</th> \
-            <th>BestBuy Number of Reviews</th> \
-            <th>BestBuy URL</th> \
-            <th>BestBuy UUID</th> \
-        </tr> \
-      </thead> \
-        <tr> \
-          <tr class = 'table-header' id = 'bestbuy_table'> \
-            <td>"+compareUUID[1]+"</td> \
-            <td>"+compareUUID[2]+"</td> \
-            <td>"+compareUUID[3]+"</td> \
-            <td>"+compareUUID[4]+"</td> \
-            <td>"+compareUUID[5]+"</td> \
-            <td><a href="+compareUUID[6]+">Link</a></td> \
-            <td>"+compareUUID[0]+"</td> \
-        </tr> \
-        </table>";
-          document.getElementById("fakepopup_data_main").innerHTML += "<h1> This is bestbuy data: </h1><br>"; //header for each brand, when we find our first match - display the brand since product is there (but only once)
+          //document.getElementById("fakepopup_data_main").innerHTML += "<h1 style = 'font-family: sans-sarif;'> BestBuy <img style ='height:0.8em;vertical-align:middle;width:auto;' src = '/static/imgs/bestbuy.png'/></h1><br>"; //header for each brand, when we find our first match - display the brand since product is there (but only once)
+          document.getElementById("fakepopup_data_main").innerHTML += "<h1><img style ='height:0.8em;vertical-align:middle;width:auto;' src = 'https://pisces.bbystatic.com/image2/BestBuy_US/Gallery/BestBuy_Logo_2020-190616.png'/></h1><br>";
+          // document.getElementById("fakepopup_data_main").innerHTML += '<img src = "/static/imgs/bestbuy.png"/>';
         }
         if(firstCompare == false && brand == "bh"){
           firstCompare = true;
-          document.getElementById("fakepopup_data_main").innerHTML += "<h1>This is BH data: </h1><br>"; //header for each brand, when we find our first match - display the brand since product is there (but only once)
+          // document.getElementById("fakepopup_data_main").innerHTML += "<h1>This is BH data: </h1><br>"; //header for each brand, when we find our first match - display the brand since product is there (but only once)
+          document.getElementById("fakepopup_data_main").innerHTML += "<h1><img style ='height:0.8em;vertical-align:middle;width:auto;' src = 'https://yt3.ggpht.com/kS4t4QRwLD-q1BhhiRVzVzQimW65zDkopFa8dD14i56oc8ii0G253j6RqC3HxcZ-ytzDhUV-=s900-c-k-c0x00ffffff-no-rj'/></h1><br>";
+          //https://yt3.ggpht.com/kS4t4QRwLD-q1BhhiRVzVzQimW65zDkopFa8dD14i56oc8ii0G253j6RqC3HxcZ-ytzDhUV-=s900-c-k-c0x00ffffff-no-rj
         }
         if(firstCompare == false && brand == "mc"){
           firstCompare = true;
-          document.getElementById("fakepopup_data_main").innerHTML += "<h1>This is MC data: </h1><br>"; //header for each brand, when we find our first match - display the brand since product is there (but only once)
+          document.getElementById("fakepopup_data_main").innerHTML += "<h1><img style ='height:0.8em;vertical-align:middle;width:auto;' src = 'static/imgs/microcenter.png'/></h1><br>"; //header for each brand, when we find our first match - display the brand since product is there (but only once)
         }
         if(firstCompare == false && brand == "amzn"){
           firstCompare = true;
-          document.getElementById("fakepopup_data_main").innerHTML += "<h1>This is Amazon data: </h1><br>"; //header for each brand, when we find our first match - display the brand since product is there (but only once)
+          document.getElementById("fakepopup_data_main").innerHTML += "<h1><img style ='height:0.8em;vertical-align:middle;width:auto;' src = 'static/imgs/amazon.png'/></h1><br>"; //header for each brand, when we find our first match - display the brand since product is there (but only once)
         }
         if(firstCompare == false && brand == "gamestop"){
           firstCompare = true;
-          document.getElementById("fakepopup_data_main").innerHTML += "<h1>This is Gamestop data: </h1><br>"; //header for each brand, when we find our first match - display the brand since product is there (but only once)
+          document.getElementById("fakepopup_data_main").innerHTML += "<h1><img style ='height:0.8em;vertical-align:middle;width:auto;' src = 'static/imgs/gamestop.png'/></h1><br>"; //header for each brand, when we find our first match - display the brand since product is there (but only once)
         }
         if(firstCompare == false && brand == "ad"){
           firstCompare = true;
-          document.getElementById("fakepopup_data_main").innerHTML += "<h1>This is AD data: </h1><br>"; //header for each brand, when we find our first match - display the brand since product is there (but only once)
+          document.getElementById("fakepopup_data_main").innerHTML += "<h1><img style ='height:0.8em;vertical-align:middle;width:auto;' src = 'static/imgs/adorama.jpg'/></h1><br>"; //header for each brand, when we find our first match - display the brand since product is there (but only once)
         }
-        document.getElementById("fakepopup_data_main").innerHTML += compareUUID;
-        document.getElementById("fakepopup_data_main").innerHTML += "<br>";
+        // console.log(compareUUID.length);
+        for(var j = 1; j < compareUUID.length;j++){
+          // console.log(compareUUID[j]);
+          if(j == 1){
+            document.getElementById("fakepopup_data_main").innerHTML += "<li><h4>" + compareUUID[j] + "</h4></li>";
+          }
+          if(j == 2){
+            document.getElementById("fakepopup_data_main").innerHTML += "<li>Price: " + compareUUID[j] + "</li>";
+          }
+          if(j != compareUUID.length - 1 && j != 1 && j != 2){
+            console.log("Curr Value is: " + compareUUID[i])
+            document.getElementById("fakepopup_data_main").innerHTML += "<li>" + compareUUID[j] + "</li>";
+          }
+          if(j == compareUUID.length - 1){
+            document.getElementById("fakepopup_data_main").innerHTML += "<li><a class = 'popup_link' href=" + compareUUID[j] + ">Link to Product!</a><li>";
+          }
+        }
+        //document.getElementById("fakepopup_data_main").innerHTML += compareUUID;
     }
   }
+
   //dataArray.forEach(element => console.log(element));
 //  console.log(dataArray);
 //  console.log("revealingData");
@@ -402,5 +403,30 @@ function hideDisplayInfo(){
 
 
 </script>
+
+{% comment %}<!-- document.getElementById("fakepopup_data_main").innerHTML += "<table class = 'table-header' border='1'> \
+<thead> \
+<tr id = 'bestbuy_table'> \
+  <th>BestBuy Product Name</th> \
+  <th>BestBuy Price</th> \
+  <th>BestBuy Product Status</th> \
+  <th>BestBuy Ratings</th> \
+  <th>BestBuy Number of Reviews</th> \
+  <th>BestBuy URL</th> \
+  <th>BestBuy UUID</th> \
+</tr> \
+</thead> \
+<tr> \
+<tr class = 'table-header' id = 'bestbuy_table'> \
+  <td>"+compareUUID[1]+"</td> \
+  <td>"+compareUUID[2]+"</td> \
+  <td>"+compareUUID[3]+"</td> \
+  <td>"+compareUUID[4]+"</td> \
+  <td>"+compareUUID[5]+"</td> \
+  <td><a href="+compareUUID[6]+">Link</a></td> \
+  <td>"+compareUUID[0]+"</td> \
+</tr> \
+</table>"; -->
+{% endcomment %}
 
 </html>
