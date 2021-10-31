@@ -267,6 +267,9 @@ form.search_form button
 	color: #bfbfbf;
 }
 
+.details{
+	transition-duration: 2s;
+}
 
 .notifbutton{
 	height: 80px;

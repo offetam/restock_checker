@@ -96,180 +96,6 @@
         EXIT <i class="fa fa-times" aria-hidden="true"></i>
       </div>
   </div>
-  {% comment %}
-    <!-- {% for x in all_enteries %}
-    <h1>{{x.UUID}}</h1>
-    {% for product in bb_product %}
-      {% if x.UUID == product.BestBuy_UUID.UUID %}
-	    <h1 style = "margin-top: 1rem" onclick = "javascript:alert('event has been triggered');">BestBuy
-			<img src='{% static "/imgs/bestbuy.png" %}'>
-      </h1>
-    <table class = "table-header" border="1">
-      <thead>
-        <tr id = "bestbuy_table">
-            <th>BestBuy Product Name</th>
-            <th>BestBuy Price</th>
-            <th>BestBuy SKU</th>
-            <th>BestBuy Product Status</th>
-            <th>BestBuy Ratings</th>
-            <th>BestBuy Number of Reviews</th>
-            <th>BestBuy ModelNumber</th>
-            <th>BestBuy URL</th>
-            <th>BestBuy UUID</th>
-        </tr>
-      </thead>
-        <tr class = "table-header" id = "bestbuy_table">
-            <td class = "td-product-header" onclick = "javascript:alert('A Pop up of product info would show.');">{{product.BestBuy_UUID.product}}</td>
-            <td>{{product.BestBuy_price}}</td>
-            <td>{{product.BestBuy_SKU}}</td>
-            <td>{{product.BestBuy_Status}}</td>
-            <td>{{product.BestBuy_Ratings}}</td>
-            <td>{{product.BestBuy_Review}}</td>
-            <td>{{product.BestBuy_ModelNumber}}</td>
-            <td><a href={{product.BestBuy_URL}}>Link</a></td>
-            <td>{{product.BestBuy_UUID.UUID}}</td>
-        </tr>
-        </table>
-          {% endif %}
-        {% endfor %}
-        {% for product in mc_product %}
-          {% if x.UUID == product.MicroCenter_UUID.UUID %}
-        <table class = "table-header" border="1">
-          <thead>
-            <tr>
-                <th>MicroCenter Product Name</th>
-                <th>MicroCenter Price</th>
-                <th>MicroCenter SKU</th>
-                <th>MicroCenter ModelNumber</th>
-                <th>MicroCenter URL</th>
-                <th>MicroCenter UUID</th>
-            </tr>
-          </thead>
-            <tr>
-              <td>{{product.MicroCenter_UUID.product}}</td>
-              <td>{{product.MicroCenter_Price}}</td>
-              <td>{{product.MicroCenter_SKU}}</td>
-              <td>{{product.MicroCenter_ModelNumber}}</td>
-              <td><a href={{product.MicroCenter_URL}}>Link</a></td>
-              <td>{{product.MicroCenter_UUID.UUID}}</td>
-          </tr>
-        </table>
-          {% endif %}
-        {% endfor %}
-    {% for product in gs_product %}
-      {% if x.UUID == product.Gamestop_UUID.UUID %}
-        <table class = "table-header" border="1">
-        <thead>
-          <tr>
-            <th>Gamestop Product Name</th>
-            <th>Gamestop Price</th>
-            <th>GameStop SKU</th>
-            <th>Gamestop Product Status</th>
-            <th>Gamestop Ratings</th>
-            <th>Gamestop Number of Reviews</th>
-            <th>Gamestop URL</th>
-            <th>Gamestop UUID</th>
-          </tr>
-        </thead>
-        <tr>
-
-          <td>{{product.Gamestop_UUID.product}}</td>
-          <td>{{product.Gamestop_price}}</td>
-          <td>{{product.Gamestop_SKU}}</td>
-          <td>{{product.Gamestop_Status}}</td>
-          <td>{{product.Gamestop_Ratings}}</td>
-          <td>{{product.Gamestop_Reviews}}</td>
-          <td><a href={{product.Gamestop_URL}}>Link</a></td>
-          <td>{{product.Gamestop_UUID.UUID}}</td>
-        </tr>
-      </table>
-      {% endif %}
-    {% endfor %}
-    {% for product in bh_product %}
-      {% if x.UUID == product.BH_UUID.UUID %}
-        <table class = "table-header" border="1">
-        <thead>
-          <tr>
-            <th>BH Product Name</th>
-            <th>BH Price</th>
-            <th>BH SKU</th>
-            <th>BH Product Status</th>
-            <th>BH Ratings</th>
-            <th>BH Number of Reviews</th>
-            <th>BH URL</th>
-            <th>BH UUID</th>
-          </tr>
-        </thead>
-          <tr>
-            <td>{{product.BH_UUID.product}}</td>
-            <td>{{product.BH_price}}</td>
-            <td>{{product.BH_SKU}}</td>
-            <td>{{product.BH_Status}}</td>
-            <td>{{product.BH_Ratings}}</td>
-            <td>{{product.BH_Reviews}}</td>
-            <td><a href={{product.BH_URL}}>Link</a></td>
-            <td>{{product.BH_UUID.UUID}}</td>
-        </tr>
-    </table>
-    {% endif %}
-  {% endfor %}
-  {% for product in ad_product %}
-    {% if x.UUID == product.AD_UUID.UUID %}
-      <table class = "table-header" border="1">
-      <thead>
-        <tr>
-          <th>AD Product Name</th>
-          <th>AD Price</th>
-          <th>AD SKU</th>
-          <th>AD Product Status</th>
-          <th>AD Ratings</th>
-          <th>AD Number of Reviews</th>
-          <th>AD URL</th>
-          <th>AD UUID</th>
-        </tr>
-      </thead>
-        <tr>
-            <td>{{product.AD_UUID.product}}</td>
-            <td>{{product.AD_price}}</td>
-            <td>{{product.AD_SKU}}</td>
-            <td>{{product.AD_Status}}</td>
-            <td>{{product.AD_Ratings}}</td>
-            <td>{{product.AD_Reviews}}</td>
-            <td><a href={{product.AD_URL}}>Link</a></td>
-            <td>{{product.AD_UUID.UUID}}</td>
-        </tr>
-    </table>
-    {% endif %}
-  {% endfor %}
-  {% for product in amzn_product %}
-    {% if x.UUID == product.Amazon_UUID.UUID %}
-      <table class = "table-header" border="1">
-      <thead>
-        <tr>
-          <th>Amazon Product Name</th>
-          <th>Amazon Price</th>
-          <th>Amazon SKU</th>
-          <th>Amazon Product Status</th>
-          <th>Amazon Rating</th>
-          <th>Amazon Number of Review</th>
-          <th>Amazon URL</th>
-          <th>Amazon UUID</th>
-        </tr>
-      </thead>
-      <tr>
-          <td>{{product.Amazon_UUID.product}}</td>
-          <td>{{product.Amazon_price}}</td>
-          <td>{{product.Amazon_SKU}}</td>
-          <td>{{product.Amazon_Status}}</td>
-          <td>{{product.Amazon_Ratings}}</td>
-          <td>{{product.Amazon_Reviews}}</td>
-          <td><a href={{product.Amazon_URL}}>Link<a href=</td>
-          <td>{{product.Amazon_UUID.UUID}}</td>
-      </tr>
-  </table>
-  {% endif %}
-{% endfor %}
-{% endfor %} -->{% endcomment %}
 </body>
 <script type = "text/javascript">
 /* */
@@ -336,7 +162,7 @@ function displayInfo(product_id, productName, bestbuyData){
       //console.log(compareUUID[0]);
       if(product_id == compareUUID[0]){
         if(firstCompare == false && brand == "bestbuy"){ //if statements to check brand name and if it's the first comparison of the brand (to be modified/cleaned up later)
-          firstCompare = true;
+          firstCompare = true; //set first compare to true so other brands arent checked
           //document.getElementById("fakepopup_data_main").innerHTML += "<h1 style = 'font-family: sans-sarif;'> BestBuy <img style ='height:0.8em;vertical-align:middle;width:auto;' src = '/static/imgs/bestbuy.png'/></h1><br>"; //header for each brand, when we find our first match - display the brand since product is there (but only once)
           document.getElementById("fakepopup_data_main").innerHTML += "<h1><img style ='height:0.8em;vertical-align:middle;width:auto;' src = 'https://pisces.bbystatic.com/image2/BestBuy_US/Gallery/BestBuy_Logo_2020-190616.png'/></h1><br>";
           // document.getElementById("fakepopup_data_main").innerHTML += '<img src = "/static/imgs/bestbuy.png"/>';
@@ -371,10 +197,15 @@ function displayInfo(product_id, productName, bestbuyData){
               var noRatings = "<li> No ratings found. </li>";
               document.getElementById("fakepopup_data_main").innerHTML += "<details><summary>Expand for more details</summary><li>Price: " + compareUUID[2] + "</li><li>" + compareUUID[3] + "</li>"+  noRatings + "<li><a class = 'popup_link' href="+ compareUUID[6] + " target='_blank'>[Link to Product]</a></li></details>";
             }else{
-              document.getElementById("fakepopup_data_main").innerHTML += "<details><summary>Expand for more details</summary><li>Price: " + compareUUID[2] + "</li><li>" + compareUUID[3] + "</li><li> Rating (Out of 5): " + compareUUID[4] + " and Number of Reviews: " + compareUUID[5] +"</li><li><a class = 'popup_link' href="+ compareUUID[6] + " target='_blank'>[Link to Product]</a></li></details>";
+              //console.log(compareUUID[2])
+              if(compareUUID[2] == 0.00){
+                document.getElementById("fakepopup_data_main").innerHTML += "<details><summary>Expand for more details</summary><li><li>" + compareUUID[3] + "</li><li> Rating (Out of 5): " + compareUUID[4] + " and Number of Reviews: " + compareUUID[5] +"</li><li><a class = 'popup_link' href="+ compareUUID[6] + " target='_blank'>[Link to Product]</a></li></details>";
+              }else{
+                  document.getElementById("fakepopup_data_main").innerHTML += "<details><summary>Expand for more details</summary><li>Price: " + compareUUID[2] + "</li><li>" + compareUUID[3] + "</li><li> Rating (Out of 5): " + compareUUID[4] + " and Number of Reviews: " + compareUUID[5] +"</li><li><a class = 'popup_link' href="+ compareUUID[6] + " target='_blank'>[Link to Product]</a></li></details>";
+              }
             }
         }
-        // for(var j = 2; j < compareUUID.length;j++){
+        // for(var j = 2; j < compareUUID.length;j++){ OLD Code
         //   // if(j == 1){
         //   //   document.getElementById("fakepopup_data_main").innerHTML += "<li><h4>" + compareUUID[j] + "</h4></li>";
         //   // }
@@ -405,6 +236,10 @@ function displayInfo(product_id, productName, bestbuyData){
 //  console.log("revealingData");
 }
 
+//Grab details element
+const details = document.querySelectorAll("details");
+
+
 function hideDisplayInfo(){
   document.getElementById("fakepopup_data").style.display = "none";
   //console.log("InnerHTML: " + checker.innerHTML);
@@ -413,30 +248,5 @@ function hideDisplayInfo(){
   //console.log("hiding....");
 }
 </script>
-
-{% comment %}<!-- document.getElementById("fakepopup_data_main").innerHTML += "<table class = 'table-header' border='1'> \
-<thead> \
-<tr id = 'bestbuy_table'> \
-  <th>BestBuy Product Name</th> \
-  <th>BestBuy Price</th> \
-  <th>BestBuy Product Status</th> \
-  <th>BestBuy Ratings</th> \
-  <th>BestBuy Number of Reviews</th> \
-  <th>BestBuy URL</th> \
-  <th>BestBuy UUID</th> \
-</tr> \
-</thead> \
-<tr> \
-<tr class = 'table-header' id = 'bestbuy_table'> \
-  <td>"+compareUUID[1]+"</td> \
-  <td>"+compareUUID[2]+"</td> \
-  <td>"+compareUUID[3]+"</td> \
-  <td>"+compareUUID[4]+"</td> \
-  <td>"+compareUUID[5]+"</td> \
-  <td><a href="+compareUUID[6]+">Link</a></td> \
-  <td>"+compareUUID[0]+"</td> \
-</tr> \
-</table>"; -->
-{% endcomment %}
 
 </html>
