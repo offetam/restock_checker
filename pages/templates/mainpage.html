@@ -349,7 +349,7 @@ function displayInfo(product_id, productName, bestbuyData){
         }
         if(firstCompare == false && brand == "mc"){
           firstCompare = true;
-          document.getElementById("fakepopup_data_main").innerHTML += "<h1><img style ='height:0.8em;vertical-align:middle;width:auto;' src = 'static/imgs/microcenter.png'/></h1><br>"; //header for each brand, when we find our first match - display the brand since product is there (but only once)
+          document.getElementById("fakepopup_data_main").innerHTML += "<summary><h1><img style ='height:0.8em;vertical-align:middle;width:auto;' src = 'static/imgs/microcenter.png'/></h1></summary>"; //header for each brand, when we find our first match - display the brand since product is there (but only once)
         }
         if(firstCompare == false && brand == "amzn"){
           firstCompare = true;
@@ -363,29 +363,39 @@ function displayInfo(product_id, productName, bestbuyData){
           firstCompare = true;
           document.getElementById("fakepopup_data_main").innerHTML += "<h1><img style ='height:0.8em;vertical-align:middle;width:auto;' src = 'static/imgs/adorama.jpg'/></h1><br>"; //header for each brand, when we find our first match - display the brand since product is there (but only once)
         }
-        // console.log(compareUUID.length);
-        for(var j = 2; j < compareUUID.length;j++){
-          // if(j == 1){
-          //   document.getElementById("fakepopup_data_main").innerHTML += "<li><h4>" + compareUUID[j] + "</h4></li>";
-          // }
-          if(j == 2){
-            document.getElementById("fakepopup_data_main").innerHTML += "<li>Price: " + compareUUID[j] + "</li>";
-          }
-          if(j != compareUUID.length - 1 && j != 1 && j != 2 && j != 4 && j != 5){
-            document.getElementById("fakepopup_data_main").innerHTML += "<li>" + compareUUID[j] + "</li>";
-          }
-          if(compareUUID.length > 4 && j == 4){
+        console.log(compareUUID.length);
+        if(compareUUID.length == 4){
+            document.getElementById("fakepopup_data_main").innerHTML += "<details><li>Price: " + compareUUID[2] + "</li><li><a class = 'popup_link' href="+ compareUUID[3] + " target='_blank'>[Link to Product]</a></li></details>"; //hard code for details - it auto closes the tag for some reason
+        }else{
             if(compareUUID[5] == 0){
-                document.getElementById("fakepopup_data_main").innerHTML += "<li> No ratings found. </li>";
+              var noRatings = "<li> No ratings found. </li>";
+              document.getElementById("fakepopup_data_main").innerHTML += "<details><li>Price: " + compareUUID[2] + "</li><li>" + compareUUID[3] + "</li>"+  noRatings + "<li><a class = 'popup_link' href="+ compareUUID[6] + " target='_blank'>[Link to Product]</a></li></details>";
             }else{
-                document.getElementById("fakepopup_data_main").innerHTML += "<li> Rating (Out of 5): " + compareUUID[j] + " and Number of Reviews: " + compareUUID[5] + "</li>";
+              document.getElementById("fakepopup_data_main").innerHTML += "<details><li>Price: " + compareUUID[2] + "</li><li>" + compareUUID[3] + "</li><li> Rating (Out of 5): " + compareUUID[4] + " and Number of Reviews: " + compareUUID[5] +"</li><li><a class = 'popup_link' href="+ compareUUID[6] + " target='_blank'>[Link to Product]</a></li></details>";
             }
-            j++;
-          }
-          if(j == compareUUID.length - 1){
-            document.getElementById("fakepopup_data_main").innerHTML += "<li><a class = 'popup_link' href=" + compareUUID[j] + " target='_blank'>[Link to Product]</a></li>";
-          }
         }
+        // for(var j = 2; j < compareUUID.length;j++){
+        //   // if(j == 1){
+        //   //   document.getElementById("fakepopup_data_main").innerHTML += "<li><h4>" + compareUUID[j] + "</h4></li>";
+        //   // }
+        //   if(j == 2){
+        //     document.getElementById("fakepopup_data_main").innerHTML += "<li>Price: " + compareUUID[j] + "</li>";
+        //   }
+        //   if(j != compareUUID.length - 1 && j != 1 && j != 2 && j != 4 && j != 5){
+        //     document.getElementById("fakepopup_data_main").innerHTML += "<li>" + compareUUID[j] + "</li>";
+        //   }
+        //   if(compareUUID.length > 4 && j == 4){
+        //     if(compareUUID[5] == 0){
+        //         document.getElementById("fakepopup_data_main").innerHTML += "<li> No ratings found. </li>";
+        //     }else{
+        //         document.getElementById("fakepopup_data_main").innerHTML += "<li> Rating (Out of 5): " + compareUUID[j] + " and Number of Reviews: " + compareUUID[5] + "</li></details>";
+        //     }
+        //     j++;
+        //   }
+        //   if(j == compareUUID.length - 1){
+        //     document.getElementById("fakepopup_data_main").innerHTML += "<li><a class = 'popup_link' href=" + compareUUID[j] + " target='_blank'>[Link to Product]</a></li>";
+        //   }
+        // }
         //document.getElementById("fakepopup_data_main").innerHTML += compareUUID;
     }
   }
