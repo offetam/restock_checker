@@ -231,7 +231,8 @@ form.search_form button
 
 .popup_data_info{
 	position: absolute;
-	left: 30%;
+	left: 50%;
+	transform: translate(-50%, 0);
 	top: 2.5%;
 	width: 100%;
 	max-width: 900px;
@@ -242,7 +243,6 @@ form.search_form button
 	height: 1100px;
 	border-radius: 5px;
 	border: 1.5px solid #bfbfbf;
-
 }
 
 .popup_data_info li{
