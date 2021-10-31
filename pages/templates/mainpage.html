@@ -93,7 +93,7 @@
       </div>
 
       <div class = "exit_popup" onclick = "hideDisplayInfo();return false;">
-        EXIT
+        EXIT <i class="fa fa-times" aria-hidden="true"></i>
       </div>
   </div>
   {% comment %}
@@ -306,7 +306,7 @@ var checker = document.getElementById("fakepopup_data_main");
 {% endfor %}
 
 {% for product in ad_product %}//push ad data to the array
-  adArray.push('{{product.AD_UUID.UUID.strip}}, {{product.AD_UUID.product}}, {{product.AD_price}}, {{product.AD_SKU}}, {{product.AD_Status}}, {{product.AD_Ratings}}, {{product.AD_Reviews}}, {{product.AD_URL}}')
+  adArray.push('{{product.AD_UUID.UUID.strip}}, {{product.AD_UUID.product}}, {{product.AD_price}}, {{product.AD_Status}}, {{product.AD_Ratings}}, {{product.AD_Reviews}}, {{product.AD_URL}}')
 {% endfor %}
 
 //note that console.log is a print function for javascript.
@@ -389,7 +389,6 @@ function displayInfo(product_id, productName, bestbuyData){
 //  console.log("revealingData");
 }
 
-
 function hideDisplayInfo(){
   document.getElementById("fakepopup_data").style.display = "none";
   //console.log("InnerHTML: " + checker.innerHTML);
@@ -397,11 +396,6 @@ function hideDisplayInfo(){
   console.log("Clearing values...");
   //console.log("hiding....");
 }
-
-
-
-
-
 </script>
 
 {% comment %}<!-- document.getElementById("fakepopup_data_main").innerHTML += "<table class = 'table-header' border='1'> \

@@ -229,6 +229,13 @@ form.search_form button
 	cursor: pointer;
 }
 
+.exit_popup{
+	width: 75px;
+	border-radius: 5px;
+	border: 3px solid #bfbfbf;
+	background-color: white;
+}
+
 .popup_data_info{
 	position: absolute;
 	left: 50%;
