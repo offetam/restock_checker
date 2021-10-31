@@ -365,19 +365,21 @@ function displayInfo(product_id, productName, bestbuyData){
         }
         // console.log(compareUUID.length);
         for(var j = 2; j < compareUUID.length;j++){
-          // console.log(compareUUID[j]);
           // if(j == 1){
           //   document.getElementById("fakepopup_data_main").innerHTML += "<li><h4>" + compareUUID[j] + "</h4></li>";
           // }
           if(j == 2){
             document.getElementById("fakepopup_data_main").innerHTML += "<li>Price: " + compareUUID[j] + "</li>";
           }
-          if(j != compareUUID.length - 1 && j != 1 && j != 2){
-            console.log("Curr Value is: " + compareUUID[i])
+          if(j != compareUUID.length - 1 && j != 1 && j != 2 && j != 4 && j != 5){
             document.getElementById("fakepopup_data_main").innerHTML += "<li>" + compareUUID[j] + "</li>";
           }
+          if(compareUUID.length > 4 && j == 4){
+            document.getElementById("fakepopup_data_main").innerHTML += "<li> Rating (Out of 5): " + compareUUID[j] + " and Number of Reviews: " + compareUUID[5] + "</li>";
+            j++;
+          }
           if(j == compareUUID.length - 1){
-            document.getElementById("fakepopup_data_main").innerHTML += "<li><a class = 'popup_link' href=" + compareUUID[j] + ">Link to Product!</a><li>";
+            document.getElementById("fakepopup_data_main").innerHTML += "<li><a class = 'popup_link' href=" + compareUUID[j] + ">[Link to Product]</a></li>";
           }
         }
         //document.getElementById("fakepopup_data_main").innerHTML += compareUUID;

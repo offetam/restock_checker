@@ -247,9 +247,12 @@ form.search_form button
 	color: #bfbfbf;
 	font-family: sans-serif;
 	font-weight: bold;
-	height: 1100px;
-	border-radius: 5px;
-	border: 1.5px solid #bfbfbf;
+	height: 950px;
+	border-radius: 7px 7px 7px 7px;
+	border-top: .5rem solid #bfbfbf;
+	border-left: .5rem solid #bfbfbf;
+	border-right: .5rem solid #bfbfbf;
+	border-bottom: .5rem solid #bfbfbf;
 }
 
 .popup_data_info li{
