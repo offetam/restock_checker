@@ -33,7 +33,8 @@ def fixStock(info):
         if info[x] == 1:
             info[x] = "In Stock"
     return info
-            
+
+#django method           
 def plot(request, name):
     input_file = 'Trends.csv'
     df = pd.read_csv(input_file)
@@ -51,8 +52,8 @@ def plot(request, name):
 
     #gets stock info based on product
     stock = df.loc[apples_indices_list[0]].tolist()
-    stock.pop(0)
-    stock.pop(0)
+    stock.pop(0) #get rid of product name from the list
+    stock.pop(0) #get rid of uuid from the list
     stock = fixStock(stock)
 
     fig, ax = plt.figure(figsize=(10, 8))
