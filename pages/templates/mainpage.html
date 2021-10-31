@@ -84,7 +84,6 @@
     {% endfor %} -->
     {% endcomment %}
       {% endfor %}
-
   </form>
   </div>
 
@@ -111,7 +110,7 @@ var amznArray = [];
 
 var bestbuyimg = "/static/imgs/bestbuy.png";
 
-var checker = document.getElementById("fakepopup_data_main");
+var checker = document.getElementById("fakepopup_data_main"); //grab the popupmain element
 {% for bproduct in bb_product %} //push bestbuy data to the array
   bestbuyArray.push('{{bproduct.BestBuy_UUID.UUID.strip}}, {{bproduct.BestBuy_UUID.product}}, {{bproduct.BestBuy_price}}, {{bproduct.BestBuy_Status}}, {{bproduct.BestBuy_Ratings}}, {{bproduct.BestBuy_Review}}, {{bproduct.BestBuy_URL}}')
 {% endfor %}
@@ -140,8 +139,7 @@ var checker = document.getElementById("fakepopup_data_main");
 
 function displayInfo(product_id, productName, bestbuyData){
   //console.log(product_id)
-  document.getElementById("fakepopup_data").style.display = "block";
-  document.getElementById("fakepopup_data_main").value = product_id;
+  document.getElementById("fakepopup_data").style.display = "block"; //display the popup
 
   checkArrayHelper(bestbuyArray, product_id, "bestbuy"); //call thru the helper function to display data checking each brand.
   checkArrayHelper(bharray, product_id, "bh");
@@ -234,10 +232,29 @@ function displayInfo(product_id, productName, bestbuyData){
   //dataArray.forEach(element => console.log(element));
 //  console.log(dataArray);
 //  console.log("revealingData");
-}
+
+/* This code is used for preventing more than 1 <detail> from being expanded -Quentin Roy
+
+https://stackoverflow.com/questions/16751345/automatically-close-all-the-other-details-tags-after-opening-a-specific-detai
+
+*/
 
 //Grab details element
 const details = document.querySelectorAll("details");
+
+// Add the onclick listeners.
+details.forEach((targetDetail) => {
+  targetDetail.addEventListener("click", () => {
+    // Close all the details that are not targetDetail.
+    details.forEach((detail) => {
+      if (detail !== targetDetail) {
+        detail.removeAttribute("open");
+      }
+    });
+  });
+});
+}
+
 
 
 function hideDisplayInfo(){
