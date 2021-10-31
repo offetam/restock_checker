@@ -247,7 +247,7 @@ form.search_form button
 	color: #bfbfbf;
 	font-family: sans-serif;
 	font-weight: bold;
-	height: 950px;
+	overflow: auto;
 	border-radius: 7px 7px 7px 7px;
 	border-top: .5rem solid #bfbfbf;
 	border-left: .5rem solid #bfbfbf;
