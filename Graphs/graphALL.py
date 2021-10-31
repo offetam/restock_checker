@@ -70,6 +70,7 @@ def plot(request, name):
     canvas.print_png(response)
     return response
 
+#2nd method
 '''   
 date = getDates(df)
 Product_name = getProductNames(df)
@@ -78,7 +79,7 @@ total_product = len(df.index)
 half = len(df.index)/2
 #print(half)
 
-for x in range(1):
+for x in range(total_product):
     index = df.index
     condition = df['Product_Name'] == Product_name[x]
     apple = index[condition]
