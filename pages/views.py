@@ -9,6 +9,10 @@ from hashlib import blake2b
 from django.contrib import messages
 from django.core.mail import send_mail
 
+import matplotlib.pyplot as plt
+import base64
+from io import BytesIO
+
 # Create your views here.
 def home_view(request):
     context ={}
@@ -39,13 +43,18 @@ def home_view(request):
                 combin_bh= combin_bh | BH.objects.all().filter(BH_UUID=i).exclude(BH_SKU="")
                 combin_ad= combin_ad | AD.objects.all().filter(AD_UUID=i).exclude(AD_SKU="")
                 combin_amzn = combin_amzn | Amazon.objects.all().filter(Amazon_UUID=i).exclude(Amazon_SKU="")
+            #test = BestBuy.objects.all()
+            #x =[x.BestBuy_UUID.product for x in combin_bb]
+            #y =[y.BestBuy_price for y in combin_bb]
+            #chart = get_plot(x,y)
             context = {'all_enteries' : all_enteries,
             'bb_product' : combin_bb,
             'mc_product' : combin_mc,
             'gs_product' : combin_gs,
             'bh_product' : combin_bh,
             'ad_product' : combin_ad,
-            'amzn_product' : combin_amzn}
+            'amzn_product' : combin_amzn,
+            }
             
         else:
             all_enteries = products.objects.all() #just gets all products if there's no input
@@ -194,3 +203,26 @@ def email_notify(Storename, arr):
             [user_email],
             fail_silently=False)
     return 0
+"""
+def get_graph():
+    buffer = BytesIO()
+    plt.savefig(buffer,format='png')
+    buffer.seek(0)
+    image_png = buffer.getvalue()
+    graph = base64.b64encode(image_png)
+    graph = graph.decode('utf-8')
+    buffer.close()
+    return graph
+
+def get_plot(x,y):
+    plt.switch_backend('AGG')
+    plt.figure(figsize=(20,10))
+    plt.title('idk')
+    plt.plot(x,y)
+    plt.xticks(rotation=45)
+    plt.xlabel('item')
+    plt.ylabel('price')
+    plt.tight_layout()
+    graph = get_graph()
+    return graph
+"""

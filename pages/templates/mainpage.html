@@ -86,7 +86,6 @@
       {% endfor %}
   </form>
   </div>
-
   <div class = "fakepopup_data" id = "fakepopup_data" style = "display: none; font-family: sans-serif;">
       <div class = "popup_data_info" id = "fakepopup_data_main" value = "">
 
@@ -96,6 +95,11 @@
         EXIT <i class="fa fa-times" aria-hidden="true"></i>
       </div>
   </div>
+  {% comment %}
+  {% if chart %}
+    <img src="data:image/png;base64, {{chart|safe}}" style="width:700px;height:800px">
+  {% endif %}
+  {% endcomment %}
 </body>
 <script type = "text/javascript">
 /* */
