@@ -364,11 +364,11 @@ function displayInfo(product_id, productName, bestbuyData){
           document.getElementById("fakepopup_data_main").innerHTML += "<h1><img style ='height:0.8em;vertical-align:middle;width:auto;' src = 'static/imgs/adorama.jpg'/></h1><br>"; //header for each brand, when we find our first match - display the brand since product is there (but only once)
         }
         // console.log(compareUUID.length);
-        for(var j = 1; j < compareUUID.length;j++){
+        for(var j = 2; j < compareUUID.length;j++){
           // console.log(compareUUID[j]);
-          if(j == 1){
-            document.getElementById("fakepopup_data_main").innerHTML += "<li><h4>" + compareUUID[j] + "</h4></li>";
-          }
+          // if(j == 1){
+          //   document.getElementById("fakepopup_data_main").innerHTML += "<li><h4>" + compareUUID[j] + "</h4></li>";
+          // }
           if(j == 2){
             document.getElementById("fakepopup_data_main").innerHTML += "<li>Price: " + compareUUID[j] + "</li>";
           }
