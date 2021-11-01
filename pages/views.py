@@ -23,7 +23,7 @@ def home_view(request):
             #context = {'all_enteries': all_enteries} #creates a dictionary with our enteries
             uids =[]
             for i in all_enteries:
-                print(i.UUID)
+                #print(i.UUID)
                 uids.append(i.UUID)
             combin_bb = BestBuy.objects.none()
             combin_mc = MicroCenter.objects.none()
@@ -73,7 +73,7 @@ def home_view(request):
             if(request.session['email']==''):
                 return redirect('/login')
             elif(Notification.objects.all().filter(email=request.session['email'], product__in=pro).count()>0):
-                print("NOOOOOOO")
+                break
             else:
                 temp = Notification.objects.create(email=request.session['email'], product = pro)
         if(len(temp_arr) != 0):
@@ -123,7 +123,7 @@ def login(request):
                 new_user.save()
                 messages.success(request,"User successfully created, Please go Verify your account", extra_tags="signup_success")
                 send_mail('Hello User',
-                'This is a test message',
+                'Hi ' + signup_email + ', \n Thank you for signing up with Restock. We hope we will meet your product needs. \n From, \n Restock Team',
                 'restockcheck123@gmail.com',
                 [signup_email],
                 fail_silently=False)
