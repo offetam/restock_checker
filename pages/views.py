@@ -9,6 +9,10 @@ from hashlib import blake2b
 from django.contrib import messages
 from django.core.mail import send_mail
 
+import matplotlib.pyplot as plt
+import base64
+from io import BytesIO
+
 # Create your views here.
 def home_view(request):
     context ={}
@@ -39,6 +43,10 @@ def home_view(request):
                 combin_bh= combin_bh | BH.objects.all().filter(BH_UUID=i).exclude(BH_SKU="")
                 combin_ad= combin_ad | AD.objects.all().filter(AD_UUID=i).exclude(AD_SKU="")
                 combin_amzn = combin_amzn | Amazon.objects.all().filter(Amazon_UUID=i).exclude(Amazon_SKU="")
+            #test = BestBuy.objects.all()
+            #x =[x.BestBuy_UUID.product for x in combin_bb]
+            #y =[y.BestBuy_price for y in combin_bb]
+            #chart = get_plot(x,y)
             context = {'all_enteries' : all_enteries,
             'bb_product' : combin_bb,
             'mc_product' : combin_mc,
