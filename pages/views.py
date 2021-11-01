@@ -9,10 +9,6 @@ from hashlib import blake2b
 from django.contrib import messages
 from django.core.mail import send_mail
 
-import matplotlib.pyplot as plt
-import base64
-from io import BytesIO
-
 # Create your views here.
 def home_view(request):
     context ={}
@@ -27,7 +23,7 @@ def home_view(request):
             #context = {'all_enteries': all_enteries} #creates a dictionary with our enteries
             uids =[]
             for i in all_enteries:
-                #print(i.UUID)
+                print(i.UUID)
                 uids.append(i.UUID)
             combin_bb = BestBuy.objects.none()
             combin_mc = MicroCenter.objects.none()
@@ -43,18 +39,13 @@ def home_view(request):
                 combin_bh= combin_bh | BH.objects.all().filter(BH_UUID=i).exclude(BH_SKU="")
                 combin_ad= combin_ad | AD.objects.all().filter(AD_UUID=i).exclude(AD_SKU="")
                 combin_amzn = combin_amzn | Amazon.objects.all().filter(Amazon_UUID=i).exclude(Amazon_SKU="")
-            #test = BestBuy.objects.all()
-            #x =[x.BestBuy_UUID.product for x in combin_bb]
-            #y =[y.BestBuy_price for y in combin_bb]
-            #chart = get_plot(x,y)
             context = {'all_enteries' : all_enteries,
             'bb_product' : combin_bb,
             'mc_product' : combin_mc,
             'gs_product' : combin_gs,
             'bh_product' : combin_bh,
             'ad_product' : combin_ad,
-            'amzn_product' : combin_amzn,
-            }
+            'amzn_product' : combin_amzn}
             
         else:
             all_enteries = products.objects.all() #just gets all products if there's no input
@@ -82,7 +73,7 @@ def home_view(request):
             if(request.session['email']==''):
                 return redirect('/login')
             elif(Notification.objects.all().filter(email=request.session['email'], product__in=pro).count()>0):
-                break
+                print("NOOOOOOO")
             else:
                 temp = Notification.objects.create(email=request.session['email'], product = pro)
         if(len(temp_arr) != 0):
@@ -132,7 +123,7 @@ def login(request):
                 new_user.save()
                 messages.success(request,"User successfully created, Please go Verify your account", extra_tags="signup_success")
                 send_mail('Hello User',
-                'Hi ' + signup_email + ', \n Thank you for signing up with Restock. We hope we will meet your product needs. \n From, \n Restock Team',
+                'This is a test message',
                 'restockcheck123@gmail.com',
                 [signup_email],
                 fail_silently=False)
@@ -203,26 +194,35 @@ def email_notify(Storename, arr):
             [user_email],
             fail_silently=False)
     return 0
-"""
-def get_graph():
-    buffer = BytesIO()
-    plt.savefig(buffer,format='png')
-    buffer.seek(0)
-    image_png = buffer.getvalue()
-    graph = base64.b64encode(image_png)
-    graph = graph.decode('utf-8')
-    buffer.close()
-    return graph
-
-def get_plot(x,y):
-    plt.switch_backend('AGG')
-    plt.figure(figsize=(20,10))
-    plt.title('idk')
-    plt.plot(x,y)
-    plt.xticks(rotation=45)
-    plt.xlabel('item')
-    plt.ylabel('price')
-    plt.tight_layout()
-    graph = get_graph()
-    return graph
-"""
+def update(StoreName,arr):
+    if(StoreName=='BestBuy'):
+        for i in range(len(arr[0])):
+            user_obj=BestBuy.objects.get(BestBuy_SKU=int(arr[1][i]))
+            if arr[2][i]>0:
+                user_obj.BestBuy_price=arr[2][i]
+            if len(arr[3][i])>0:    
+                user_obj.BestBuy_Status=arr[3][i]
+            user_obj.save()
+    if(StoreName=='Micro'):
+        for i in range(len(arr[0])):
+            user_obj=MicroCenter.objects.get(MicroCenter_SKU=int(arr[1][i]))
+            if arr[2][i]>0:
+                user_obj.MicroCenter_Price=arr[2][i]
+            user_obj.save()
+    if(StoreName=='Amazon'):
+        for i in range(len(arr[0])):
+            user_obj=Amazon.objects.get(Amazon_SKU=str(arr[1][i]))
+            if float(arr[2][i])>0:
+                user_obj.Amazon_price=arr[2][i]
+            if len(arr[3][i])>0:
+                user_obj.Amazon_Status=arr[3][i]
+            user_obj.save()
+    if(StoreName=='Gamestop'):
+        for i in range(len(arr[0])):
+            user_obj=Gamestop.objects.get(GameStop_SKU=str(arr[1][i]))
+            if arr[2][i]>0:
+                user_obj.Gamestop_price=arr[2][i]
+            if len(arr[3][i])>0:
+                user_obj.Gamestop_Status=arr[3][i]
+            user_obj.save()
+    return 0
