@@ -86,6 +86,7 @@
       {% endfor %}
   </form>
   </div>
+
   <div class = "fakepopup_data" id = "fakepopup_data" style = "display: none; font-family: sans-serif;">
       <div class = "popup_data_info" id = "fakepopup_data_main" value = "">
 
@@ -95,12 +96,14 @@
         EXIT <i class="fa fa-times" aria-hidden="true"></i>
       </div>
   </div>
-  {% comment %}
-  {% if chart %}
-    <img src="data:image/png;base64, {{chart|safe}}" style="width:700px;height:800px">
-  {% endif %}
-  {% endcomment %}
 </body>
+
+{% comment %}
+{% if chart %}
+  <img src="data:image/png;base64, {{chart|safe}}" style="width:700px;height:800px">
+{% endif %}
+{% endcomment %}
+
 <script type = "text/javascript">
 /* */
 // var bbuy_table = document.getElementById("bestbuy_table"); old test code. Ignore.
@@ -177,19 +180,19 @@ function displayInfo(product_id, productName, bestbuyData){
         }
         if(firstCompare == false && brand == "mc"){
           firstCompare = true;
-          document.getElementById("fakepopup_data_main").innerHTML += "<summary><h1><img style ='height:0.8em;vertical-align:middle;width:auto;' src = 'static/imgs/microcenter.png'/></h1></summary>"; //header for each brand, when we find our first match - display the brand since product is there (but only once)
+          document.getElementById("fakepopup_data_main").innerHTML += "<summary><h1><img style ='height:0.8em;vertical-align:middle;width:auto;' src = '../static/imgs/microcenter.png'/></h1></summary>"; //header for each brand, when we find our first match - display the brand since product is there (but only once)
         }
         if(firstCompare == false && brand == "amzn"){
           firstCompare = true;
-          document.getElementById("fakepopup_data_main").innerHTML += "<h1><img style ='height:0.8em;vertical-align:middle;width:auto;' src = 'static/imgs/amazon.png'/></h1><br>"; //header for each brand, when we find our first match - display the brand since product is there (but only once)
+          document.getElementById("fakepopup_data_main").innerHTML += "<h1><img style ='height:0.8em;vertical-align:middle;width:auto;' src = '../static/imgs/amazon.png'/></h1><br>"; //header for each brand, when we find our first match - display the brand since product is there (but only once)
         }
         if(firstCompare == false && brand == "gamestop"){
           firstCompare = true;
-          document.getElementById("fakepopup_data_main").innerHTML += "<h1><img style ='height:0.8em;vertical-align:middle;width:auto;' src = 'static/imgs/gamestop.png'/></h1><br>"; //header for each brand, when we find our first match - display the brand since product is there (but only once)
+          document.getElementById("fakepopup_data_main").innerHTML += "<h1><img style ='height:0.8em;vertical-align:middle;width:auto;' src = '../static/imgs/gamestop.png'/></h1><br>"; //header for each brand, when we find our first match - display the brand since product is there (but only once)
         }
         if(firstCompare == false && brand == "ad"){
           firstCompare = true;
-          document.getElementById("fakepopup_data_main").innerHTML += "<h1><img style ='height:0.8em;vertical-align:middle;width:auto;' src = 'static/imgs/adorama.jpg'/></h1><br>"; //header for each brand, when we find our first match - display the brand since product is there (but only once)
+          document.getElementById("fakepopup_data_main").innerHTML += "<h1><img style ='height:0.8em;vertical-align:middle;width:auto;' src = '../static/imgs/adorama.jpg'/></h1><br>"; //header for each brand, when we find our first match - display the brand since product is there (but only once)
         }
         console.log(compareUUID.length);
         if(compareUUID.length == 4){
