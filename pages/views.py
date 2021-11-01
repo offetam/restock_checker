@@ -9,10 +9,6 @@ from hashlib import blake2b
 from django.contrib import messages
 from django.core.mail import send_mail
 
-import matplotlib.pyplot as plt
-import base64
-from io import BytesIO
-
 # Create your views here.
 def home_view(request):
     context ={}
@@ -43,10 +39,6 @@ def home_view(request):
                 combin_bh= combin_bh | BH.objects.all().filter(BH_UUID=i).exclude(BH_SKU="")
                 combin_ad= combin_ad | AD.objects.all().filter(AD_UUID=i).exclude(AD_SKU="")
                 combin_amzn = combin_amzn | Amazon.objects.all().filter(Amazon_UUID=i).exclude(Amazon_SKU="")
-            #test = BestBuy.objects.all()
-            #x =[x.BestBuy_UUID.product for x in combin_bb]
-            #y =[y.BestBuy_price for y in combin_bb]
-            #chart = get_plot(x,y)
             context = {'all_enteries' : all_enteries,
             'bb_product' : combin_bb,
             'mc_product' : combin_mc,
@@ -86,7 +78,7 @@ def home_view(request):
                 temp = Notification.objects.create(email=request.session['email'], product = pro)
         if(len(temp_arr) != 0):
             send_mail('Notification',
-            'Hello '+request.session['email']+',\n The following items to be notified on: \n'+ temp_arr + "\n Thank you for signing up with Restock \n From,\n Restock Team",
+            'Hello '+request.session['email']+',\nThe following items to be notified on: \n'+ temp_arr + "\nThank you for signing up with Restock \nFrom,\nRestock Team",
             'restockcheck123@gmail.com',
             [request.session['email']],
             fail_silently=False)
@@ -131,7 +123,7 @@ def login(request):
                 new_user.save()
                 messages.success(request,"User successfully created, Please go Verify your account", extra_tags="signup_success")
                 send_mail('Hello User',
-                'Hi ' + signup_email + ', \n Thank you for signing up with Restock. We hope we will meet your product needs. \n From, \n Restock Team',
+                'Hi ' + signup_email + ', \nThank you for signing up with Restock. We hope we will meet your product needs. \nFrom, \nRestock Team',
                 'restockcheck123@gmail.com',
                 [signup_email],
                 fail_silently=False)
@@ -197,7 +189,7 @@ def email_notify(Storename, arr):
             user_email = k.get('email')
             #print(user_email)
             send_mail('IN STOCK NOW',
-            'Hi '+ user_email +', \n The following product is now available: \n'+ product_name+'\n Here is the link to the product: \n'+link_one + '\n Thanks you for choosing Restock. \n From, \n Restock Team',
+            'Hi '+ user_email +', \nThe following product is now available: \n'+ product_name+'\nHere is the link to the product: \n'+link_one + '\nThanks you for choosing Restock. \nFrom, \nRestock Team',
             'restockcheck123@gmail.com',
             [user_email],
             fail_silently=False)
