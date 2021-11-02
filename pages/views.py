@@ -148,6 +148,8 @@ def signout(request):
     return home_view(request)
 
 def notification(request):
+    if(request.session['email']==""):
+        return redirect('/login')
     if(request.method == 'GET'):
         remove_notify = request.GET.getlist('id')
         #print(remove_notify)
