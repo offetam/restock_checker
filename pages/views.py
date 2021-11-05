@@ -43,17 +43,24 @@ def home_view(request):
                 combin_bh= combin_bh | BH.objects.all().filter(BH_UUID=i).exclude(BH_SKU="")
                 combin_ad= combin_ad | AD.objects.all().filter(AD_UUID=i).exclude(AD_SKU="")
                 combin_amzn = combin_amzn | Amazon.objects.all().filter(Amazon_UUID=i).exclude(Amazon_SKU="")
-            #test = BestBuy.objects.all()
-            #x =[x.BestBuy_UUID.product for x in combin_bb]
-            #y =[y.BestBuy_price for y in combin_bb]
-            #chart = get_plot(x,y)
+            #Test Data for graphs
+            ###########################
+            test = BestBuy.objects.all()
+            x =[x.BestBuy_UUID.product for x in combin_bb]
+            y =[y.BestBuy_price for y in combin_bb]
+            graph_arr = []
+            graph_arr.append(get_plot(x,y))
+            graph_arr.append(get_plot(y,x))
+            chart = graph_arr
+            ###########################
             context = {'all_enteries' : all_enteries,
             'bb_product' : combin_bb,
             'mc_product' : combin_mc,
             'gs_product' : combin_gs,
             'bh_product' : combin_bh,
             'ad_product' : combin_ad,
-            'amzn_product' : combin_amzn}
+            'amzn_product' : combin_amzn,
+            'chart' : chart}
             
         else:
             all_enteries = products.objects.all() #just gets all products if there's no input
@@ -236,7 +243,7 @@ def update(StoreName,arr):
                 user_obj.Gamestop_Status=arr[3][i]
             user_obj.save()
     return 0
-"""
+
 def get_graph():
     buffer = BytesIO()
     plt.savefig(buffer,format='png')
@@ -258,4 +265,3 @@ def get_plot(x,y):
     plt.tight_layout()
     graph = get_graph()
     return graph
-"""
