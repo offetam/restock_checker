@@ -1,5 +1,5 @@
 from django.http.response import HttpResponseRedirect
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render,get_object_or_404
 from django.http import HttpResponse
 from pages.models import BestBuy, MicroCenter, Gamestop, BH, AD, Amazon
 from pages.models import User
@@ -305,3 +305,7 @@ def fixStock(info):
         if info[x] == 1:
             info[x] = "In Stock"
     return info
+
+def product_detail(request, UUID):
+    detail = get_object_or_404(products, UUID = UUID)
+    return render(request, 'details.html', {'detail' : detail})

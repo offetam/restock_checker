@@ -69,7 +69,8 @@
         </div>
         {% endif %}
         <div class = "product_name">
-        {{product.product}}
+          <div>{{product.product}}</div>
+          <a href="{% url 'product_detail' product.UUID %}">More Details Page</a>
         </div>
       </div>
       <div class = "testing-val" style = "display: none;"> <!-- to be used for displaying later? -->
