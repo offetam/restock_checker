@@ -16,7 +16,7 @@ h1{
 
 .wrapper{
 	display: grid;
-  grid-auto-rows: 200px;
+  grid-auto-rows: 450px;
   grid-template-columns: repeat(5, minmax(0, 1fr));
   grid-gap: 1rem;
   background-color: #F8F8FF;
@@ -75,7 +75,7 @@ body
 {
 	height: 80px;
 	width: 100%;
-	background-color:#b1cbbb;
+	background-color:#C0C0C0;
 	display:block;
 	/*background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4));*/
 	padding-left: 8%;
@@ -282,4 +282,8 @@ form.search_form button
 	border-radius: 5px;
 	width: 125px;
 	margin-bottom: 1rem;
+}
+
+.product_name{
+	margin-bottom: 1em;
 }
