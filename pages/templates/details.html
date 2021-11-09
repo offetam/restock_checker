@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href='{% static "/css/notification.css" %}'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"> <!-- css for the search icon (fa fa-search) -->
+    <title>Restock - Notification</title>
+</head>
+
+<div class = "header">
+		<div class = "inner_header">
+      <div class = "logo_container">
+        <a href="{% url 'home' %}"><img class = "logo_img" src = '{% static "/imgs/logo3.png" %}'></img></a>
+      </div>
+      <div class = "empty_container">
+        <!-- format for our li tags -->
+      </div>
+			<nav>
+			  <ul class = "navigation"> <!--  Header to use on other pages -->
+				  <li>
+            {% if request.session.email != '' %}
+                <a href="{% url 'signout' %}">Sign Out</a>
+            {% else %}
+                <a href="{% url 'login' %}"> Login </a>
+            {% endif %}
+					</li>
+          <li>
+            <a href="{% url 'notification' %}">Notification</a>
+          </li>
+				</ul>
+			</nav>
+
+		</div>
+
+</div>
+
+<body>
+    <div>
+        Name:
+        {{detail.product}}
+    </div>
+    <div>
+        UUID:
+        {{detail.UUID}}
+    </div>
+</body>
+</html>
