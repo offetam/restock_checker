@@ -12,6 +12,7 @@ from django.core.mail import send_mail
 import matplotlib.pyplot as plt
 import base64
 from io import BytesIO
+import pandas as pd
 
 # Create your views here.
 def home_view(request):
@@ -35,6 +36,11 @@ def home_view(request):
             combin_bh = BH.objects.none()
             combin_ad = AD.objects.none()
             combin_amzn = Amazon.objects.none()
+            file = 'Trends.csv'
+            df = pd.read_csv(file)
+            #print(df)
+            date = getDates(df)
+            graph_arr = []
             for i in uids:
                 combin_bb = combin_bb | BestBuy.objects.all().filter(BestBuy_UUID=i)
                 #combin_bb = combin_bb | all_bb.filter(BestBuy_UUID=i).exclude(BestBuy_SKU=0)
@@ -43,14 +49,29 @@ def home_view(request):
                 combin_bh= combin_bh | BH.objects.all().filter(BH_UUID=i).exclude(BH_SKU="")
                 combin_ad= combin_ad | AD.objects.all().filter(AD_UUID=i).exclude(AD_SKU="")
                 combin_amzn = combin_amzn | Amazon.objects.all().filter(Amazon_UUID=i).exclude(Amazon_SKU="")
+                apples_indices_list = df[df['UUID']=='452d2196-6dd2-4503-b4fd-bfa5c7a07e43'].index.values[0]
+                stock = df.loc[apples_indices_list].tolist()
+                stock.pop(0) #get rid of product name from the list
+                stock.pop(0) #get rid of uuid from the list
+                stock = fixStock(stock)
+                print(stock)
+                graph_arr.append(get_plot(date,stock))
+                print(i)
             #Test Data for graphs
             ###########################
-            test = BestBuy.objects.all()
-            x =[x.BestBuy_UUID.product for x in combin_bb]
-            y =[y.BestBuy_price for y in combin_bb]
-            graph_arr = []
-            graph_arr.append(get_plot(x,y))
-            graph_arr.append(get_plot(y,x))
+            #file = 'Trends.csv'
+            #df = pd.read_csv(file)
+            #print(df)
+            #date = getDates(df)
+            #print(date)
+            #apples_indices_list = df[df['UUID']=='452d2196-6dd2-4503-b4fd-bfa5c7a07e43'].index.values[0]
+            #stock = df.loc[apples_indices_list].tolist()
+            #stock.pop(0) #get rid of product name from the list
+            #stock.pop(0) #get rid of uuid from the list
+            #stock = fixStock(stock)
+            #print(stock)
+            #graph_arr = []
+            #graph_arr.append(get_plot(date,stock))
             chart = graph_arr
             ###########################
             context = {'all_enteries' : all_enteries,
@@ -256,12 +277,30 @@ def get_graph():
 
 def get_plot(x,y):
     plt.switch_backend('AGG')
-    plt.figure(figsize=(20,10))
+    plt.figure(figsize=(10,8))
     plt.title('idk')
     plt.plot(x,y)
-    plt.xticks(rotation=45)
+    plt.xticks(rotation=20)
     plt.xlabel('item')
     plt.ylabel('price')
     plt.tight_layout()
     graph = get_graph()
     return graph
+
+
+def getDates(df):
+    dates = []
+    for x in df.columns:
+        if x != 'UUID' and x != 'Product_Name':
+            dates.append(x)
+    return dates
+
+def fixStock(info):
+    for x in range(len(info)):
+        if info[x] == -1:
+            info[x] = "No Data"
+        if info[x] == 0:
+            info[x] = "Not in Stock"
+        if info[x] == 1:
+            info[x] = "In Stock"
+    return info
