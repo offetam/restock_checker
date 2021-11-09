@@ -52,11 +52,12 @@ def home_view(request):
                 combin_amzn = combin_amzn | Amazon.objects.all().filter(Amazon_UUID=i).exclude(Amazon_SKU="")
                 print(apples_indices_list)
                 stock = df.loc[apples_indices_list].tolist()
+                name = stock[0]
                 stock.pop(0) #get rid of product name from the list
                 stock.pop(0) #get rid of uuid from the list
                 stock = fixStock(stock)
                 #print(stock)
-                graph_arr.append(get_plot(date,stock))
+                graph_arr.append(get_plot(date,stock,name))
                 #print(i)
             chart = graph_arr
             context = {'all_enteries' : all_enteries,
@@ -260,10 +261,10 @@ def get_graph():
     buffer.close()
     return graph
 
-def get_plot(x,y):
+def get_plot(x,y,name):
     plt.switch_backend('AGG')
     plt.figure(figsize=(10,8))
-    plt.title('idk')
+    plt.title(name)
     plt.plot(x,y)
     plt.xticks(rotation=20)
     plt.xlabel('Date')
