@@ -44,10 +44,10 @@ h1{
 	font-weight: bold;
 }
 
-.box_text:hover{
+.temp:hover, .checker_temp:hover{
 	cursor: pointer;
 	text-decoration: underline;
-	color: #00BFFF;
+	text-decoration-color: #00BFFF;
 }
 
 img {

@@ -17,9 +17,12 @@
       {% for product in all_enteries %}
     <div class="box" style = "margin-top: 1rem;" value = {{product.UUID}}>
       <input type="checkbox" class = "notifcheck" id="product" name="id" value={{product.UUID}}>
-      <div class = "box_text" onclick = "displayInfo('{{product.UUID.strip}}','{{product.product.strip}}', '{{product.BestBuy_price}}');return false;">
-        <div>
+      <div class = "box_text">
+        <div class = "temp" onclick = "displayInfo('{{product.UUID.strip}}','{{product.product.strip}}', '{{product.BestBuy_price}}');return false;">
           <img src='{% static "/imgs/ps5.jpg" %}' style="width: 100%; height: auto;" alt = '{{product.product}}'></img>
+          <div class = "product_name">
+            {{product.product}}
+          </div>
         </div>
         <!-- {% if product.product == 'MSI GeForce RTX 3090 Gaming X Trio 24GB GDDR6X PCIe 4.0 Graphics Card'%}
         <div>
@@ -30,12 +33,9 @@
           <img src='{% static "/imgs/msi_3090_suprim.png" %}' style="width: 100%; height: auto;"></img>
         </div>
         {% endif %} -->
-        <div class = "product_name">
-          {{product.product}}
+        <div class = "checker_temp">
+          <a style = "text-decoration:none; color:#fff;" href="{% url 'product_detail' product.UUID %}">Expanded Details & Graphs</a>
         </div>
-      </div>
-      <div>
-        <a href="{% url 'product_detail' product.UUID %}">More Details Page</a>
       </div>
       <div class = "testing-val" style = "display: none;"> <!-- to be used for displaying later? -->
         {{product.UUID}}
@@ -93,6 +93,7 @@ var amznArray = [];
 var bestbuyimg = "/static/imgs/bestbuy.png";
 
 var checker = document.getElementById("fakepopup_data_main"); //grab the popupmain element
+
 {% for bproduct in bb_product %} //push bestbuy data to the array
   bestbuyArray.push('{{bproduct.BestBuy_UUID.UUID.strip}}, {{bproduct.BestBuy_UUID.product}}, {{bproduct.BestBuy_price}}, {{bproduct.BestBuy_Status}}, {{bproduct.BestBuy_Ratings}}, {{bproduct.BestBuy_Review}}, {{bproduct.BestBuy_URL}}')
 {% endfor %}
@@ -236,8 +237,6 @@ details.forEach((targetDetail) => {
   });
 });
 }
-
-
 
 function hideDisplayInfo(){
   document.getElementById("fakepopup_data").style.display = "none";
