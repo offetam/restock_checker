@@ -17,7 +17,7 @@ h1{
 .wrapper{
 	display: grid;
   grid-auto-rows: 450px;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   grid-gap: 1rem;
   background-color: #F8F8FF;
   color: #444;
