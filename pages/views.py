@@ -58,23 +58,7 @@ def home_view(request):
                 #print(stock)
                 graph_arr.append(get_plot(date,stock))
                 #print(i)
-            #Test Data for graphs
-            ###########################
-            #file = 'Trends.csv'
-            #df = pd.read_csv(file)
-            #print(df)
-            #date = getDates(df)
-            #print(date)
-            #apples_indices_list = df[df['UUID']=='452d2196-6dd2-4503-b4fd-bfa5c7a07e43'].index.values[0]
-            #stock = df.loc[apples_indices_list].tolist()
-            #stock.pop(0) #get rid of product name from the list
-            #stock.pop(0) #get rid of uuid from the list
-            #stock = fixStock(stock)
-            #print(stock)
-            #graph_arr = []
-            #graph_arr.append(get_plot(date,stock))
             chart = graph_arr
-            ###########################
             context = {'all_enteries' : all_enteries,
             'bb_product' : combin_bb,
             'mc_product' : combin_mc,
@@ -282,8 +266,8 @@ def get_plot(x,y):
     plt.title('idk')
     plt.plot(x,y)
     plt.xticks(rotation=20)
-    plt.xlabel('item')
-    plt.ylabel('price')
+    plt.xlabel('Date')
+    plt.ylabel('Availability')
     plt.tight_layout()
     graph = get_graph()
     return graph
