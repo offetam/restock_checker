@@ -1,9 +1,10 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
     <meta name="viewport" content="with=device-width, initial-scale = 1.0">
     <title>Restock</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href='{% static "/css/style.css" %}''>
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;700&display=swap" rel="stylesheet">
@@ -12,7 +13,7 @@
 
     <section class="header">
         <nav>
-            <a href="display.html"></a><img src="logo3.png" ></a>
+            <a href="display.html"></a><img src='{% static "imgs/logo3.png" %}' ></a>
             <div class = "nav-links">
                 <ul>
                     <li>
@@ -47,14 +48,14 @@
                 <p>The Graphics Cards that we track range from 3000 series cards 
                     <br>from NVIDIA and AMD Radeon 6000 Series graphics cards.
                 </p>
-                <img src="gpu3080.jpg">
+                <img src='{% static "imgs/gpu3080.jpg" %}'>
             </div>
             <div class = "items-col">
                 <h3>Consoles</h3>
                 <p>The hottest consoles that came out in 2020 <br>
                     the PlayStation 5 and the Xbox Series X
                 </p>
-                <img src="ps5.jpg">
+                <img src='{% static "imgs/ps5.jpg" %}'>
             </div>
         </div>
     </section>
@@ -65,19 +66,19 @@
         </h1>
         <div class="row2">
             <div class = "items-col2">
-                <img src="adorama.png" width="200">
+                <img src='{% static "imgs/adorama.png" %}' width="200">
             </div>
             <div class = "items-col2">
-                <img src="Amazon-logo.png" width="200">
+                <img src='{% static "imgs/Amazon-logo.png" %}' width="200">
             </div>
             <div class = "items-col2">
-                <img src="bestbuy.png" width="200">
+                <img src='{% static "imgs/bestbuy.png" %}' width="200">
             </div>
             <div class = "items-col2">
-                <img src="gamestop.PNG" width="200">
+                <img src='{% static "imgs/gamestop.PNG" %}' width="200">
             </div>
             <div class = "items-col2">
-                <img src="microcenter.PNG" width="200">
+                <img src='{% static "imgs/microcenter.PNG" %}' width="200">
             </div>
         </div>
     </section>
