@@ -14,6 +14,10 @@ import base64
 from io import BytesIO
 import pandas as pd
 
+def landing(request):
+    return render(request,'display.html')
+
+
 # Create your views here.
 def home_view(request):
     context ={}
@@ -42,7 +46,7 @@ def home_view(request):
             date = getDates(df)
             graph_arr = []
             for i in uids:
-                apples_indices_list = df[df['UUID']==i.strip('\r')].index.values[0]
+                indices_list = df[df['UUID']==i.strip('\r')].index.values[0]
                 combin_bb = combin_bb | BestBuy.objects.all().filter(BestBuy_UUID=i)
                 #combin_bb = combin_bb | all_bb.filter(BestBuy_UUID=i).exclude(BestBuy_SKU=0)
                 combin_mc= combin_mc | MicroCenter.objects.all().filter(MicroCenter_UUID=i).exclude(MicroCenter_SKU=0)
@@ -50,8 +54,7 @@ def home_view(request):
                 combin_bh= combin_bh | BH.objects.all().filter(BH_UUID=i).exclude(BH_SKU="")
                 combin_ad= combin_ad | AD.objects.all().filter(AD_UUID=i).exclude(AD_SKU="")
                 combin_amzn = combin_amzn | Amazon.objects.all().filter(Amazon_UUID=i).exclude(Amazon_SKU="")
-                print(apples_indices_list)
-                stock = df.loc[apples_indices_list].tolist()
+                stock = df.loc[indices_list].tolist()
                 name = stock[0]
                 stock.pop(0) #get rid of product name from the list
                 stock.pop(0) #get rid of uuid from the list
