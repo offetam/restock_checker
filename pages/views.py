@@ -21,6 +21,8 @@ def landing(request):
 # Create your views here.
 def home_view(request):
     context ={}
+    if 'email' not in request.session:
+        request.session['email'] = ''
     if(request.method == 'GET'): #checks if we can GET
         x = request.GET.get("product") #gets the product name if possible
         #print(x) #prints the product name the user enters (to check)
