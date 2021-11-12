@@ -26,7 +26,7 @@ SECRET_KEY = config("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['restockchecker.herokuapp.com','127.0.0.1']
+ALLOWED_HOSTS = ['restockchecker.herokuapp.com','0.0.0.0']
 
 
 # Application definition
@@ -78,11 +78,12 @@ WSGI_APPLICATION = 'restock.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'restock',
-        'USER': 'root',
-        'PASSWORD': 'password',
-        'HOST': 'localhost',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'd6mh92as4udhr3',
+        'USER': 'atnrqzacambchr',
+        'PASSWORD': 'f89095e9aaffd76ec7465a1f8889ab02525a2f51fdf730462d3827994417956f',
+        'HOST': 'ec2-44-198-236-169.compute-1.amazonaws.com',
+        'PORT': 5432,
     }
 }
 
