@@ -296,4 +296,14 @@ def fixStock(info):
 
 def product_detail(request, UUID):
     detail = get_object_or_404(products, UUID = UUID)
-    return render(request, 'details.html', {'detail' : detail})
+    
+    bb = BestBuy.objects.none() | BestBuy.objects.all().filter(BestBuy_UUID = detail.UUID)
+    mc= MicroCenter.objects.none() | MicroCenter.objects.all().filter(MicroCenter_UUID= detail.UUID).exclude(MicroCenter_SKU=0)
+    gs= Gamestop.objects.none() | Gamestop.objects.all().filter(Gamestop_UUID= detail.UUID)
+    bh= BH.objects.none() | BH.objects.all().filter(BH_UUID= detail.UUID).exclude(BH_SKU="")
+    ad= AD.objects.none() | AD.objects.all().filter(AD_UUID= detail.UUID).exclude(AD_SKU="")
+    amzn = Amazon.objects.none() | Amazon.objects.all().filter(Amazon_UUID= detail.UUID).exclude(Amazon_SKU="")
+    
+    context = {'bb':bb,'mc': mc,'gs':gs,'bh':bh,'ad':ad,'amzn':amzn}
+   
+    return render(request, 'details.html', context)
