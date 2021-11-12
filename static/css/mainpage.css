@@ -218,7 +218,7 @@ form.search_form button
 .fakepopup_data{
 	position: fixed;
 	background-color: rgba(0,0,0,0.5);
-	z-index: 100000;
+	z-index: 10000;
 	top: 0px;
 	left: 0px;
 	right: 0px;
@@ -234,6 +234,15 @@ form.search_form button
 	border-radius: 5px;
 	border: 3px solid #bfbfbf;
 	background-color: white;
+	position: absolute;
+	z-index: 10001;
+}
+
+.hidden_div{
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	z-index: 9999;
 }
 
 .popup_data_info{
@@ -253,6 +262,7 @@ form.search_form button
 	border-left: .5rem solid #bfbfbf;
 	border-right: .5rem solid #bfbfbf;
 	border-bottom: .5rem solid #bfbfbf;
+	z-index: 10001;
 }
 
 .popup_data_info li{
