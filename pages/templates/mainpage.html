@@ -106,10 +106,11 @@
   </div>
 
   <div class = "fakepopup_data" id = "fakepopup_data" style = "display: none; font-family: sans-serif;">
-      <div class = "popup_data_info" id = "fakepopup_data_main" value = "">
+    <div class = "hidden_div" onclick = "hideDisplayInfo();return false;">
+      <div class = "popup_data_info" id = "fakepopup_data_main" value = "" onclick = "event.cancelBubble=true;if(event.stopPropagation) event.stopPropagation();"> <!-- Prevent the innerdiv from activating the hidden_div onclick that hides the display-->
 
       </div>
-
+    </div>
       <div class = "exit_popup" onclick = "hideDisplayInfo();return false;">
         EXIT <i class="fa fa-times" aria-hidden="true"></i>
       </div>
@@ -252,17 +253,11 @@ function displayInfo(product_id, productName, bestbuyData){
         //document.getElementById("fakepopup_data_main").innerHTML += compareUUID;
     }
   }
-
-  //dataArray.forEach(element => console.log(element));
-//  console.log(dataArray);
-//  console.log("revealingData");
-
 /* This code is used for preventing more than 1 <detail> from being expanded -Quentin Roy
 
 https://stackoverflow.com/questions/16751345/automatically-close-all-the-other-details-tags-after-opening-a-specific-detai
 
 */
-
 //Grab details element
 const details = document.querySelectorAll("details");
 
@@ -286,6 +281,7 @@ function hideDisplayInfo(){
   console.log("Clearing values...");
   //console.log("hiding....");
 }
+
 </script>
 
 </html>
