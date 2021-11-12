@@ -29,7 +29,9 @@
             {% endif %}
 					</li>
           <li>
+            {% if request.session.email != '' %}
             <a href="{% url 'notification' %}">Notification</a>
+            {% endif %}
           </li>
 				</ul>
 			</nav>
