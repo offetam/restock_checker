@@ -152,7 +152,7 @@ def login(request):
                 new_user = User(email=hash_sign_mail,password=hash_sign_pass,verificationCode=verCode)
                 new_user.save()
                 messages.success(request,"User successfully created, Please go Verify your account", extra_tags="signup_success")
-                send_mail('Hello User',
+                send_mail('Welcome to Restock: Verification',
                 'Hi ' + signup_email + ', \nThank you for signing up with Restock. We hope we will meet your product needs. \nThis is your Verification Number:'+'\n'+str(verCode)+'\nFrom, \nRestock Team',
                 'restockcheck123@gmail.com',
                 [signup_email],
