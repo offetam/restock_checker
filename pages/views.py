@@ -13,6 +13,7 @@ import matplotlib.pyplot as plt
 import base64
 from io import BytesIO
 import pandas as pd
+import random 
 
 def landing(request):
     return render(request,'display.html')
@@ -146,11 +147,13 @@ def login(request):
             hash_sign_pass = blake2b(saltedpass.encode()).hexdigest() #hash the new salted user password
             x = User.objects.all().filter(email=hash_sign_mail).count() #checks if there's already an account with the inputted email
             if(x ==0): # creates new User and gives success message to user 
-                new_user = User(email=hash_sign_mail,password=hash_sign_pass)
+                verCode = random.randrange(100000,999999)
+                #print(verCode)
+                new_user = User(email=hash_sign_mail,password=hash_sign_pass,verificationCode=verCode)
                 new_user.save()
                 messages.success(request,"User successfully created, Please go Verify your account", extra_tags="signup_success")
                 send_mail('Hello User',
-                'Hi ' + signup_email + ', \nThank you for signing up with Restock. We hope we will meet your product needs. \nFrom, \nRestock Team',
+                'Hi ' + signup_email + ', \nThank you for signing up with Restock. We hope we will meet your product needs. \nThis is your Verification Number:'+'\n'+str(verCode)+'\nFrom, \nRestock Team',
                 'restockcheck123@gmail.com',
                 [signup_email],
                 fail_silently=False)
