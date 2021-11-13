@@ -64,6 +64,9 @@ class Amazon(models.Model):
 class User(models.Model):
     email = models.CharField(max_length=254,primary_key=True)
     password = models.CharField(max_length=256)
+    verificationCode = models.IntegerField()
+    verify = models.IntegerField(default=0)
+    numTry = models.IntegerField(default=0)
 
 class Notification(models.Model):
     IDUUID = models.AutoField(primary_key=True)
