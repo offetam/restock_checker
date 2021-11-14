@@ -134,7 +134,7 @@ def login(request):
             x = User.objects.all().filter(email=hash_login_mail,password=hash_login_pass) #checks if the user's email and password exists
             if( not x): #gives error message and redirect user back if failed
                 #print("No such User")
-                messages.error(request, "Email or password is incorrect", extra_tags='login')
+                messages.error(request, "Invalid Inputs", extra_tags='login')
                 return redirect('/login?fail')
             else:
                 for i in x:
@@ -148,20 +148,20 @@ def login(request):
                         newcode(x,login_email)
                         failcount = 0
                         x.update(numTry=0)
-                        messages.error(request, "Error signing up...New code sent to email", extra_tags='login')
+                        messages.error(request, "Error logging in...New code sent to email", extra_tags='login')
                     else:
-                        messages.error(request, "Error signing up", extra_tags='login')
+                        messages.error(request, "Error logging in", extra_tags='login')
                     return redirect('/login?notverified')
                 elif(isver!=1 and check_code!= int(verification or 0)):
                     failcount +=1
                     x.update(numTry=failcount)
                     if(failcount>=5):
-                        messages.error(request, "Error signing up", extra_tags='login')
+                        messages.error(request, "Error logging in", extra_tags='login')
                         newcode(x,login_email)
                         failcount = 0
                         x.update(numTry=0)
                     else:
-                        messages.error(request, "Error signing up", extra_tags='login')
+                        messages.error(request, "Error logging in", extra_tags='login')
                     return redirect('/login?notverified')
                 else:
                     x.update(verify=1)
