@@ -140,7 +140,9 @@ def login(request):
                 for i in x:
                     check_code = i.verificationCode
                     isver = i.verify
-                if(isver!=1 and check_code!= int(verification)):
+                if(isver!=1 and verification == ''):
+                    return redirect('/login?notverified')
+                elif(isver!=1 and check_code!= int(verification)):
                     return redirect('/login?notverified')
                 else:
                     x.update(verify=1)
