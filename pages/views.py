@@ -141,7 +141,7 @@ def login(request):
                     check_code = i.verificationCode
                     isver = i.verify
                     failcount = i.numTry
-                if(isver!=1 and (verification == '' or verification.isalpha())):
+                if(isver!=1 and (verification == '' or not(verification.isnumeric()))):
                     failcount +=1
                     x.update(numTry=failcount)
                     if(failcount>=5):
