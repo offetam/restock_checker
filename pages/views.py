@@ -156,7 +156,7 @@ def login(request):
                     failcount +=1
                     x.update(numTry=failcount)
                     if(failcount>=5):
-                        messages.error(request, "Error logging in", extra_tags='login')
+                        messages.error(request, "Error logging in...New code sent to email", extra_tags='login')
                         newcode(x,login_email)
                         failcount = 0
                         x.update(numTry=0)
