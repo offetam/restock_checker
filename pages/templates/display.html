@@ -35,16 +35,17 @@
                             </li>
                         </ul>
                     </li>
+                        {% if request.session.email != '' %}
+                        <li>
+                          <a href="">Notifications</a>
+                        </li>
+                        {% endif %}
                     <li>
-                        <a href="">Notifications</a>
-                    </li>
-                    <li>
-                        <a href="">Login</a>
-                        <ul>
-                            <li>
-                                <a href="{% url 'login' %}">Sign In</a>
-                            </li>
-                        </ul>
+                            {% if request.session.email != '' %}
+                                <a href="{% url 'signout' %}">Sign Out</a>
+                            {% else %}
+                                <a href="{% url 'login' %}"> Login </a>
+                            {% endif %}
                     </li>
                 </ul>
             </nav>
