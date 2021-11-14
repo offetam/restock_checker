@@ -12,7 +12,7 @@
 </head>
 <body>
     <div class = "verify_checker">
-      
+
     </div>
     <div class = "form_container">
       <form method="POST" class = "form" id= "login_form">{% csrf_token %}
@@ -28,21 +28,23 @@
           {% endif %}
           </div>
 
-          <div class = "result_message">
+          <div id = "result_message_fail" class = "result_message" style = "display:none;">
           {% if messages %}
               {% for message in messages %}
                   {% if "signup_fail" in message.tags %}
                       {{message}}
+                      <br>
                   {% endif %}
               {% endfor %}
           {% endif %}
           </div>
 
-          <div class = "result_message" style = "color:#008000;">
+          <div id = "result_message_success" class = "result_message" style = "color:#008000;display:none;">
           {% if messages %}
               {% for message in messages %}
                   {% if "signup_success" in message.tags %}
                       {{message}}
+                      <br>
                   {% endif %}
               {% endfor %}
           {% endif %}
@@ -53,8 +55,14 @@
             <br>
             <input type="password" name="login_pass" autofocus placeholder="Password" class = "form-input">
             <br>
-            <input type="text" name="verificationcode" autofocus placeholder="VerificationCode" class = "form-input">
-            <br>
+            {% if messages %}
+                {% for message in messages %}
+                    {% if "signup_success" in message.tags %}
+                    <input type="text" name="verificationcode" autofocus placeholder="VerificationCode" class = "form-input">
+                    <br>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
           <button type="submit" value="Login" class = "login-button">
               LOGIN
           </button>
@@ -91,4 +99,16 @@
       </form>
     </div>
 </body>
+<script>
+var fail_message = document.getElementById("result_message_fail");
+var success_message = document.getElementById("result_message_success");
+console.log(fail_message.innerHTML);
+console.log(success_message.innerHTML);
+ if(fail_message.innerHTML != ""){
+   fail_message.style.display = "block";
+ }
+ if(success_message.innerHTML != ""){
+   success_message.style.display = "block";
+ }
+</script>
 </html>
