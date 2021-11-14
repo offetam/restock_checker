@@ -148,7 +148,7 @@ def login(request):
                         newcode(x,login_email)
                         failcount = 0
                         x.update(numTry=0)
-                        messages.error(request, "Error signing up", extra_tags='login')
+                        messages.error(request, "Error signing up...New code sent to email", extra_tags='login')
                     else:
                         messages.error(request, "Error signing up", extra_tags='login')
                     return redirect('/login?notverified')
@@ -156,10 +156,10 @@ def login(request):
                     failcount +=1
                     x.update(numTry=failcount)
                     if(failcount>=5):
+                        messages.error(request, "Error signing up", extra_tags='login')
                         newcode(x,login_email)
                         failcount = 0
                         x.update(numTry=0)
-                        messages.error(request, "Error signing up", extra_tags='login')
                     else:
                         messages.error(request, "Error signing up", extra_tags='login')
                     return redirect('/login?notverified')
