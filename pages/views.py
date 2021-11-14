@@ -13,7 +13,7 @@ import matplotlib.pyplot as plt
 import base64
 from io import BytesIO
 import pandas as pd
-import random 
+import random
 
 def landing(request):
     return render(request,'display.html')
@@ -74,7 +74,7 @@ def home_view(request):
             'ad_product' : combin_ad,
             'amzn_product' : combin_amzn,
             'chart' : chart}
-            
+
         else:
             all_enteries = products.objects.all() #just gets all products if there's no input
             combin_bb = BestBuy.objects.all()
@@ -119,7 +119,7 @@ def home_view(request):
 
 def login(request):
     if(request.method == 'POST'):
-        login_email = request.POST.get("login_email") #get login_email 
+        login_email = request.POST.get("login_email") #get login_email
         login_pass = request.POST.get("login_pass") #get login_pass
         signup_email = request.POST.get("signup_email") #get signup_email
         signup_pass = request.POST.get("signup_pass") #get signup_pass
@@ -136,7 +136,7 @@ def login(request):
                 #print("No such User")
                 messages.error(request, "Email or password is incorrect", extra_tags='login')
                 return redirect('/login?fail')
-            else: 
+            else:
                 for i in x:
                     check_code = i.verificationCode
                     isver = i.verify
@@ -156,19 +156,19 @@ def login(request):
             #print(blake2b(saltedpass.encode()).hexdigest())
             hash_sign_pass = blake2b(saltedpass.encode()).hexdigest() #hash the new salted user password
             x = User.objects.all().filter(email=hash_sign_mail).count() #checks if there's already an account with the inputted email
-            if(x ==0): # creates new User and gives success message to user 
+            if(x ==0): # creates new User and gives success message to user
                 verCode = random.randrange(100000,999999)
                 #print(verCode)
                 new_user = User(email=hash_sign_mail,password=hash_sign_pass,verificationCode=verCode)
                 new_user.save()
-                messages.success(request,"User successfully created, Please go Verify your account", extra_tags="signup_success")
+                messages.success(request,"User successfully created! Please go verify your account", extra_tags="signup_success")
                 send_mail('Welcome to Restock: Verification',
                 'Hi ' + signup_email + ', \nThank you for signing up with Restock. We hope we will meet your product needs. \nThis is your Verification Number:'+'\n'+str(verCode)+'\nFrom, \nRestock Team',
                 'restockcheck123@gmail.com',
                 [signup_email],
                 fail_silently=False)
                 return redirect('/login?signup_success')
-            else: #gives error message and redirects users back if there already exists a user 
+            else: #gives error message and redirects users back if there already exists a user
                 messages.error(request, "User exists already", extra_tags='signup_fail')
                 return redirect('/login?signup_fail')
     return render(request, 'login.html')
@@ -242,7 +242,7 @@ def update(StoreName,arr):
             user_obj=BestBuy.objects.get(BestBuy_SKU=int(arr[1][i]))
             if arr[2][i]>0:
                 user_obj.BestBuy_price=arr[2][i]
-            if len(arr[3][i])>0:    
+            if len(arr[3][i])>0:
                 user_obj.BestBuy_Status=arr[3][i]
             user_obj.save()
     if(StoreName=='Micro'):
@@ -311,14 +311,14 @@ def fixStock(info):
 
 def product_detail(request, UUID):
     detail = get_object_or_404(products, UUID = UUID)
-    
+
     bb = BestBuy.objects.none() | BestBuy.objects.all().filter(BestBuy_UUID = detail.UUID)
     mc= MicroCenter.objects.none() | MicroCenter.objects.all().filter(MicroCenter_UUID= detail.UUID).exclude(MicroCenter_SKU=0)
     gs= Gamestop.objects.none() | Gamestop.objects.all().filter(Gamestop_UUID= detail.UUID)
     bh= BH.objects.none() | BH.objects.all().filter(BH_UUID= detail.UUID).exclude(BH_SKU="")
     ad= AD.objects.none() | AD.objects.all().filter(AD_UUID= detail.UUID).exclude(AD_SKU="")
     amzn = Amazon.objects.none() | Amazon.objects.all().filter(Amazon_UUID= detail.UUID).exclude(Amazon_SKU="")
-    
+
     context = {'bb':bb,'mc': mc,'gs':gs,'bh':bh,'ad':ad,'amzn':amzn}
-   
+
     return render(request, 'details.html', context)
