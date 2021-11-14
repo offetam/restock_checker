@@ -140,11 +140,26 @@ def login(request):
                 for i in x:
                     check_code = i.verificationCode
                     isver = i.verify
+                    failcount = i.numTry
                 if(isver!=1 and verification == ''):
-                    messages.error(request, "Error signing up", extra_tags='login')
+                    failcount +=1
+                    x.update(numTry=failcount)
+                    if(failcount>=5):
+                        newcode(x,login_email)
+                        failcount = 0
+                        x.update(numTry=0)
+                    else:
+                        messages.error(request, "Error signing up", extra_tags='login')
                     return redirect('/login?notverified')
                 elif(isver!=1 and check_code!= int(verification or 0)):
-                    messages.error(request, "Error signing up", extra_tags='login')
+                    failcount +=1
+                    x.update(numTry=failcount)
+                    if(failcount>=5):
+                        newcode(x,login_email)
+                        failcount = 0
+                        x.update(numTry=0)
+                    else:
+                        messages.error(request, "Error signing up", extra_tags='login')
                     return redirect('/login?notverified')
                 else:
                     x.update(verify=1)
@@ -324,3 +339,13 @@ def product_detail(request, UUID):
     context = {'bb':bb,'mc': mc,'gs':gs,'bh':bh,'ad':ad,'amzn':amzn}
 
     return render(request, 'details.html', context)
+
+def newcode(x,email):
+    verCode = random.randrange(100000,999999)
+    send_mail('Restock: New Verification Code',
+                'Hi ' + email + ', \nThis is your new Verification Number:'+'\n'+str(verCode)+'\nFrom, \nRestock Team',
+                'restockcheck123@gmail.com',
+                [email],
+                fail_silently=False)
+    x.update(verificationCode=verCode)
+    return 0
