@@ -123,6 +123,7 @@ def login(request):
         login_pass = request.POST.get("login_pass") #get login_pass
         signup_email = request.POST.get("signup_email") #get signup_email
         signup_pass = request.POST.get("signup_pass") #get signup_pass
+        verification = request.POST.get("verificationcode")
         if(login_email is not None and login_pass is not None):
             #print(blake2b(login_email.encode()).hexdigest())
             hash_login_mail = blake2b(login_email.encode()).hexdigest() #hash the user's login_email
@@ -135,9 +136,16 @@ def login(request):
                 #print("No such User")
                 messages.error(request, "Email or password is incorrect", extra_tags='login')
                 return redirect('/login?fail')
-            else: #logins if successful
-                request.session['email']=login_email
-                return redirect('/')
+            else: 
+                for i in x:
+                    check_code = i.verificationCode
+                    isver = i.verify
+                if(isver!=1 and check_code!= int(verification)):
+                    return redirect('/login?notverified')
+                else:
+                    x.update(verify=1)
+                    request.session['email']=login_email
+                    return redirect('/')
         elif(signup_email is not None and signup_pass is not None):
             #print(blake2b(signup_email.encode()).hexdigest())
             hash_sign_mail = blake2b(signup_email.encode()).hexdigest() #hash the user's signup_email
