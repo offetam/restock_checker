@@ -35,9 +35,12 @@
                             </li>
                         </ul>
                     </li>
+                    <li>
+                        <a href="{% url 'home' %}">Products</a>
+                    </li>
                         {% if request.session.email != '' %}
                         <li>
-                          <a href="">Notifications</a>
+                          <a href="{% url 'notification' %}">Notifications</a>
                         </li>
                         {% endif %}
                     <li>
