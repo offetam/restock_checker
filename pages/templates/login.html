@@ -101,11 +101,14 @@ var verify_input = document.getElementById("verify_input");
 var success_message = document.getElementById("result_message_success");
 console.log(fail_message.innerHTML);
 console.log(success_message.innerHTML);
+console.log(message.innerHTML);
  if(fail_message.innerHTML != ""){
    fail_message.style.display = "block";
  }
- if(message.innerHTML.includes("Error signing up")){
+ if(message.innerHTML.includes("Error logging in")){
    verify_input.style.display = "block";
+   message.style.display = "block";
+ }else if(message.innerHTML != ""){
    message.style.display = "block";
  }
  if(success_message.innerHTML.includes("User successfully created! Please go verify your account")){
