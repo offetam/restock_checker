@@ -18,7 +18,7 @@
       <form method="POST" class = "form" id= "login_form">{% csrf_token %}
 
           <h1 class = "form-title"> LOGIN </h1>
-          <div class = "result_message">
+          <div id = "result_message" class = "result_message" style = "display:none;">
           {% if messages %}
               {%for message in messages %}
                   {% if "login" in message.tags %}
@@ -55,14 +55,9 @@
             <br>
             <input type="password" name="login_pass" autofocus placeholder="Password" class = "form-input">
             <br>
-            {% if messages %}
-                {% for message in messages %}
-                    {% if "signup_success" in message.tags %}
-                    <input type="text" name="verificationcode" autofocus placeholder="VerificationCode" class = "form-input">
-                    <br>
-                    {% endif %}
-                {% endfor %}
-            {% endif %}
+            <input id = "verify_input" type="text" name="verificationcode" autofocus placeholder="Verification Code" class = "form-input" style = "display:none;">
+            <br>
+
           <button type="submit" value="Login" class = "login-button">
               LOGIN
           </button>
@@ -101,13 +96,21 @@
 </body>
 <script>
 var fail_message = document.getElementById("result_message_fail");
+var message = document.getElementById("result_message");
+var verify_input = document.getElementById("verify_input");
 var success_message = document.getElementById("result_message_success");
 console.log(fail_message.innerHTML);
 console.log(success_message.innerHTML);
  if(fail_message.innerHTML != ""){
    fail_message.style.display = "block";
  }
- if(success_message.innerHTML != ""){
+ if(message.innerHTML.includes("Error signing up")){
+   verify_input.style.display = "block";
+   message.style.display = "block";
+ }
+ if(success_message.innerHTML.includes("User successfully created! Please go verify your account")){
+   console.log("made verify visible")
+   verify_input.style.display = "block";
    success_message.style.display = "block";
  }
 </script>

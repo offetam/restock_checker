@@ -141,8 +141,10 @@ def login(request):
                     check_code = i.verificationCode
                     isver = i.verify
                 if(isver!=1 and verification == ''):
+                    messages.error(request, "Error signing up", extra_tags='login')
                     return redirect('/login?notverified')
-                elif(isver!=1 and check_code!= int(verification)):
+                elif(isver!=1 and check_code!= int(verification or 0)):
+                    messages.error(request, "Error signing up", extra_tags='login')
                     return redirect('/login?notverified')
                 else:
                     x.update(verify=1)
