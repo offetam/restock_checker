@@ -7,7 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href='{% static "/css/login.css" %}'>
     <script src = '{% static "/js/login.js" %}'></script>
-    <title>Login/SignUp</title>
+    <title>Restock Login/SignUp</title>
+    <link rel="shortcut icon" href='{% static "imgs/logo3.png" %}'>
 </head>
 <body>
     <div class = "form_container">
@@ -53,10 +54,13 @@
               LOGIN
           </button>
           </div>
+
         <p class = "swap-form"> {% comment %} Hrefs to swap the forms {% endcomment %}
-          <a class = "switch-form" id = "createAccount" href = "" onclick = "unhide_account();return false;"> Need an account? Sign up! </a>
-          <br>
-          <a class = "switch-form" href="/"> Go back Home </a>
+            <a class = "switch-form" id = "createAccount" href = "" onclick = "unhide_account();return false;"> Need an account? Sign up! </a>
+            <br>
+            <a class = "switch-form" href="/"> Go back to Home!</a>
+            <br>
+            <a class = "switch-form" href="/home"> Check Products!</a>
         </p>
       </form>
 
@@ -74,7 +78,9 @@
           <p class = "swap-form"> {% comment %} Hrefs to swap the forms {% endcomment %}
             <a class = "switch-form" id = "signInAccount" href = "" onclick = "unhide_login();return false;"> Already have an account? Sign in! </a>
             <br>
-            <a class = "switch-form" href="/"> Go back Home </a>
+            <a class = "switch-form" href="/"> Go back to Home!</a>
+            <br>
+            <a class = "switch-form" href="/home"> Check Products!</a>
           </p>
 
       </form>
