@@ -27,6 +27,7 @@ def cleanPrice(word):
     word=word.replace(",","")
     return float(word)
 def updateBest():
+    """
     df=pd.read_csv('testingBest.csv')
     df['BestBuy_SKU']=df['BestBuy_SKU'].apply(cleanWord)
     df['BestBuy_Status']=df['BestBuy_Status'].apply(cleanWord)
@@ -53,6 +54,52 @@ def updateBest():
         elif len(productcode)==1:
             productcode=['None',productcode[0]]
         records.append([price[0],status[0],productcode[1]])
+    """
+    df=pd.read_csv('testingBest.csv')
+    df['BestBuy_SKU']=df['BestBuy_SKU'].apply(cleanWord)
+    df['BestBuy_Status']=df['BestBuy_Status'].apply(cleanWord)
+    URL='https://www.bestbuy.com/site/searchpage.jsp?cp='
+    xboxURL='https://www.bestbuy.com/site/searchpage.jsp?st=xbox&_dyncharset=UTF-8&_dynSessConf=&id=pcat17071&type=page&sc=Global&cp=1&nrp=&sp=&qp=&list=n&af=true&iht=y&usc=All+Categories&ks=960&keys=keys'
+    ps5URL='https://www.bestbuy.com/site/searchpage.jsp?st=ps5&_dyncharset=UTF-8&_dynSessConf=&id=pcat17071&type=page&sc=Global&cp=1&nrp=&sp=&qp=&list=n&af=true&iht=y&usc=All+Categories&ks=960&keys=keys'
+    end='&id=pcat17071&st=graphics+card'
+    records=[]
+    for x in range(1,8,1):
+        page=requests.get(URL+str(x)+end, headers=agent)
+        soup=BeautifulSoup(page.content,'html.parser')
+        title=soup.findAll('li', class_="sku-item")
+        
+        
+        #titleprice=soup.findAll('div', class_="priceView-hero-price priceView-customer-price")
+        #titleprice_string=str(titleprice)
+
+        #titlestatus=soup.findAll('div', class_="sku-list-item-button")
+        #titlestatus_string=str(titlestatus)
+        for i in title:
+            sku=re.findall('(?<=sku-item" data-sku-id=").*?(?=">)',str(i))
+            price=re.findall('(?<=-->).*?(?=</span>)',str(i))
+            status=re.findall('(?<=data-button-state=").*?(?=" data-sku-id)',str(i))
+            xd=zip(price,status,sku)
+            records.append(list(xd))
+    
+    page=requests.get(xboxURL,headers=agent)
+    soup=BeautifulSoup(page.content,'html.parser')
+    title=soup.findAll('li', class_="sku-item")
+    for i in title:
+            sku=re.findall('(?<=sku-item" data-sku-id=").*?(?=">)',str(i))
+            price=re.findall('(?<=-->).*?(?=</span>)',str(i))
+            status=re.findall('(?<=data-button-state=").*?(?=" data-sku-id)',str(i))
+            xd=zip(price,status,sku)
+            records.append(list(xd))
+    page=requests.get(ps5URL,headers=agent)
+    soup=BeautifulSoup(page.content,'html.parser')
+    title=soup.findAll('li', class_="sku-item")
+    for i in title:
+            sku=re.findall('(?<=sku-item" data-sku-id=").*?(?=">)',str(i))
+            price=re.findall('(?<=-->).*?(?=</span>)',str(i))
+            status=re.findall('(?<=data-button-state=").*?(?=" data-sku-id)',str(i))
+            xd=zip(price,status,sku)
+            records.append(list(xd))
+    
     dfnewbest=pd.DataFrame(records,columns=['newPrice','newStatus','BestBuy_SKU'])
     dfnewbest['newPrice']=dfnewbest['newPrice'].apply(cleanPrice)
     dfnewbest['BestBuy_SKU']=dfnewbest['BestBuy_SKU'].apply(cleanWord)
