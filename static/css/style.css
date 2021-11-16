@@ -7,21 +7,21 @@
   min-height: 100vh;
   width: 100%;
   background-image: linear-gradient(rgba(4, 9, 30, 0.7), rgba(4, 9, 30, 0.7)),
-    url(abs_2080build_21.jpg);
+    url("/static/imgs/abs_2080build_21.jpg");
   background-position: center;
   background-size: cover;
   position: relative;
 }
 
 nav {
-  display: flex;
-  padding: 2% 6%;
-  justify-content: space-between;
-  align-items: center;
+  width: 100%;
+  height: 70px;
+  background-color: #045b8d;
 }
 
 nav img {
-  width: 150px;
+  width: 70px;
+  padding: 3px;
 }
 
 .nav-links {
@@ -29,17 +29,56 @@ nav img {
   text-align: center;
 }
 
-.nav-links ul li {
+nav p {
+  font-family: "Source Sans Pro", sans-serif;
+  color: #fff;
+  font-size: 24px;
+  line-height: 55px;
+  float: left;
+  padding: 0px 20px;
+}
+
+nav ul {
+  float: left;
+}
+
+nav ul li {
+  float: left;
   list-style: none;
-  display: inline-block;
-  padding: 8px 12px;
   position: relative;
 }
 
-.nav-links ul li a {
-  color: #fff;
+nav ul li a {
+  color: rgb(255, 255, 255);
   text-decoration: none;
-  font-size: 13px;
+  font-size: 15px;
+  padding: 25px 16px;
+  display: block;
+}
+
+nav ul li ul {
+  display: none;
+  position: absolute;
+  background-color: #045b8d;
+  padding: 10px;
+  border-radius: 0px 0px 4px 4px;
+}
+
+nav ul li:hover ul {
+  display: block;
+}
+
+nav ul li ul li {
+  width: 180px;
+  border-radius: 4px;
+}
+
+nav ul li ul li a {
+  padding: 8px 14px;
+}
+
+nav ul li ul li a:hover {
+  background-color: #8f8f8f;
 }
 
 .nav-links ul li::after {
