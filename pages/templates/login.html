@@ -51,9 +51,9 @@
           </div>
 
           <div class = "signup-input">
-            <input type="text" name="login_email" autofocus placeholder="Email Address" class = "form-input">
+            <input type="text" name="login_email" autofocus placeholder="Email Address" class = "form-input" required>
             <br>
-            <input type="password" name="login_pass" autofocus placeholder="Password" class = "form-input">
+            <input type="password" name="login_pass" autofocus placeholder="Password" class = "form-input" required>
             <br>
             <input id = "verify_input" type="text" name="verificationcode" autofocus placeholder="Verification Code" class = "form-input" style = "display:none;" maxlength="6" pattern="\d*">
             <br>
@@ -66,7 +66,7 @@
         <p class = "swap-form"> {% comment %} Hrefs to swap the forms {% endcomment %}
             <a class = "switch-form" id = "createAccount" href = "" onclick = "unhide_account();return false;"> Need an account? Sign up! </a>
             <br>
-            <a class = "switch-form" href="/"> Go back to Home!</a>
+            <a class = "switch-form" href="/"> Go Back Home!</a>
             <br>
             <a class = "switch-form" href="/home"> Check Products!</a>
         </p>
@@ -76,8 +76,8 @@
 
           <h1 class = "form-title"> SIGN UP </h1>
 
-          <input type="email" name="signup_email" autofocus placeholder="Email Address" class = "form-input">
-          <input type="password" name="signup_pass" autofocus placeholder="Password" class = "form-input">
+          <input type="email" name="signup_email" autofocus placeholder="Email Address" class = "form-input" required>
+          <input type="password" name="signup_pass" autofocus placeholder="Password" class = "form-input" required>
 
           <button type="submit" value="Sign Up" class = "login-button">
               SIGN UP
@@ -86,7 +86,7 @@
           <p class = "swap-form"> {% comment %} Hrefs to swap the forms {% endcomment %}
             <a class = "switch-form" id = "signInAccount" href = "" onclick = "unhide_login();return false;"> Already have an account? Sign in! </a>
             <br>
-            <a class = "switch-form" href="/"> Go back to Home!</a>
+            <a class = "switch-form" href="/"> Go Back Home!</a>
             <br>
             <a class = "switch-form" href="/home"> Check Products!</a>
           </p>
