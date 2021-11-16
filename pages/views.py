@@ -16,6 +16,8 @@ import pandas as pd
 import random
 
 def landing(request):
+    if 'email' not in request.session:
+        request.session['email'] = ''
     return render(request,'display.html')
 
 
