@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 
-from pages.views import landing, home_view, login, notification, signout, notification, product_detail
+from pages.views import landing, home_view, login, notification, signout, notification, product_detail, about
 
 urlpatterns = [
     path('home/', home_view, name='home'), #added for mainpage
@@ -26,4 +26,5 @@ urlpatterns = [
     path('notification/', notification, name='notification'),
     path('product_detail/<str:UUID>/', product_detail,  name='product_detail'),
     path('admin/', admin.site.urls),
+    path('about/',about,name='about')
 ]
