@@ -13,6 +13,7 @@ import matplotlib.pyplot as plt
 import base64
 from io import BytesIO
 import pandas as pd
+import random
 
 def landing(request):
     return render(request,'display.html')
@@ -21,6 +22,8 @@ def landing(request):
 # Create your views here.
 def home_view(request):
     context ={}
+    if 'email' not in request.session:
+        request.session['email'] = ''
     if(request.method == 'GET'): #checks if we can GET
         x = request.GET.get("product") #gets the product name if possible
         #print(x) #prints the product name the user enters (to check)
@@ -71,7 +74,7 @@ def home_view(request):
             'ad_product' : combin_ad,
             'amzn_product' : combin_amzn,
             'chart' : chart}
-            
+
         else:
             all_enteries = products.objects.all() #just gets all products if there's no input
             combin_bb = BestBuy.objects.all()
@@ -116,10 +119,11 @@ def home_view(request):
 
 def login(request):
     if(request.method == 'POST'):
-        login_email = request.POST.get("login_email") #get login_email 
+        login_email = request.POST.get("login_email") #get login_email
         login_pass = request.POST.get("login_pass") #get login_pass
         signup_email = request.POST.get("signup_email") #get signup_email
         signup_pass = request.POST.get("signup_pass") #get signup_pass
+        verification = request.POST.get("verificationcode")
         if(login_email is not None and login_pass is not None):
             #print(blake2b(login_email.encode()).hexdigest())
             hash_login_mail = blake2b(login_email.encode()).hexdigest() #hash the user's login_email
@@ -130,11 +134,39 @@ def login(request):
             x = User.objects.all().filter(email=hash_login_mail,password=hash_login_pass) #checks if the user's email and password exists
             if( not x): #gives error message and redirect user back if failed
                 #print("No such User")
-                messages.error(request, "Email or password is incorrect", extra_tags='login')
+                messages.error(request, "Invalid Inputs", extra_tags='login')
                 return redirect('/login?fail')
-            else: #logins if successful
-                request.session['email']=login_email
-                return redirect('/')
+            else:
+                for i in x:
+                    check_code = i.verificationCode
+                    isver = i.verify
+                    failcount = i.numTry
+                if(isver!=1 and (verification == '' or not(verification.isnumeric()))):
+                    failcount +=1
+                    x.update(numTry=failcount)
+                    if(failcount>=5):
+                        newcode(x,login_email)
+                        failcount = 0
+                        x.update(numTry=0)
+                        messages.error(request, "Error logging in...New code sent to email", extra_tags='login')
+                    else:
+                        messages.error(request, "Error logging in", extra_tags='login')
+                    return redirect('/login?notverified')
+                elif(isver!=1 and check_code!= int(verification or 0)):
+                    failcount +=1
+                    x.update(numTry=failcount)
+                    if(failcount>=5):
+                        messages.error(request, "Error logging in...New code sent to email", extra_tags='login')
+                        newcode(x,login_email)
+                        failcount = 0
+                        x.update(numTry=0)
+                    else:
+                        messages.error(request, "Error logging in", extra_tags='login')
+                    return redirect('/login?notverified')
+                else:
+                    x.update(verify=1)
+                    request.session['email']=login_email
+                    return redirect('/')
         elif(signup_email is not None and signup_pass is not None):
             #print(blake2b(signup_email.encode()).hexdigest())
             hash_sign_mail = blake2b(signup_email.encode()).hexdigest() #hash the user's signup_email
@@ -143,17 +175,19 @@ def login(request):
             #print(blake2b(saltedpass.encode()).hexdigest())
             hash_sign_pass = blake2b(saltedpass.encode()).hexdigest() #hash the new salted user password
             x = User.objects.all().filter(email=hash_sign_mail).count() #checks if there's already an account with the inputted email
-            if(x ==0): # creates new User and gives success message to user 
-                new_user = User(email=hash_sign_mail,password=hash_sign_pass)
+            if(x ==0): # creates new User and gives success message to user
+                verCode = random.randrange(100000,999999)
+                #print(verCode)
+                new_user = User(email=hash_sign_mail,password=hash_sign_pass,verificationCode=verCode)
                 new_user.save()
-                messages.success(request,"User successfully created, Please go Verify your account", extra_tags="signup_success")
-                send_mail('Hello User',
-                'Hi ' + signup_email + ', \nThank you for signing up with Restock. We hope we will meet your product needs. \nFrom, \nRestock Team',
+                messages.success(request,"User successfully created! Please go verify your account", extra_tags="signup_success")
+                send_mail('Welcome to Restock: Verification',
+                'Hi ' + signup_email + ', \nThank you for signing up with Restock. We hope we will meet your product needs. \nThis is your Verification Number:'+'\n'+str(verCode)+'\nFrom, \nRestock Team',
                 'restockcheck123@gmail.com',
                 [signup_email],
                 fail_silently=False)
                 return redirect('/login?signup_success')
-            else: #gives error message and redirects users back if there already exists a user 
+            else: #gives error message and redirects users back if there already exists a user
                 messages.error(request, "User exists already", extra_tags='signup_fail')
                 return redirect('/login?signup_fail')
     return render(request, 'login.html')
@@ -227,7 +261,9 @@ def update(StoreName,arr):
             user_obj=BestBuy.objects.get(BestBuy_SKU=int(arr[1][i]))
             if arr[2][i]>0:
                 user_obj.BestBuy_price=arr[2][i]
-            if len(arr[3][i])>0:    
+
+            if len(arr[3][i])>0:
+
                 user_obj.BestBuy_Status=arr[3][i]
             user_obj.save()
     if(StoreName=='Micro'):
@@ -296,4 +332,25 @@ def fixStock(info):
 
 def product_detail(request, UUID):
     detail = get_object_or_404(products, UUID = UUID)
-    return render(request, 'details.html', {'detail' : detail})
+
+    bb = BestBuy.objects.none() | BestBuy.objects.all().filter(BestBuy_UUID = detail.UUID)
+    mc= MicroCenter.objects.none() | MicroCenter.objects.all().filter(MicroCenter_UUID= detail.UUID).exclude(MicroCenter_SKU=0)
+    gs= Gamestop.objects.none() | Gamestop.objects.all().filter(Gamestop_UUID= detail.UUID)
+    bh= BH.objects.none() | BH.objects.all().filter(BH_UUID= detail.UUID).exclude(BH_SKU="")
+    ad= AD.objects.none() | AD.objects.all().filter(AD_UUID= detail.UUID).exclude(AD_SKU="")
+    amzn = Amazon.objects.none() | Amazon.objects.all().filter(Amazon_UUID= detail.UUID).exclude(Amazon_SKU="")
+
+    context = {'bb':bb,'mc': mc,'gs':gs,'bh':bh,'ad':ad,'amzn':amzn}
+
+    return render(request, 'details.html', context)
+
+def newcode(x,email):
+    verCode = random.randrange(100000,999999)
+    send_mail('Restock: New Verification Code',
+                'Hi ' + email + ', \nThis is your new Verification Number:'+'\n'+str(verCode)+'\nFrom, \nRestock Team',
+                'restockcheck123@gmail.com',
+                [email],
+                fail_silently=False)
+    x.update(verificationCode=verCode)
+    return 0
+

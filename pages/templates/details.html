@@ -7,9 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href='{% static "/css/notification.css" %}'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"> <!-- css for the search icon (fa fa-search) -->
-    <title>Restock - Notification</title>
+    <title>Restock - Expanded Info</title>
+    <link rel="shortcut icon" href='{% static "imgs/logo3.png" %}'>
 </head>
 
+<header>
 <div class = "header">
 		<div class = "inner_header">
       <div class = "logo_container">
@@ -28,23 +30,183 @@
             {% endif %}
 					</li>
           <li>
+            {% if request.session.email != '' %}
             <a href="{% url 'notification' %}">Notification</a>
+            {% endif %}
           </li>
 				</ul>
 			</nav>
-
 		</div>
-
 </div>
+</header>
 
 <body>
-    <div>
+  <div>
+    {% for i in bb %}
+    <div>BESTBUY INFO</div>
+      <div>
         Name:
-        {{detail.product}}
+        {{i.BestBuy_UUID.product}}
+      </div>
+      <div>
+        Price:
+        {{i.BestBuy_price}}
+      </div>
+      <div>
+        Stock Status:
+        {{i.BestBuy_Status}}
+      </div>
+      <div>
+        Ratings:
+        {{i.BestBuy_Ratings}}
+      </div>
+      <div>
+        Reviews:
+        {{i.BestBuy_Review}}
+      </div>
+      <div>
+        Click URL to purchase product!
+        <a href= '{{i.BestBuy_URL}}'>URL</a>
+      </div>
+    {% endfor %}
+</div>
+<br>
+<div>
+    {% for i in mc %}
+    <div>MICROCENTER INFO</div>
+      <div>
+        Name:
+        {{i.MicroCenter_UUID.product}}
+      </div>
+      <div>
+        Price:
+        {{i.MicroCenter_Price}}
+      </div>
+      <div>
+        Click URL to purchase product!
+        <a href= '{{i.MicroCenter_URL}}'>URL</a>
+      </div>
+    {% endfor %}
+</div>
+<br>
+<div>
+  {% for i in gs %}
+  <div>GAMESTOP INFO</div>
+    <div>
+      Name:
+      {{i.Gamestop_UUID.product}}
     </div>
     <div>
-        UUID:
-        {{detail.UUID}}
+      Price:
+      {{i.Gamestop_price}}
     </div>
+    <div>
+      Stock Status:
+      {{i.Gamestop_Status}}
+    </div>
+    <div>
+      Ratings:
+      {{i.Gamestop_Ratings}}
+    </div>
+    <div>
+      Reviews:
+      {{i.Gamestop_Reviews}}
+    </div>
+    <div>
+      Click URL to purchase product!
+      <a href= '{{i.Gamestop_URL}}'>URL</a>
+    </div>
+    {% endfor %}
+</div>
+<br>
+<div>
+  {% for i in bh %}
+  <div>B&H INFO</div>
+    <div>
+      Name:
+      {{i.BH_UUID.product}}
+    </div>
+    <div>
+      Price:
+      {{i.BH_price}}
+    </div>
+    <div>
+      Stock Status:
+      {{i.BH_Status}}
+    </div>
+    <div>
+      Ratings:
+      {{i.BH_Ratings}}
+    </div>
+    <div>
+      Reviews:
+      {{i.BH_Reviews}}
+    </div>
+    <div>
+      Click URL to purchase product!
+      <a href= '{{i.BH_URL}}'>URL</a>
+    </div>
+    {% endfor %}
+</div>
+<br>
+<div>
+  {% for i in ad %}
+  <div>ADORAMA INFO</div>
+    <div>
+      Name:
+      {{i.AD_UUID.product}}
+    </div>
+    <div>
+      Price:
+      {{i.AD_price}}
+    </div>
+    <div>
+      Stock Status:
+      {{i.AD_Status}}
+    </div>
+    <div>
+      Ratings:
+      {{i.AD_Ratings}}
+    </div>
+    <div>
+      Reviews:
+      {{i.AD_Reviews}}
+    </div>
+    <div>
+      Click URL to purchase product!
+      <a href= '{{i.AD_URL}}'>URL</a>
+    </div>
+    {% endfor %}
+</div>
+<br>
+<div>
+  {% for i in amzn %}
+  <div>AMAZON INFO</div>
+    <div>
+      Name:
+      {{i.Amazon_UUID.product}}
+    </div>
+    <div>
+      Price:
+      {{i.Amazon_price}}
+    </div>
+    <div>
+      Stock Status:
+      {{i.Amazon_Status}}
+    </div>
+    <div>
+      Ratings:
+      {{i.Amazon_Ratings}}
+    </div>
+    <div>
+      Reviews:
+      {{i.Amazon_Reviews}}
+    </div>
+    <div>
+      Click URL to purchase product!
+      <a href= '{{i.Amazon_URL}}'>URL</a>
+    </div>
+    {% endfor %}
+</div>
 </body>
 </html>

@@ -7,14 +7,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href='{% static "/css/login.css" %}'>
     <script src = '{% static "/js/login.js" %}'></script>
-    <title>Login/SignUp</title>
+    <title>Restock Login/SignUp</title>
+    <link rel="shortcut icon" href='{% static "imgs/logo3.png" %}'>
 </head>
 <body>
+    <div class = "verify_checker">
+
+    </div>
     <div class = "form_container">
       <form method="POST" class = "form" id= "login_form">{% csrf_token %}
 
           <h1 class = "form-title"> LOGIN </h1>
-          <div class = "result_message">
+          <div id = "result_message" class = "result_message" style = "display:none;">
           {% if messages %}
               {%for message in messages %}
                   {% if "login" in message.tags %}
@@ -24,21 +28,23 @@
           {% endif %}
           </div>
 
-          <div class = "result_message">
+          <div id = "result_message_fail" class = "result_message" style = "display:none;">
           {% if messages %}
               {% for message in messages %}
                   {% if "signup_fail" in message.tags %}
                       {{message}}
+                      <br>
                   {% endif %}
               {% endfor %}
           {% endif %}
           </div>
 
-          <div class = "result_message">
+          <div id = "result_message_success" class = "result_message" style = "color:#008000;display:none;">
           {% if messages %}
               {% for message in messages %}
                   {% if "signup_success" in message.tags %}
                       {{message}}
+                      <br>
                   {% endif %}
               {% endfor %}
           {% endif %}
@@ -49,14 +55,20 @@
             <br>
             <input type="password" name="login_pass" autofocus placeholder="Password" class = "form-input">
             <br>
+            <input id = "verify_input" type="text" name="verificationcode" autofocus placeholder="Verification Code" class = "form-input" style = "display:none;" maxlength="6" pattern="\d*">
+            <br>
+
           <button type="submit" value="Login" class = "login-button">
               LOGIN
           </button>
           </div>
+
         <p class = "swap-form"> {% comment %} Hrefs to swap the forms {% endcomment %}
-          <a class = "switch-form" id = "createAccount" href = "" onclick = "unhide_account();return false;"> Need an account? Sign up! </a>
-          <br>
-          <a class = "switch-form" href="/"> Go back Home </a>
+            <a class = "switch-form" id = "createAccount" href = "" onclick = "unhide_account();return false;"> Need an account? Sign up! </a>
+            <br>
+            <a class = "switch-form" href="/"> Go back to Home!</a>
+            <br>
+            <a class = "switch-form" href="/home"> Check Products!</a>
         </p>
       </form>
 
@@ -64,7 +76,7 @@
 
           <h1 class = "form-title"> SIGN UP </h1>
 
-          <input type="email" name="signup_email" autofocus placeholder="Email" class = "form-input">
+          <input type="email" name="signup_email" autofocus placeholder="Email Address" class = "form-input">
           <input type="password" name="signup_pass" autofocus placeholder="Password" class = "form-input">
 
           <button type="submit" value="Sign Up" class = "login-button">
@@ -74,10 +86,35 @@
           <p class = "swap-form"> {% comment %} Hrefs to swap the forms {% endcomment %}
             <a class = "switch-form" id = "signInAccount" href = "" onclick = "unhide_login();return false;"> Already have an account? Sign in! </a>
             <br>
-            <a class = "switch-form" href="/"> Go back Home </a>
+            <a class = "switch-form" href="/"> Go back to Home!</a>
+            <br>
+            <a class = "switch-form" href="/home"> Check Products!</a>
           </p>
 
       </form>
     </div>
 </body>
+<script>
+var fail_message = document.getElementById("result_message_fail");
+var message = document.getElementById("result_message");
+var verify_input = document.getElementById("verify_input");
+var success_message = document.getElementById("result_message_success");
+console.log(fail_message.innerHTML);
+console.log(success_message.innerHTML);
+console.log(message.innerHTML);
+ if(fail_message.innerHTML != ""){
+   fail_message.style.display = "block";
+ }
+ if(message.innerHTML.includes("Error logging in")){
+   verify_input.style.display = "block";
+   message.style.display = "block";
+ }else if(message.innerHTML != ""){
+   message.style.display = "block";
+ }
+ if(success_message.innerHTML.includes("User successfully created! Please go verify your account")){
+   console.log("made verify visible")
+   verify_input.style.display = "block";
+   success_message.style.display = "block";
+ }
+</script>
 </html>
