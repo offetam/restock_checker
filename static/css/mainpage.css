@@ -6,6 +6,7 @@
 
 h1{
 	text-align: center;
+	font-family: sans-serif;
 }
 
 .logo_img{
@@ -15,8 +16,8 @@ h1{
 
 .wrapper{
 	display: grid;
-  grid-auto-rows: 200px;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-auto-rows: 450px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   grid-gap: 1rem;
   background-color: #F8F8FF;
   color: #444;
@@ -43,10 +44,10 @@ h1{
 	font-weight: bold;
 }
 
-.box_text:hover{
+.temp:hover, .checker_temp:hover{
 	cursor: pointer;
 	text-decoration: underline;
-	color: #00BFFF;
+	text-decoration-color: #00BFFF;
 }
 
 img {
@@ -74,7 +75,7 @@ body
 {
 	height: 80px;
 	width: 100%;
-	background-color:#b1cbbb;
+	background-color:#C0C0C0;
 	display:block;
 	/*background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4));*/
 	padding-left: 8%;
@@ -163,7 +164,7 @@ th, td
 
 a:hover
 {
-  color: blue;
+  color: #00BFFF;
 }
 
 #logo_image
@@ -217,7 +218,7 @@ form.search_form button
 .fakepopup_data{
 	position: fixed;
 	background-color: rgba(0,0,0,0.5);
-	z-index: 100000;
+	z-index: 10000;
 	top: 0px;
 	left: 0px;
 	right: 0px;
@@ -226,6 +227,58 @@ form.search_form button
 
 .exit_popup:hover{
 	cursor: pointer;
+}
+
+.exit_popup{
+	width: 75px;
+	border-radius: 5px;
+	border: 3px solid #bfbfbf;
+	background-color: white;
+	position: absolute;
+	z-index: 10001;
+}
+
+.hidden_div{
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	z-index: 9999;
+}
+
+.popup_data_info{
+	position: absolute;
+	left: 50%;
+	transform: translate(-50%, 0);
+	top: 2.5%;
+	width: 100%;
+	max-width: 900px;
+	background: #404040;
+	color: #bfbfbf;
+	font-family: sans-serif;
+	font-weight: bold;
+	overflow: auto;
+	border-radius: 7px 7px 7px 7px;
+	border-top: .5rem solid #bfbfbf;
+	border-left: .5rem solid #bfbfbf;
+	border-right: .5rem solid #bfbfbf;
+	border-bottom: .5rem solid #bfbfbf;
+	z-index: 10001;
+}
+
+.popup_data_info li{
+	list-style: none;
+	/* text-align: center; */
+	border-bottom: .75px solid #fff;
+	padding: .15rem;
+}
+
+.popup_link{
+	text-decoration: none;
+	color: #bfbfbf;
+}
+
+.details{
+	transition-duration: 2s;
 }
 
 .notifbutton{
@@ -239,4 +292,8 @@ form.search_form button
 	border-radius: 5px;
 	width: 125px;
 	margin-bottom: 1rem;
+}
+
+.product_name{
+	margin-bottom: 1em;
 }

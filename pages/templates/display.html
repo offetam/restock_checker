@@ -1,0 +1,117 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="with=device-width, initial-scale = 1.0">
+    <title>Restock - Launch Page</title>
+    <link rel="shortcut icon" href='{% static "imgs/logo3.png" %}'>
+    <link rel="stylesheet" href='{% static "/css/style.css" %}''>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <section class="header">
+        <nav>
+            <p><a href="{% url 'landing' %}"><img src='{% static "imgs/logo3.png" %}'></a></p>
+                <ul>
+                    <li>
+                        <a href="">Graphic Crads</a>
+                        <ul>
+                            <li>
+                                <a href="">GeForce RTX 3070</a>
+                                <a href="">GeForce RTX 3080</a>
+                                <a href="">GeForce RTX 3090</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="">Consoles</a>
+                        <ul>
+                            <li>
+                                <a href="">PLAYSTATION 5</a>
+                                <a href="">XBOX ONE X</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="{% url 'home' %}">Products</a>
+                    </li>
+                        {% if request.session.email != '' %}
+                        <li>
+                          <a href="{% url 'notification' %}">Notifications</a>
+                        </li>
+                        {% endif %}
+                    <li>
+                            {% if request.session.email != '' %}
+                                <a href="{% url 'signout' %}">Sign Out</a>
+                            {% else %}
+                                <a href="{% url 'login' %}"> Login </a>
+                            {% endif %}
+                    </li>
+                </ul>
+            </nav>
+    <div class="text-box">
+        <h1>Welcome to Restock</h1>
+        <p>
+            The best place to get notifications for in demand items.
+        </p>
+        <a href="" class="hero-btn">Want to learn more about Restock?</a>
+    </section>
+
+    <section class="items">
+        <h1>
+            Items we track
+        </h1>
+        <div class="row">
+            <div class = "items-col">
+                <h3>Graphics Cards</h3>
+                <p>The Graphics Cards that we track range from 3000 series cards
+                    <br>from NVIDIA and AMD Radeon 6000 Series graphics cards.
+                </p>
+                <img src='{% static "imgs/gpu3080.jpg" %}'>
+            </div>
+            <div class = "items-col">
+                <h3>Consoles</h3>
+                <p>The hottest consoles that came out in 2020 <br>
+                    the PlayStation 5 and the Xbox Series X
+                </p>
+                <img src='{% static "imgs/ps5.jpg" %}'>
+            </div>
+        </div>
+    </section>
+
+    <section class="vendors">
+        <h1>
+            The vendors we use to track each product.
+        </h1>
+        <div class="row2">
+            <div class = "items-col2">
+                <img src='{% static "imgs/adorama.png" %}' width="200">
+            </div>
+            <div class = "items-col2">
+                <img src='{% static "imgs/Amazon-logo.png" %}' width="200">
+            </div>
+            <div class = "items-col2">
+                <img src='{% static "imgs/bestbuy.png" %}' width="200">
+            </div>
+            <div class = "items-col2">
+                <img src='{% static "imgs/gamestop.PNG" %}' width="200">
+            </div>
+            <div class = "items-col2">
+                <img src='{% static "imgs/micro-center-logo.png" %}' width="200">
+            </div>
+            <div class = "items-col2">
+                <img src='{% static "imgs/BH_logo.png" %}' width="200">
+            </div>
+        </div>
+    </section>
+    <footer>
+        <p>Restock Checker, Copyright &copy; Fall 2021</p>
+        <p>Hunter College Capstone Project By: Danny Li, Alden Lee, Ethan Tam, Oscar Andrade, David Xue</p>
+
+    </footer>
+
+</body>
+</html>

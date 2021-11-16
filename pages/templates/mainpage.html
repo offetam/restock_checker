@@ -1,49 +1,12 @@
+{% extends "./base.html" %}
 {% load static %}
+{% block title %}Restock - Products{% endblock %}
+{% block content %}
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
-		<link rel="stylesheet" type="text/css" href='{% static "/css/mainpage.css" %}'>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"> <!-- css for the search icon (fa fa-search) -->
-    <script src = '{% static "/js/main.js" %}'></script> <!-- js file -->
-    <title>Restock - Main page</title>
-</head>
 
+  <title>Restock - Products</title>
+  <link rel="shortcut icon" href='{% static "imgs/logo3.png" %}'>
 
-
-<div class = "header">
-		<div class = "inner_header">
-      <div class = "logo_container">
-        <a href="{% url 'home' %}"><img class = "logo_img" src = '{% static "/imgs/logo3.png" %}'></img></a>
-      </div>
-
-      <div class = "search_container">
-        <form id = "searchbar" class = "search_form">
-            <input type="text" class = "searchtext" name="product" placeholder="Search for Products"><button type="submit" value="Search!"><i class="fa fa-search" id = "search_button"></i> Search</button>
-        </form>
-      </div>
-
-			<nav>
-			  <ul class = "navigation"> <!--  Header to use on other pages -->
-				  <li>
-            {% if request.session.email != '' %}
-                <a href="{% url 'signout' %}">Sign Out</a>
-            {% else %}
-                <a href="{% url 'login' %}"> Login </a>
-            {% endif %}
-					</li>
-          <li>
-            {% if request.session.email != '' %}
-            <a href="{% url 'notification' %}">Notification</a>
-            {% endif %}
-          </li>
-				</ul>
-			</nav>
-		</div>
-
-</div>
 <body>
   <form>
     <div class = "header_container">
@@ -55,189 +18,232 @@
     </div>
     <div class = "wrapper">
       {% for product in all_enteries %}
-    <div class="box" style = "margin-top: 1rem;">
+    <div class="box" style = "margin-top: 1rem;" value = {{product.UUID}}>
       <input type="checkbox" class = "notifcheck" id="product" name="id" value={{product.UUID}}>
-      <div class = "box_text" onclick = "displayInfo();return false;">
-        {{product.product}}
+      <div class = "box_text">
+        <div class = "temp" onclick = "displayInfo('{{product.UUID.strip}}','{{product.product.strip}}', '{{product.BestBuy_price}}');return false;">
+          <img src='{% static "/imgs/ps5.jpg" %}' style="width: 100%; height: auto;" alt = '{{product.product}}'></img>
+          <div class = "product_name">
+            {{product.product}} (Short Info)
+          </div>
+        </div>
+        <!-- {% if product.product == 'MSI GeForce RTX 3090 Gaming X Trio 24GB GDDR6X PCIe 4.0 Graphics Card'%}
+        <div>
+          <img src='{% static "/imgs/msi_3090.png" %}' style="width: 100%; height: auto;" alt = '{{product.product}}'></img>
+        </div>
+        {% elif product.product == 'MSI GeForce RTX 3090 SUPRIM X OC 24GB GDDR6X PCIe 4.0 Graphics Card'%}
+        <div>
+          <img src='{% static "/imgs/msi_3090_suprim.png" %}' style="width: 100%; height: auto;"></img>
+        </div>
+        {% endif %} -->
+        <div class = "checker_temp">
+          <a style = "text-decoration:none; color:#fff;" href="{% url 'product_detail' product.UUID %}">Expanded Details & Graphs</a>
+        </div>
       </div>
       <div class = "testing-val" style = "display: none;"> <!-- to be used for displaying later? -->
         {{product.UUID}}
       </div>
-    </div>
-      {% endfor %}
 
+
+    </div>
+    {% comment %}<!-- {% for bproduct in bb_product %}
+    {% if product.UUID == bproduct.BestBuy_UUID.UUID %}
+    <div class = "checker">
+      {{product.UUID}} is the one.
+      Some useful data here:
+      {{bproduct.BestBuy_price}}
+      {{bproduct.BestBuy_SKU}}
+      {{bproduct.BestBuy_Status}}
+      {{bproduct.BestBuy_Ratings}}
+      {{bproduct.BestBuy_Review}}
+      {{bproduct.BestBuy_ModelNumber}}
+      <a href={{product.BestBuy_URL}}>Link</a>
+      {{product.BestBuy_UUID.UUID}}
+    </div>
+    {% endif %}
+    {% endfor %} -->
+    {% endcomment %}
+      {% endfor %}
   </form>
   </div>
-  <div class = "fakepopup_data" id = "fakepopup_data" style = "display: none;">
-      <div class = "popup_data_info">
-        INFO DISPLAYED HERE
-      </div>
 
+  <div class = "fakepopup_data" id = "fakepopup_data" style = "display: none; font-family: sans-serif;">
+    <div class = "hidden_div" onclick = "hideDisplayInfo();return false;">
+      <div class = "popup_data_info" id = "fakepopup_data_main" value = "" onclick = "event.cancelBubble=true;if(event.stopPropagation) event.stopPropagation();"> <!-- Prevent the innerdiv from activating the hidden_div onclick that hides the display-->
+
+      </div>
+    </div>
       <div class = "exit_popup" onclick = "hideDisplayInfo();return false;">
-        EXIT
+        EXIT <i class="fa fa-times" aria-hidden="true"></i>
       </div>
   </div>
-    {% for x in all_enteries %}
-    <h1>{{x.UUID}}</h1>
-    {% for product in bb_product %}
-      {% if x.UUID == product.BestBuy_UUID.UUID %}
-	    <h1 style = "margin-top: 1rem" onclick = "javascript:alert('event has been triggered');">BestBuy
-			<img src='{% static "/imgs/bestbuy.png" %}'>
-      </h1>
-    <table class = "table-header" border="1">
-          <thead>
-        <tr id = "bestbuy_table">
-            <th>BestBuy Product Name</th>
-            <td>BestBuy_price</td>
-            <td>BestBuy_SKU</td>
-            <th>BestBuy Product Status</th>
-            <td>BestBuy_Rating</td>
-            <td>BestBuy_Review</td>
-            <td>BestBuy_ModelNumber</td>
-            <td>BestBuy_URL</td>
-            <td>BestBuy_UUID</td>
-        </tr>
-      </thead>
-        <tr class = "table-header" id = "bestbuy_table">
-            <td class = "td-product-header" onclick = "javascript:alert('A Pop up of product info would show.');">{{product.BestBuy_UUID.product}}</td>
-            <td>{{product.BestBuy_price}}</td>
-            <td>{{product.BestBuy_SKU}}</td>
-            <td>{{product.BestBuy_Status}}</td>
-            <td>{{product.BestBuy_Ratings}}</td>
-            <td>{{product.BestBuy_Review}}</td>
-            <td>{{product.BestBuy_ModelNumber}}</td>
-            <td><a href={{product.BestBuy_URL}}>Link</a></td>
-            <td>{{product.BestBuy_UUID.UUID}}</td>
-        </tr>
-        </table>
-          {% endif %}
-        {% endfor %}
-        {% for product in mc_product %}
-          {% if x.UUID == product.MicroCenter_UUID.UUID %}
-        <table class = "table-header" border="1">
-            <tr>
-                <td>MicroCenter_Name</td>
-                <td>MicroCenter_Price</td>
-                <td>MicroCenter_SKU</td>
-                <td>BMicroCenter_ModelNumber</td>
-                <td>MicroCenter_URL</td>
-                <td>MicroCenter_UUID</td>
-            </tr>
-            <tr>
-              <td>{{product.MicroCenter_UUID.product}}</td>
-              <td>{{product.MicroCenter_Price}}</td>
-              <td>{{product.MicroCenter_SKU}}</td>
-              <td>{{product.MicroCenter_ModelNumber}}</td>
-              <td><a href={{product.MicroCenter_URL}}>Link</a></td>
-              <td>{{product.MicroCenter_UUID.UUID}}</td>
-          </tr>
-        </table>
-          {% endif %}
-        {% endfor %}
-    {% for product in gs_product %}
-      {% if x.UUID == product.Gamestop_UUID.UUID %}
-        <table class = "table-header" border="1">
-          <tr>
-            <td>Gamestop_Name</td>
-            <td>Gamestop_Price</td>
-            <td>GameStop_SKU</td>
-            <td>Gamestop_Status</td>
-            <td>Gamestop_Ratings</td>
-            <td>Gamestop_Reviews</td>
-            <td>Gamestop_URL</td>
-            <td>Gamestop_UUID</td>
-          </tr>
-        <tr>
-            <td>{{product.Gamestop_UUID.product}}</td>
-            <td>{{product.Gamestop_price}}</td>
-            <td>{{product.Gamestop_SKU}}</td>
-            <td>{{product.Gamestop_Status}}</td>
-            <td>{{product.Gamestop_Ratings}}</td>
-            <td>{{product.Gamestop_Reviews}}</td>
-            <td><a href={{product.Gamestop_URL}}>Link</a></td>
-            <td>{{product.Gamestop_UUID.UUID}}</td>
-        </tr>
-      </table>
-      {% endif %}
-    {% endfor %}
-    {% for product in bh_product %}
-      {% if x.UUID == product.BH_UUID.UUID %}
-        <table class = "table-header" border="1">
-          <tr>
-            <td>BH_Name</td>
-            <td>BH_Price</td>
-            <td>BH_SKU</td>
-            <td>BH_Status</td>
-            <td>BH_Ratings</td>
-            <td>BH_Reviews</td>
-            <td>BH_URL</td>
-            <td>BH_UUID</td>
-        </tr>
-          <tr>
-            <td>{{product.BH_UUID.product}}</td>
-            <td>{{product.BH_price}}</td>
-            <td>{{product.BH_SKU}}</td>
-            <td>{{product.BH_Status}}</td>
-            <td>{{product.BH_Ratings}}</td>
-            <td>{{product.BH_Reviews}}</td>
-            <td><a href={{product.BH_URL}}>Link</a></td>
-            <td>{{product.BH_UUID.UUID}}</td>
-        </tr>
-    </table>
-    {% endif %}
-  {% endfor %}
-  {% for product in ad_product %}
-    {% if x.UUID == product.AD_UUID.UUID %}
-      <table class = "table-header" border="1">
-        <tr>
-          <td>AD_Name</td>
-          <td>AD_Price</td>
-          <td>AD_SKU</td>
-          <td>AD_Status</td>
-          <td>AD_Ratings</td>
-          <td>AD_Reviews</td>
-          <td>AD_URL</td>
-          <td>AD_UUID</td>
-      </tr>
-        <tr>
-            <td>{{product.AD_UUID.product}}</td>
-            <td>{{product.AD_price}}</td>
-            <td>{{product.AD_SKU}}</td>
-            <td>{{product.AD_Status}}</td>
-            <td>{{product.AD_Ratings}}</td>
-            <td>{{product.AD_Reviews}}</td>
-            <td><a href={{product.AD_URL}}>Link</a></td>
-            <td>{{product.AD_UUID.UUID}}</td>
-        </tr>
-    </table>
-    {% endif %}
-  {% endfor %}
-  {% for product in amzn_product %}
-    {% if x.UUID == product.Amazon_UUID.UUID %}
-      <table class = "table-header" border="1">
-        <tr>
-          <td>Amazon_Name</td>
-          <td>Amazon_Price</td>
-          <td>Amazon_SKU</td>
-          <td>Amazon_Status</td>
-          <td>Amazon_Rating</td>
-          <td>Amazon_Review</td>
-          <td>Amazon_URL</td>
-          <td>Amazon_UUID</td>
-        </tr>
-      <tr>
-          <td>{{product.Amazon_UUID.product}}</td>
-          <td>{{product.Amazon_price}}</td>
-          <td>{{product.Amazon_SKU}}</td>
-          <td>{{product.Amazon_Status}}</td>
-          <td>{{product.Amazon_Ratings}}</td>
-          <td>{{product.Amazon_Reviews}}</td>
-          <td><a href={{product.Amazon_URL}}>Link</a></td>
-          <td>{{product.Amazon_UUID.UUID}}</td>
-      </tr>
-  </table>
-  {% endif %}
-{% endfor %}
-{% endfor %}
 </body>
-</html>
+
+{% for x in chart %}
+  <img src="data:image/png;base64, {{x|safe}}" style="width:600px;height:600px">
+{% endfor %}
+
+<script type = "text/javascript">
+/* */
+// var bbuy_table = document.getElementById("bestbuy_table"); old test code. Ignore.
+// var popup_data = document.getElementById("fakepopup_data");
+var bestbuyArray = []; //data array to store products to compare.
+var bharray = [];
+var mcArray = [];
+var adArray = [];
+var gsArray = [];
+var amznArray = [];
+
+var bestbuyimg = "/static/imgs/bestbuy.png";
+
+var checker = document.getElementById("fakepopup_data_main"); //grab the popupmain element
+
+{% for bproduct in bb_product %} //push bestbuy data to the array
+  bestbuyArray.push('{{bproduct.BestBuy_UUID.UUID.strip}}, {{bproduct.BestBuy_UUID.product}}, {{bproduct.BestBuy_price}}, {{bproduct.BestBuy_Status}}, {{bproduct.BestBuy_Ratings}}, {{bproduct.BestBuy_Review}}, {{bproduct.BestBuy_URL}}')
+{% endfor %}
+
+{% for bhproduct in bh_product %} //push BH data to the array
+  bharray.push('{{bhproduct.BH_UUID.UUID.strip}}, {{bhproduct.BH_UUID.product}},{{bhproduct.BH_price}}, {{bhproduct.BH_Status}}, {{bhproduct.BH_Ratings}}, {{bhproduct.BH_Reviews}}, {{bhproduct.BH_URL}}')
+{% endfor %}
+
+{% for product in mc_product %} //push mc data to the array
+  mcArray.push('{{product.MicroCenter_UUID.UUID.strip}}, {{product.MicroCenter_UUID.product}}, {{product.MicroCenter_Price}}, {{product.MicroCenter_URL}}')
+{% endfor %}
+
+{% for product in amzn_product %} //push amzn data to the array
+  amznArray.push('{{product.Amazon_UUID.UUID.strip}}, {{product.Amazon_UUID.product}}, {{product.Amazon_price}}, {{product.Amazon_Status}}, {{product.Amazon_Ratings}}, {{product.Amazon_Reviews}}, {{product.Amazon_URL}}')
+{% endfor %}
+
+{% for product in gs_product %} //push gs data to the array
+  gsArray.push('{{product.Gamestop_UUID.UUID.strip}}, {{product.Gamestop_UUID.product}}, {{product.Gamestop_price}}, {{product.Gamestop_Status}}, {{product.Gamestop_Ratings}}, {{product.Gamestop_Reviews}}, {{product.Gamestop_URL}}')
+{% endfor %}
+
+{% for product in ad_product %}//push ad data to the array
+  adArray.push('{{product.AD_UUID.UUID.strip}}, {{product.AD_UUID.product}}, {{product.AD_price}}, {{product.AD_Status}}, {{product.AD_Ratings}}, {{product.AD_Reviews}}, {{product.AD_URL}}')
+{% endfor %}
+
+//note that console.log is a print function for javascript.
+
+function displayInfo(product_id, productName, bestbuyData){
+  //console.log(product_id)
+  document.getElementById("fakepopup_data").style.display = "block"; //display the popup
+
+  checkArrayHelper(bestbuyArray, product_id, "bestbuy"); //call thru the helper function to display data checking each brand.
+  checkArrayHelper(bharray, product_id, "bh");
+  checkArrayHelper(mcArray, product_id, "mc");
+  checkArrayHelper(amznArray, product_id, "amzn");
+  checkArrayHelper(gsArray, product_id, "gamestop");
+  checkArrayHelper(adArray, product_id, "ad");
+
+  console.log("info has been displayed.");
+}
+
+  function checkArrayHelper(arrayToCheck, product_id, brand){ //helper function to print data - arguments taken: array and brand (what brand it is)
+    var firstCompare = false;
+    for(var i = 0; i < arrayToCheck.length; i++){ //loop through a given array
+      //console.log(arrayToCheck[i]);
+      //console.log(i);
+      var compareUUID = arrayToCheck[i].split(","); //split data to grab just UUID.
+      //console.log(compareUUID[0]);
+      if(product_id == compareUUID[0]){
+        if(firstCompare == false && brand == "bestbuy"){ //if statements to check brand name and if it's the first comparison of the brand (to be modified/cleaned up later)
+          firstCompare = true; //set first compare to true so other brands arent checked
+          //document.getElementById("fakepopup_data_main").innerHTML += "<h1 style = 'font-family: sans-sarif;'> BestBuy <img style ='height:0.8em;vertical-align:middle;width:auto;' src = '/static/imgs/bestbuy.png'/></h1><br>"; //header for each brand, when we find our first match - display the brand since product is there (but only once)
+          document.getElementById("fakepopup_data_main").innerHTML += "<h1><img style ='height:0.8em;vertical-align:middle;width:auto;' src = 'https://pisces.bbystatic.com/image2/BestBuy_US/Gallery/BestBuy_Logo_2020-190616.png'/></h1><br>";
+          // document.getElementById("fakepopup_data_main").innerHTML += '<img src = "/static/imgs/bestbuy.png"/>';
+        }
+        if(firstCompare == false && brand == "bh"){
+          firstCompare = true;
+          // document.getElementById("fakepopup_data_main").innerHTML += "<h1>This is BH data: </h1><br>"; //header for each brand, when we find our first match - display the brand since product is there (but only once)
+          document.getElementById("fakepopup_data_main").innerHTML += "<h1><img style ='height:0.8em;vertical-align:middle;width:auto;' src = 'https://yt3.ggpht.com/kS4t4QRwLD-q1BhhiRVzVzQimW65zDkopFa8dD14i56oc8ii0G253j6RqC3HxcZ-ytzDhUV-=s900-c-k-c0x00ffffff-no-rj'/></h1><br>";
+          //https://yt3.ggpht.com/kS4t4QRwLD-q1BhhiRVzVzQimW65zDkopFa8dD14i56oc8ii0G253j6RqC3HxcZ-ytzDhUV-=s900-c-k-c0x00ffffff-no-rj
+        }
+        if(firstCompare == false && brand == "mc"){
+          firstCompare = true;
+          document.getElementById("fakepopup_data_main").innerHTML += "<summary><h1><img style ='height:0.8em;vertical-align:middle;width:auto;' src = '../static/imgs/microcenter.png'/></h1></summary>"; //header for each brand, when we find our first match - display the brand since product is there (but only once)
+        }
+        if(firstCompare == false && brand == "amzn"){
+          firstCompare = true;
+          document.getElementById("fakepopup_data_main").innerHTML += "<h1><img style ='height:0.8em;vertical-align:middle;width:auto;' src = '../static/imgs/amazon.png'/></h1><br>"; //header for each brand, when we find our first match - display the brand since product is there (but only once)
+        }
+        if(firstCompare == false && brand == "gamestop"){
+          firstCompare = true;
+          document.getElementById("fakepopup_data_main").innerHTML += "<h1><img style ='height:0.8em;vertical-align:middle;width:auto;' src = '../static/imgs/gamestop.png'/></h1><br>"; //header for each brand, when we find our first match - display the brand since product is there (but only once)
+        }
+        if(firstCompare == false && brand == "ad"){
+          firstCompare = true;
+          document.getElementById("fakepopup_data_main").innerHTML += "<h1><img style ='height:0.8em;vertical-align:middle;width:auto;' src = '../static/imgs/adorama.jpg'/></h1><br>"; //header for each brand, when we find our first match - display the brand since product is there (but only once)
+        }
+        console.log(compareUUID.length);
+        if(compareUUID.length == 4){
+            document.getElementById("fakepopup_data_main").innerHTML += "<details><summary>Expand for more details</summary><li>Price: " + compareUUID[2] + "</li><li><a class = 'popup_link' href="+ compareUUID[3] + " target='_blank'>[Link to Product]</a></li></details>"; //hard code for details - it auto closes the tag for some reason
+        }else{
+            if(compareUUID[5] == 0){
+              var noRatings = "<li> No ratings found. </li>";
+              document.getElementById("fakepopup_data_main").innerHTML += "<details><summary>Expand for more details</summary><li>Price: " + compareUUID[2] + "</li><li>" + compareUUID[3] + "</li>"+  noRatings + "<li><a class = 'popup_link' href="+ compareUUID[6] + " target='_blank'>[Link to Product]</a></li></details>";
+            }else{
+              //console.log(compareUUID[2])
+              if(compareUUID[2] == 0.00){
+                document.getElementById("fakepopup_data_main").innerHTML += "<details><summary>Expand for more details</summary><li><li>" + compareUUID[3] + "</li><li> Rating (Out of 5): " + compareUUID[4] + " and Number of Reviews: " + compareUUID[5] +"</li><li><a class = 'popup_link' href="+ compareUUID[6] + " target='_blank'>[Link to Product]</a></li></details>";
+              }else{
+                  document.getElementById("fakepopup_data_main").innerHTML += "<details><summary>Expand for more details</summary><li>Price: " + compareUUID[2] + "</li><li>" + compareUUID[3] + "</li><li> Rating (Out of 5): " + compareUUID[4] + " and Number of Reviews: " + compareUUID[5] +"</li><li><a class = 'popup_link' href="+ compareUUID[6] + " target='_blank'>[Link to Product]</a></li></details>";
+              }
+            }
+        }
+        // for(var j = 2; j < compareUUID.length;j++){ OLD Code
+        //   // if(j == 1){
+        //   //   document.getElementById("fakepopup_data_main").innerHTML += "<li><h4>" + compareUUID[j] + "</h4></li>";
+        //   // }
+        //   if(j == 2){
+        //     document.getElementById("fakepopup_data_main").innerHTML += "<li>Price: " + compareUUID[j] + "</li>";
+        //   }
+        //   if(j != compareUUID.length - 1 && j != 1 && j != 2 && j != 4 && j != 5){
+        //     document.getElementById("fakepopup_data_main").innerHTML += "<li>" + compareUUID[j] + "</li>";
+        //   }
+        //   if(compareUUID.length > 4 && j == 4){
+        //     if(compareUUID[5] == 0){
+        //         document.getElementById("fakepopup_data_main").innerHTML += "<li> No ratings found. </li>";
+        //     }else{
+        //         document.getElementById("fakepopup_data_main").innerHTML += "<li> Rating (Out of 5): " + compareUUID[j] + " and Number of Reviews: " + compareUUID[5] + "</li></details>";
+        //     }
+        //     j++;
+        //   }
+        //   if(j == compareUUID.length - 1){
+        //     document.getElementById("fakepopup_data_main").innerHTML += "<li><a class = 'popup_link' href=" + compareUUID[j] + " target='_blank'>[Link to Product]</a></li>";
+        //   }
+        // }
+        //document.getElementById("fakepopup_data_main").innerHTML += compareUUID;
+    }
+  }
+/* This code is used for preventing more than 1 <detail> from being expanded -Quentin Roy
+
+https://stackoverflow.com/questions/16751345/automatically-close-all-the-other-details-tags-after-opening-a-specific-detai
+
+*/
+//Grab details element
+const details = document.querySelectorAll("details");
+
+// Add the onclick listeners.
+details.forEach((targetDetail) => {
+  targetDetail.addEventListener("click", () => {
+    // Close all the details that are not targetDetail.
+    details.forEach((detail) => {
+      if (detail !== targetDetail) {
+        detail.removeAttribute("open");
+      }
+    });
+  });
+});
+}
+
+function hideDisplayInfo(){
+  document.getElementById("fakepopup_data").style.display = "none";
+  //console.log("InnerHTML: " + checker.innerHTML);
+  checker.innerHTML = ""; //empty the popup data container
+  console.log("Clearing values...");
+  //console.log("hiding....");
+}
+
+</script>
+
+{% endblock %}

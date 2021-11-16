@@ -1,0 +1,153 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Source Sans Pro", sans-serif;
+}
+.header {
+  min-height: 100vh;
+  width: 100%;
+  background-image: linear-gradient(rgba(4, 9, 30, 0.7), rgba(4, 9, 30, 0.7)),
+    url("/static/imgs/abs_2080build_21.jpg");
+  background-position: center;
+  background-size: cover;
+  position: relative;
+}
+
+nav {
+  width: 100%;
+  height: 70px;
+  background-color: #045b8d;
+}
+
+nav img {
+  width: 70px;
+  padding: 3px;
+}
+
+.nav-links {
+  flex: 1;
+  text-align: center;
+}
+
+nav p {
+  font-family: "Source Sans Pro", sans-serif;
+  color: #fff;
+  font-size: 24px;
+  line-height: 55px;
+  float: left;
+  padding: 0px 20px;
+}
+
+nav ul {
+  float: left;
+}
+
+nav ul li {
+  float: left;
+  list-style: none;
+  position: relative;
+}
+
+nav ul li a {
+  color: rgb(255, 255, 255);
+  text-decoration: none;
+  font-size: 15px;
+  padding: 25px 16px;
+  display: block;
+}
+
+nav ul li ul {
+  display: none;
+  position: absolute;
+  background-color: #045b8d;
+  padding: 10px;
+  border-radius: 0px 0px 4px 4px;
+}
+
+nav ul li:hover ul {
+  display: block;
+}
+
+nav ul li ul li {
+  width: 180px;
+  border-radius: 4px;
+}
+
+nav ul li ul li a {
+  padding: 8px 14px;
+}
+
+nav ul li ul li a:hover {
+  background-color: #8f8f8f;
+}
+
+.nav-links ul li::after {
+  content: "";
+  width: 0%;
+  background: #f44336;
+  display: block;
+  margin: auto;
+  transition: 0.5s;
+}
+
+.nav-links ul li:hover::after {
+  width: 100%;
+}
+
+.text-box {
+  width: 90%;
+  color: #fff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.text-box h1 {
+  font-size: 62px;
+}
+
+.text-box p {
+  margin: 10px 0 40px;
+  font-size: 14px;
+  color: #fff;
+}
+
+.hero-btn {
+  display: inline-block;
+  text-decoration: none;
+  color: #fff;
+  border: 1px solid #fff;
+  padding: 12px 34px;
+  font-size: 13px;
+  background: transparent;
+  position: relative;
+  cursor: pointer;
+}
+
+.hero-btn:hover {
+  border: 1px solid #045b8d;
+  background: #045b8d;
+  transition: 1s;
+}
+
+.items {
+  text-align: center;
+}
+
+.row {
+  margin: 5%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.vendors {
+  text-align: center;
+}
+
+.row2 {
+  margin: 5%;
+  display: flex;
+  justify-content: space-around;
+}

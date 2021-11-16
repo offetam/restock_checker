@@ -1,5 +1,5 @@
 from django.http.response import HttpResponseRedirect
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render,get_object_or_404
 from django.http import HttpResponse
 from pages.models import BestBuy, MicroCenter, Gamestop, BH, AD, Amazon
 from pages.models import User
@@ -9,9 +9,21 @@ from hashlib import blake2b
 from django.contrib import messages
 from django.core.mail import send_mail
 
+import matplotlib.pyplot as plt
+import base64
+from io import BytesIO
+import pandas as pd
+import random
+
+def landing(request):
+    return render(request,'display.html')
+
+
 # Create your views here.
 def home_view(request):
     context ={}
+    if 'email' not in request.session:
+        request.session['email'] = ''
     if(request.method == 'GET'): #checks if we can GET
         x = request.GET.get("product") #gets the product name if possible
         #print(x) #prints the product name the user enters (to check)
@@ -23,7 +35,7 @@ def home_view(request):
             #context = {'all_enteries': all_enteries} #creates a dictionary with our enteries
             uids =[]
             for i in all_enteries:
-                print(i.UUID)
+                #print(i.UUID)
                 uids.append(i.UUID)
             combin_bb = BestBuy.objects.none()
             combin_mc = MicroCenter.objects.none()
@@ -31,7 +43,13 @@ def home_view(request):
             combin_bh = BH.objects.none()
             combin_ad = AD.objects.none()
             combin_amzn = Amazon.objects.none()
+            file = 'Trends.csv'
+            df = pd.read_csv(file)
+            #print(df)
+            date = getDates(df)
+            graph_arr = []
             for i in uids:
+                indices_list = df[df['UUID']==i.strip('\r')].index.values[0]
                 combin_bb = combin_bb | BestBuy.objects.all().filter(BestBuy_UUID=i)
                 #combin_bb = combin_bb | all_bb.filter(BestBuy_UUID=i).exclude(BestBuy_SKU=0)
                 combin_mc= combin_mc | MicroCenter.objects.all().filter(MicroCenter_UUID=i).exclude(MicroCenter_SKU=0)
@@ -39,14 +57,24 @@ def home_view(request):
                 combin_bh= combin_bh | BH.objects.all().filter(BH_UUID=i).exclude(BH_SKU="")
                 combin_ad= combin_ad | AD.objects.all().filter(AD_UUID=i).exclude(AD_SKU="")
                 combin_amzn = combin_amzn | Amazon.objects.all().filter(Amazon_UUID=i).exclude(Amazon_SKU="")
+                stock = df.loc[indices_list].tolist()
+                name = stock[0]
+                stock.pop(0) #get rid of product name from the list
+                stock.pop(0) #get rid of uuid from the list
+                stock = fixStock(stock)
+                #print(stock)
+                graph_arr.append(get_plot(date,stock,name))
+                #print(i)
+            chart = graph_arr
             context = {'all_enteries' : all_enteries,
             'bb_product' : combin_bb,
             'mc_product' : combin_mc,
             'gs_product' : combin_gs,
             'bh_product' : combin_bh,
             'ad_product' : combin_ad,
-            'amzn_product' : combin_amzn}
-            
+            'amzn_product' : combin_amzn,
+            'chart' : chart}
+
         else:
             all_enteries = products.objects.all() #just gets all products if there's no input
             combin_bb = BestBuy.objects.all()
@@ -73,12 +101,12 @@ def home_view(request):
             if(request.session['email']==''):
                 return redirect('/login')
             elif(Notification.objects.all().filter(email=request.session['email'], product__in=pro).count()>0):
-                print("NOOOOOOO")
+                break
             else:
                 temp = Notification.objects.create(email=request.session['email'], product = pro)
         if(len(temp_arr) != 0):
             send_mail('Notification',
-            'Hello '+request.session['email']+',\n The following items to be notified on: \n'+ temp_arr + "\n Thank you for signing up with Restock \n From,\n Restock Team",
+            'Hello '+request.session['email']+',\nThe following items to be notified on: \n'+ temp_arr + "\nThank you for signing up with Restock \nFrom,\nRestock Team",
             'restockcheck123@gmail.com',
             [request.session['email']],
             fail_silently=False)
@@ -91,10 +119,11 @@ def home_view(request):
 
 def login(request):
     if(request.method == 'POST'):
-        login_email = request.POST.get("login_email") #get login_email 
+        login_email = request.POST.get("login_email") #get login_email
         login_pass = request.POST.get("login_pass") #get login_pass
         signup_email = request.POST.get("signup_email") #get signup_email
         signup_pass = request.POST.get("signup_pass") #get signup_pass
+        verification = request.POST.get("verificationcode")
         if(login_email is not None and login_pass is not None):
             #print(blake2b(login_email.encode()).hexdigest())
             hash_login_mail = blake2b(login_email.encode()).hexdigest() #hash the user's login_email
@@ -105,11 +134,39 @@ def login(request):
             x = User.objects.all().filter(email=hash_login_mail,password=hash_login_pass) #checks if the user's email and password exists
             if( not x): #gives error message and redirect user back if failed
                 #print("No such User")
-                messages.error(request, "Email or password is incorrect", extra_tags='login')
+                messages.error(request, "Invalid Inputs", extra_tags='login')
                 return redirect('/login?fail')
-            else: #logins if successful
-                request.session['email']=login_email
-                return redirect('/')
+            else:
+                for i in x:
+                    check_code = i.verificationCode
+                    isver = i.verify
+                    failcount = i.numTry
+                if(isver!=1 and (verification == '' or not(verification.isnumeric()))):
+                    failcount +=1
+                    x.update(numTry=failcount)
+                    if(failcount>=5):
+                        newcode(x,login_email)
+                        failcount = 0
+                        x.update(numTry=0)
+                        messages.error(request, "Error logging in...New code sent to email", extra_tags='login')
+                    else:
+                        messages.error(request, "Error logging in", extra_tags='login')
+                    return redirect('/login?notverified')
+                elif(isver!=1 and check_code!= int(verification or 0)):
+                    failcount +=1
+                    x.update(numTry=failcount)
+                    if(failcount>=5):
+                        messages.error(request, "Error logging in...New code sent to email", extra_tags='login')
+                        newcode(x,login_email)
+                        failcount = 0
+                        x.update(numTry=0)
+                    else:
+                        messages.error(request, "Error logging in", extra_tags='login')
+                    return redirect('/login?notverified')
+                else:
+                    x.update(verify=1)
+                    request.session['email']=login_email
+                    return redirect('/')
         elif(signup_email is not None and signup_pass is not None):
             #print(blake2b(signup_email.encode()).hexdigest())
             hash_sign_mail = blake2b(signup_email.encode()).hexdigest() #hash the user's signup_email
@@ -118,17 +175,19 @@ def login(request):
             #print(blake2b(saltedpass.encode()).hexdigest())
             hash_sign_pass = blake2b(saltedpass.encode()).hexdigest() #hash the new salted user password
             x = User.objects.all().filter(email=hash_sign_mail).count() #checks if there's already an account with the inputted email
-            if(x ==0): # creates new User and gives success message to user 
-                new_user = User(email=hash_sign_mail,password=hash_sign_pass)
+            if(x ==0): # creates new User and gives success message to user
+                verCode = random.randrange(100000,999999)
+                #print(verCode)
+                new_user = User(email=hash_sign_mail,password=hash_sign_pass,verificationCode=verCode)
                 new_user.save()
-                messages.success(request,"User successfully created, Please go Verify your account", extra_tags="signup_success")
-                send_mail('Hello User',
-                'This is a test message',
+                messages.success(request,"User successfully created! Please go verify your account", extra_tags="signup_success")
+                send_mail('Welcome to Restock: Verification',
+                'Hi ' + signup_email + ', \nThank you for signing up with Restock. We hope we will meet your product needs. \nThis is your Verification Number:'+'\n'+str(verCode)+'\nFrom, \nRestock Team',
                 'restockcheck123@gmail.com',
                 [signup_email],
                 fail_silently=False)
                 return redirect('/login?signup_success')
-            else: #gives error message and redirects users back if there already exists a user 
+            else: #gives error message and redirects users back if there already exists a user
                 messages.error(request, "User exists already", extra_tags='signup_fail')
                 return redirect('/login?signup_fail')
     return render(request, 'login.html')
@@ -140,6 +199,8 @@ def signout(request):
     return home_view(request)
 
 def notification(request):
+    if(request.session['email']==""):
+        return redirect('/login')
     if(request.method == 'GET'):
         remove_notify = request.GET.getlist('id')
         #print(remove_notify)
@@ -189,7 +250,7 @@ def email_notify(Storename, arr):
             user_email = k.get('email')
             #print(user_email)
             send_mail('IN STOCK NOW',
-            'Hi '+ user_email +', \n The following product is now available: \n'+ product_name+'\n Here is the link to the product: \n'+link_one + '\n Thanks you for choosing Restock. \n From, \n Restock Team',
+            'Hi '+ user_email +', \nThe following product is now available: \n'+ product_name+'\nHere is the link to the product: \n'+link_one + '\nThanks you for choosing Restock. \nFrom, \nRestock Team',
             'restockcheck123@gmail.com',
             [user_email],
             fail_silently=False)
@@ -200,7 +261,9 @@ def update(StoreName,arr):
             user_obj=BestBuy.objects.get(BestBuy_SKU=int(arr[1][i]))
             if arr[2][i]>0:
                 user_obj.BestBuy_price=arr[2][i]
-            if len(arr[3][i])>0:    
+
+            if len(arr[3][i])>0:
+
                 user_obj.BestBuy_Status=arr[3][i]
             user_obj.save()
     if(StoreName=='Micro'):
@@ -226,3 +289,68 @@ def update(StoreName,arr):
                 user_obj.Gamestop_Status=arr[3][i]
             user_obj.save()
     return 0
+
+def get_graph():
+    buffer = BytesIO()
+    plt.savefig(buffer,format='png')
+    buffer.seek(0)
+    image_png = buffer.getvalue()
+    graph = base64.b64encode(image_png)
+    graph = graph.decode('utf-8')
+    buffer.close()
+    return graph
+
+def get_plot(x,y,name):
+    plt.switch_backend('AGG')
+    plt.figure(figsize=(10,8))
+    plt.title(name)
+    plt.plot(x,y)
+    plt.xticks(rotation=20)
+    plt.xlabel('Date')
+    plt.ylabel('Availability')
+    plt.tight_layout()
+    graph = get_graph()
+    return graph
+
+
+def getDates(df):
+    dates = []
+    for x in df.columns:
+        if x != 'UUID' and x != 'Product_Name':
+            dates.append(x)
+    return dates
+
+def fixStock(info):
+    for x in range(len(info)):
+        if info[x] == -1:
+            info[x] = "No Data"
+        if info[x] == 0:
+            info[x] = "Not in Stock"
+        if info[x] == 1:
+            info[x] = "In Stock"
+    return info
+
+def product_detail(request, UUID):
+    detail = get_object_or_404(products, UUID = UUID)
+
+    bb = BestBuy.objects.none() | BestBuy.objects.all().filter(BestBuy_UUID = detail.UUID)
+    mc= MicroCenter.objects.none() | MicroCenter.objects.all().filter(MicroCenter_UUID= detail.UUID).exclude(MicroCenter_SKU=0)
+    gs= Gamestop.objects.none() | Gamestop.objects.all().filter(Gamestop_UUID= detail.UUID)
+    bh= BH.objects.none() | BH.objects.all().filter(BH_UUID= detail.UUID).exclude(BH_SKU="")
+    ad= AD.objects.none() | AD.objects.all().filter(AD_UUID= detail.UUID).exclude(AD_SKU="")
+    amzn = Amazon.objects.none() | Amazon.objects.all().filter(Amazon_UUID= detail.UUID).exclude(Amazon_SKU="")
+
+    context = {'bb':bb,'mc': mc,'gs':gs,'bh':bh,'ad':ad,'amzn':amzn}
+
+    return render(request, 'details.html', context)
+
+def newcode(x,email):
+    verCode = random.randrange(100000,999999)
+    send_mail('Restock: New Verification Code',
+                'Hi ' + email + ', \nThis is your new Verification Number:'+'\n'+str(verCode)+'\nFrom, \nRestock Team',
+                'restockcheck123@gmail.com',
+                [email],
+                fail_silently=False)
+    x.update(verificationCode=verCode)
+    return 0
+

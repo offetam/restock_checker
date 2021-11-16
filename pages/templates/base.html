@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+		<link rel="stylesheet" type="text/css" href='{% static "/css/mainpage.css" %}'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"> <!-- css for the search icon (fa fa-search) -->
+    <!-- <script src = '{% static "/js/main.js" %}'></script>  js file  -->
+
+    <title>{% block title %}BASE{% endblock %}</title>
+</head>    
+
+<body>
+    <header>
+        <div class = "header">
+            <div class = "inner_header">
+          <div class = "logo_container">
+            <a href="{% url 'landing' %}"><img class = "logo_img" src = '{% static "/imgs/logo3.png" %}'></img></a>
+          </div>
+    
+          <div class = "search_container">
+            <form id = "searchbar" class = "search_form">
+                <input type="text" class = "searchtext" name="product" placeholder="Search for Products"><button type="submit" value="Search!"><i class="fa fa-search" id = "search_button"></i> Search</button>
+            </form>
+          </div>
+    
+                <nav>
+                  <ul class = "navigation"> <!--  Header to use on other pages -->
+                      <li>
+                {% if request.session.email != '' %}
+                    <a href="{% url 'signout' %}">Sign Out</a>
+                {% else %}
+                    <a href="{% url 'login' %}"> Login </a>
+                {% endif %}
+                        </li>
+              <li>
+                {% if request.session.email != '' %}
+                <a href="{% url 'notification' %}">Notification</a>
+                {% endif %}
+              </li>
+                    </ul>
+                </nav>
+            </div>
+    
+    </div>
+    </header>
+
+
+    <div id ="content" > {% block content %} {% endblock %}</div>
+</body>
+</html>
