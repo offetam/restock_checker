@@ -80,9 +80,16 @@ def get_item_stock(product):
         stock = "out of stock"
     return stock
 
+def get_img(product):
+    img = product.find('img', 's-image')
+    print(img)
+    found = img.get('src')
+
+    return found
+
 
 def create_a_dataframe(csv_name, product_info):
-    headers = ['ASIN', 'price', 'rating', 'number_of_reviews', 'stock']
+    headers = ['ASIN', 'price', 'rating', 'number_of_reviews', 'stock', 'img']
     df = pd.DataFrame(np.array(product_info), columns= headers)
     df.to_csv(csv_name + ".csv", index = False)
 
@@ -110,7 +117,7 @@ def scrape_amazon():
 
         #loop through each item to get info
         for item in results:
-            record = [item.get('data-asin'), get_item_price(item), get_item_rating(item), get_number_of_reviews(item), get_item_stock(item)]
+            record = [item.get('data-asin'), get_item_price(item), get_item_rating(item), get_number_of_reviews(item), get_item_stock(item), get_img(item)]
             product_information.append(record)
 
     #closes google chrome 
