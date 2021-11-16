@@ -1,10 +1,11 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
     <meta name="viewport" content="with=device-width, initial-scale = 1.0">
     <title>Restock</title>
     <link rel="shortcut icon" href="logo3.png">
-    <link rel="stylesheet" href="about_style.css">
+    <link rel="stylesheet" href='{% static "/css/about_style.css" %}''>
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;700&display=swap" rel="stylesheet">
@@ -14,7 +15,7 @@
 
     <section class="header1">
         <nav>
-        <p><a href="display.html"><img src="logo3.png"></a></p>
+        <p><a href="{% url 'landing' %}"><img src='{% static "imgs/logo3.png" %}'></a></p>
             <ul>
                 <li>
                     <a>Graphic Crads</a>
@@ -36,15 +37,19 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="">Notifications</a>
+                  <a href="{% url 'home' %}">Products</a>
                 </li>
+                  {% if request.session.email != '' %}
+                  <li>
+                    <a href="{% url 'notification' %}">Notifications</a>
+                  </li>
+                  {% endif %}
                 <li>
-                    <a href="">Login</a>
-                    <ul>
-                        <li>
-                            <a href="">Sign In</a>
-                        </li>
-                    </ul>
+                  {% if request.session.email != '' %}
+                  <a href="{% url 'signout' %}">Sign Out</a>
+                  {% else %}
+                  <a href="{% url 'login' %}"> Login </a>
+                  {% endif %}
                 </li>
             </ul>
         </nav>
@@ -69,56 +74,56 @@
             <div class="row">
               <div class="column">
                 <div class="card">
-                  <img src="oscar.png" alt="Jane" style="width:100%">
+                  <img src='{% static "imgs/logo3.png" %}'alt="oscar" style="width:100%">
                   <div class="container">
                     <h2>Oscar</h2>
                     <p class="title">Founder of Restock</p>
                     <p>Some text that describes me lorem ipsum ipsum lorem.</p>
-                    <p>jane@example.com</p>
+                    <p>oscar@example.com</p>
                   </div>
                 </div>
               </div>
               <div class="column">
                 <div class="card">
-                  <img src="alden.png" alt="Jane" style="width:100%">
+                  <img src='{% static "imgs/logo3.png" %}' alt="alden" style="width:100%">
                   <div class="container">
                     <h2>Alden</h2>
                     <p class="title">Founder of Restock</p>
                     <p>Some text that describes me lorem ipsum ipsum lorem.</p>
-                    <p>jane@example.com</p>
+                    <p>alden@example.com</p>
                   </div>
                 </div>
               </div>
               <div class="column">
                 <div class="card">
-                  <img src="ethan.png" alt="Jane" style="width:100%">
+                  <img src='{% static "imgs/logo3.png" %}' alt="ethan" style="width:100%">
                   <div class="container">
                     <h2>Ethan</h2>
                     <p class="title">Founder of Restock</p>
                     <p>Some text that describes me lorem ipsum ipsum lorem.</p>
-                    <p>jane@example.com</p>
+                    <p>ethan@example.com</p>
                   </div>
                 </div>
               </div>
               <div class="column">
                 <div class="card">
-                  <img src="danny.png" alt="Jane" style="width:100%">
+                  <img src='{% static "imgs/logo3.png" %}' alt="danny" style="width:100%">
                   <div class="container">
                     <h2>Danny</h2>
                     <p class="title">Founder of Restock</p>
                     <p>Some text that describes me small pp ipsum lorem.</p>
-                    <p>jane@example.com</p>
+                    <p>danny@example.com</p>
                   </div>
                 </div>
               </div>
               <div class="column">
                 <div class="card">
-                  <img src="david.png" alt="Jane" style="width:100%">
+                  <img src='{% static "imgs/logo3.png" %}' alt="david" style="width:100%">
                   <div class="container">
                     <h2>David</h2>
                     <p class="title">Founder of Restock</p>
                     <p>Some text that describes me lorem ipsum ipsum lorem.</p>
-                    <p>jane@example.com</p>
+                    <p>david@example.com</p>
                   </div>
                 </div>
               </div>
