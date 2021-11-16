@@ -261,7 +261,9 @@ def update(StoreName,arr):
             user_obj=BestBuy.objects.get(BestBuy_SKU=int(arr[1][i]))
             if arr[2][i]>0:
                 user_obj.BestBuy_price=arr[2][i]
+
             if len(arr[3][i])>0:
+
                 user_obj.BestBuy_Status=arr[3][i]
             user_obj.save()
     if(StoreName=='Micro'):
@@ -351,3 +353,4 @@ def newcode(x,email):
                 fail_silently=False)
     x.update(verificationCode=verCode)
     return 0
+
