@@ -1,1 +1,1 @@
-web: gunicorn restock.wsgi
+web: gunicorn restock.wsgi --log-file -
