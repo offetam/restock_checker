@@ -26,7 +26,7 @@ SECRET_KEY = config("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['restockchecker.herokuapp.com','0.0.0.0']
+ALLOWED_HOSTS = ['restockchecker.herokuapp.com','127.0.0.1']
 
 
 # Application definition
@@ -38,7 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'pages' #added
+    'pages', #added
+    'django_filters',
+    'storages',
+
 ]
 
 MIDDLEWARE = [
@@ -79,11 +82,11 @@ WSGI_APPLICATION = 'restock.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'd6mh92as4udhr3',
-        'USER': 'atnrqzacambchr',
-        'PASSWORD': 'f89095e9aaffd76ec7465a1f8889ab02525a2f51fdf730462d3827994417956f',
-        'HOST': 'ec2-44-198-236-169.compute-1.amazonaws.com',
-        'PORT': 5432,
+        'NAME': 'live_restockDB',
+        'USER': 'restockcheck',
+        'PASSWORD': 'Restockcheck000?',
+        'HOST': 'restockdatabase-1.c3ddwyw6w3fp.us-east-2.rds.amazonaws.com',
+        'PORT':'5432',
     }
 }
 
@@ -127,9 +130,8 @@ USE_TZ = True
 STATIC_ROOT = ''
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, ' staticfiles')
 
-STATICFILES_DIRS = ( os.path.join('static'), )
+STATICFILES_DIRS = ( os.path.join(BASE_DIR,'static'), )
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -143,6 +145,19 @@ EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'default from email'
+
+#S3 STATIC BUCKET CONFIG
+AWS_ACCESS_KEY_ID = 'AKIA6P2KOWIXETGUKZOL'
+AWS_SECRET_ACCESS_KEY ='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'
+AWS_STORAGE_BUCKET_NAME='restock-static-bucket'
+AWS_S3_REGION_NAME = 'us-east-2'
+
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = False
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+
 
 #include the necessary mimetypes for django to read js
 if DEBUG:
