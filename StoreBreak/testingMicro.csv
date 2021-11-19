@@ -77,7 +77,7 @@ MicroCenter_Price,MicroCenter_SKU,MicroCenter_Model Number,MicroCenter_Link,UUID
 459.99,287714,GV-N3060GAMING,https://www.microcenter.com/product/638651/gigabyte-nvidia-geforce-rtx-3060-gaming-rev-2-overclocked-triple-fan-12gb-gddr6-pcie-40-graphics-card,011cfa4c-cddc-4468-a4fd-77803e5af8a9
 599.99,309435,R2GVN306TAORUSE,https://www.microcenter.com/product/640396/gigabyte-nvidia-geforce-rtx-3060-ti-aorus-elite-lhr-overclocked-triple-fan-8gb-gddr6-pcie-40-graphics-card,1fb5b296-f6fd-4433-a052-f76a322c36f9
 569.99,298141,R3GVN306TGAMING,https://www.microcenter.com/product/639484/gigabyte-nvidia-geforce-rtx-3060-ti-gaming-pro-lhc-overclocked-triple-fan-8gb-gddr6-pcie-40-graphics-card,27d93e37-08b2-495f-85eb-c8babe13b090
-569.99,309930,,https://www.microcenter.com/product/640620/gigabyte-nvidia-geforce-rtx-3060-ti-gaming-rev-2-overclocked-triple-fan-8gb-gddr6-pcie-40-graphics-card,adbff5a6-a437-4e9f-aa99-d50df22f7ee2
+569.99,309930,None,https://www.microcenter.com/product/640620/gigabyte-nvidia-geforce-rtx-3060-ti-gaming-rev-2-overclocked-triple-fan-8gb-gddr6-pcie-40-graphics-card,adbff5a6-a437-4e9f-aa99-d50df22f7ee2
 799.99,303826,R2GVN3070AORUSM,https://www.microcenter.com/product/639900/gigabyte-nvidia-geforce-rtx-3070-aorus-master-lhr-overclocked-triple-fan-8gb-gddr6-pcie-40-graphics-card,7255c8cc-a596-40ec-b01b-bf126ceebb98
 979.99,287250,GV-N307TAORUS M,https://www.microcenter.com/product/638606/gigabyte-nvidia-geforce-rtx-3070-ti-aorus-master-overclocked-triple-fan-8gb-gddr6x-pcie-40-graphics-card,3032c504-14b9-4fee-8863-900a557fd47a
 849.99,287243,GV-N307TGAMING,https://www.microcenter.com/product/638605/gigabyte-nvidia-geforce-rtx-3070-ti-gaming-overclocked-triple-fan-8gb-gddr6x-pcie-40-graphics-card,b5b3b06d-73c4-44e8-9338-34ac8baecc77
@@ -156,7 +156,7 @@ MicroCenter_Price,MicroCenter_SKU,MicroCenter_Model Number,MicroCenter_Link,UUID
 989.99,217729,RX680016GBD63DH,https://www.microcenter.com/product/632323/powercolor-amd-radeon-rx-6800-fighter-overclocked-triple-fan-16gb-gddr6-pcie-40-graphics-card,271b5b93-68bb-4f2d-9104-4f5b7336e31a
 1169.99,217679,AXRX680016GBD63,https://www.microcenter.com/product/632322/powercolor-amd-radeon-rx-6800-red-dragon-overclocked-triple-fan-16gb-gddr6-pcie-40-graphics-card,55e037d3-a97b-4c08-af59-b87e9fb853e3
 1659.99,239202,LD/AXRX6800XT16,https://www.microcenter.com/product/634083/powercolor-amd-radeon-rx-6800-xt-liquid-devil-16gb-gddr6-pcie-40-graphics-card,9c2d9d33-a97e-4572-bc13-0520c51af666
-2199.0,239616,AXRX_6900XT_16G,https://www.microcenter.com/product/634084/powercolor-amd-radeon-rx-6900-xt-liquid-devil-overclocked-liquid-cooled-16gb-gddr6-pcie-40-graphics-card,3176fa34-4085-466e-b292-414bc442104b
+2199,239616,AXRX_6900XT_16G,https://www.microcenter.com/product/634084/powercolor-amd-radeon-rx-6900-xt-liquid-devil-overclocked-liquid-cooled-16gb-gddr6-pcie-40-graphics-card,3176fa34-4085-466e-b292-414bc442104b
 2299.99,264366,LDAXRX6900XTU16,https://www.microcenter.com/product/636418/powercolor-amd-radeon-rx-6900-xt-liquid-devil-ultimate-overclocked-liquid-cooled-16gb-gddr6-pcie-40-graphics-card,b5085745-3df3-493a-965c-0a4e0b3bcb2e
 1699.99,221085,OCRX6900XT16GBD,https://www.microcenter.com/product/632635/powercolor-amd-radeon-rx-6900-xt-red-devil-overclocked-triple-fan-16gb-gddr6-pcie-40-graphics-card,af4952b6-34f9-4917-b149-ddc0978d6230
 1799.99,264374,AXRX6900XTU16GB,https://www.microcenter.com/product/636419/powercolor-amd-radeon-rx-6900-xt-ultimate-red-devil-overclocked-triple-fan-16gb-gddr6-pcie-40-graphics-card,c3cb8d3d-fded-4d1d-85a4-9ddf20730af9
