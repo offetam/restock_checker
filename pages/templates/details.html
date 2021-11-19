@@ -5,8 +5,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href='{% static "/css/notification.css" %}'>
+    <!-- <link rel="stylesheet" type="text/css" href='{% static "/css/notification.css" %}'> -->
+      <link rel="stylesheet" type="text/css" href='{% static "/css/details.css" %}'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"> <!-- css for the search icon (fa fa-search) -->
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;700&display=swap" rel="stylesheet">
     <title>Restock - Expanded Info</title>
     <link rel="shortcut icon" href='{% static "imgs/logo3.png" %}'>
 </head>
@@ -41,172 +43,189 @@
 </header>
 
 <body>
-  <div>
-    {% for i in bb %}
-    <div>BESTBUY INFO</div>
+    <script>0</script>
+    <div></div>
+    <br>
+    <div class = "logo_product" style = "font-size:25px;">
+      {% for i in bb %}
+      <div style = "margin-left:0"> BESTBUY INFO <img style ='max-height:100%;vertical-align:middle;width:auto;' src = 'https://pisces.bbystatic.com/image2/BestBuy_US/Gallery/BestBuy_Logo_2020-190616.png'/></img> </div>
+      <div style = "display:none;">
+        <div>
+          Name:
+          {{i.BestBuy_UUID.product}}
+        </div>
+        <div>
+          Price:
+          {{i.BestBuy_price}}
+        </div>
+        <div>
+          Stock Status:
+          {{i.BestBuy_Status}}
+        </div>
+        <div>
+          Ratings:
+          {{i.BestBuy_Ratings}}
+        </div>
+        <div>
+          Reviews:
+          {{i.BestBuy_Review}}
+        </div>
+        <div>
+          Click URL to purchase product!
+          <a href= '{{i.BestBuy_URL}}'>URL</a>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+<br>
+<div class = "logo_product" style = "font-size:25px;">
+    {% for i in mc %}
+    <div> MICROCENTER INFO <img style ='max-height:100px;max-width:100%;vertical-align:middle;width:auto;' src = '{% static "/imgs/microcenter.PNG" %}'></img>
+      <div style = "display:none;">
+        <div>
+          Name:
+          {{i.MicroCenter_UUID.product}}
+        </div>
+        <div>
+          Price:
+          {{i.MicroCenter_Price}}
+        </div>
+        <div>
+          Click URL to purchase product!
+          <a href= '{{i.MicroCenter_URL}}'>URL</a>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+</div>
+<br>
+
+<div class = "logo_product" style = "font-size:25px;">
+  {% for i in gs %}
+  <div>GAMESTOP INFO</div>
+    <div style = "display:none;">
       <div>
         Name:
-        {{i.BestBuy_UUID.product}}
+        {{i.Gamestop_UUID.product}}
       </div>
       <div>
         Price:
-        {{i.BestBuy_price}}
+        {{i.Gamestop_price}}
       </div>
       <div>
         Stock Status:
-        {{i.BestBuy_Status}}
+        {{i.Gamestop_Status}}
       </div>
       <div>
         Ratings:
-        {{i.BestBuy_Ratings}}
+        {{i.Gamestop_Ratings}}
       </div>
       <div>
         Reviews:
-        {{i.BestBuy_Review}}
+        {{i.Gamestop_Reviews}}
       </div>
       <div>
         Click URL to purchase product!
-        <a href= '{{i.BestBuy_URL}}'>URL</a>
+        <a href= '{{i.Gamestop_URL}}'>URL</a>
       </div>
-    {% endfor %}
+      {% endfor %}
+    </div>
 </div>
 <br>
-<div>
-    {% for i in mc %}
-    <div>MICROCENTER INFO</div>
+<div class = "logo_product" style = "font-size:25px;">
+  {% for i in bh %}
+  <div>B&H INFO <img style ='max-height:100%;max-width:100%;vertical-align:middle;width:auto;' src = 'https://yt3.ggpht.com/kS4t4QRwLD-q1BhhiRVzVzQimW65zDkopFa8dD14i56oc8ii0G253j6RqC3HxcZ-ytzDhUV-=s900-c-k-c0x00ffffff-no-rj'></img> </div>
+    <div style = "display:none;">
       <div>
         Name:
-        {{i.MicroCenter_UUID.product}}
+        {{i.BH_UUID.product}}
       </div>
       <div>
         Price:
-        {{i.MicroCenter_Price}}
+        {{i.BH_price}}
+      </div>
+      <div>
+        Stock Status:
+        {{i.BH_Status}}
+      </div>
+      <div>
+        Ratings:
+        {{i.BH_Ratings}}
+      </div>
+      <div>
+        Reviews:
+        {{i.BH_Reviews}}
       </div>
       <div>
         Click URL to purchase product!
-        <a href= '{{i.MicroCenter_URL}}'>URL</a>
+        <a href= '{{i.BH_URL}}'>URL</a>
       </div>
-    {% endfor %}
+      {% endfor %}
+    </div>
 </div>
 <br>
-<div>
-  {% for i in gs %}
-  <div>GAMESTOP INFO</div>
-    <div>
-      Name:
-      {{i.Gamestop_UUID.product}}
-    </div>
-    <div>
-      Price:
-      {{i.Gamestop_price}}
-    </div>
-    <div>
-      Stock Status:
-      {{i.Gamestop_Status}}
-    </div>
-    <div>
-      Ratings:
-      {{i.Gamestop_Ratings}}
-    </div>
-    <div>
-      Reviews:
-      {{i.Gamestop_Reviews}}
-    </div>
-    <div>
-      Click URL to purchase product!
-      <a href= '{{i.Gamestop_URL}}'>URL</a>
-    </div>
-    {% endfor %}
-</div>
-<br>
-<div>
-  {% for i in bh %}
-  <div>B&H INFO</div>
-    <div>
-      Name:
-      {{i.BH_UUID.product}}
-    </div>
-    <div>
-      Price:
-      {{i.BH_price}}
-    </div>
-    <div>
-      Stock Status:
-      {{i.BH_Status}}
-    </div>
-    <div>
-      Ratings:
-      {{i.BH_Ratings}}
-    </div>
-    <div>
-      Reviews:
-      {{i.BH_Reviews}}
-    </div>
-    <div>
-      Click URL to purchase product!
-      <a href= '{{i.BH_URL}}'>URL</a>
-    </div>
-    {% endfor %}
-</div>
-<br>
-<div>
+<div class = "logo_product" style = "font-size:25px;">
   {% for i in ad %}
   <div>ADORAMA INFO</div>
-    <div>
-      Name:
-      {{i.AD_UUID.product}}
+    <div style = "display:none;">
+      <div>
+        Name:
+        {{i.AD_UUID.product}}
+      </div>
+      <div>
+        Price:
+        {{i.AD_price}}
+      </div>
+      <div>
+        Stock Status:
+        {{i.AD_Status}}
+      </div>
+      <div>
+        Ratings:
+        {{i.AD_Ratings}}
+      </div>
+      <div>
+        Reviews:
+        {{i.AD_Reviews}}
+      </div>
+      <div>
+        Click URL to purchase product!
+        <a href= '{{i.AD_URL}}'>URL</a>
+      </div>
+      {% endfor %}
     </div>
-    <div>
-      Price:
-      {{i.AD_price}}
-    </div>
-    <div>
-      Stock Status:
-      {{i.AD_Status}}
-    </div>
-    <div>
-      Ratings:
-      {{i.AD_Ratings}}
-    </div>
-    <div>
-      Reviews:
-      {{i.AD_Reviews}}
-    </div>
-    <div>
-      Click URL to purchase product!
-      <a href= '{{i.AD_URL}}'>URL</a>
-    </div>
-    {% endfor %}
 </div>
 <br>
-<div>
+<div class = "logo_product" style = "font-size:25px;">
   {% for i in amzn %}
   <div>AMAZON INFO</div>
-    <div>
-      Name:
-      {{i.Amazon_UUID.product}}
+    <div style = "display:none;">
+      <div>
+        Name:
+        {{i.Amazon_UUID.product}}
+      </div>
+      <div>
+        Price:
+        {{i.Amazon_price}}
+      </div>
+      <div>
+        Stock Status:
+        {{i.Amazon_Status}}
+      </div>
+      <div>
+        Ratings:
+        {{i.Amazon_Ratings}}
+      </div>
+      <div>
+        Reviews:
+        {{i.Amazon_Reviews}}
+      </div>
+      <div>
+        Click URL to purchase product!
+        <a href= '{{i.Amazon_URL}}'>URL</a>
+      </div>
+      {% endfor %}
     </div>
-    <div>
-      Price:
-      {{i.Amazon_price}}
-    </div>
-    <div>
-      Stock Status:
-      {{i.Amazon_Status}}
-    </div>
-    <div>
-      Ratings:
-      {{i.Amazon_Ratings}}
-    </div>
-    <div>
-      Reviews:
-      {{i.Amazon_Reviews}}
-    </div>
-    <div>
-      Click URL to purchase product!
-      <a href= '{{i.Amazon_URL}}'>URL</a>
-    </div>
-    {% endfor %}
 </div>
 </body>
 </html>
