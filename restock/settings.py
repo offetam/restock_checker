@@ -26,7 +26,7 @@ SECRET_KEY = config("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['restockchecker.herokuapp.com','127.0.0.1']
+ALLOWED_HOSTS = ['restockchecker.herokuapp.com','0.0.0.0']
 
 
 # Application definition
@@ -95,7 +95,7 @@ DATABASES={
     'default':{
         'ENGINE' :'django.db.backends.postgresql',
         'NAME': 'local_restock',
-        'USER': 'postgres',
+        'USER': 'asura',
         'PASSWORD': 'password',
         'HOST': 'localhost',
         'PORT': 5432,
