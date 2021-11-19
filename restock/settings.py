@@ -79,7 +79,7 @@ WSGI_APPLICATION = 'restock.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-
+"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -90,7 +90,6 @@ DATABASES = {
         'PORT': 5432,
     }
 }
-"""
 DATABASES={
     'default':{
         'ENGINE' :'django.db.backends.postgresql',
@@ -102,6 +101,16 @@ DATABASES={
     }
 }
 """
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'd6mh92as4udhr3',
+        'USER': 'atnrqzacambchr',
+        'PASSWORD': 'f89095e9aaffd76ec7465a1f8889ab02525a2f51fdf730462d3827994417956f',
+        'HOST': 'ec2-44-198-236-169.compute-1.amazonaws.com',
+        'PORT': 5432,
+    }
+}
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
