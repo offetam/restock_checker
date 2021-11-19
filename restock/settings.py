@@ -87,7 +87,7 @@ DATABASES = {
         'USER': 'restockcheck',
         'PASSWORD': 'Restockcheck000?',
         'HOST': 'restockdatabase-1.c3ddwyw6w3fp.us-east-2.rds.amazonaws.com',
-        'PORT':'5432',
+        'PORT': 5432,
     }
 }
 """
@@ -97,7 +97,8 @@ DATABASES={
         'NAME': 'local_restock',
         'USER': 'postgres',
         'PASSWORD': 'password',
-        'HOST': 'localhost'
+        'HOST': 'localhost',
+        'PORT': 5432,
     }
 }
 
