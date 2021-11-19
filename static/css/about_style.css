@@ -112,10 +112,8 @@ nav ul li ul li a:hover {
   width: 90%;
   color: rgb(0, 0, 0);
   position: absolute;
-  top: 58%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   text-align: center;
+  padding: 0px 100px;
 }
 
 .text-box p {
