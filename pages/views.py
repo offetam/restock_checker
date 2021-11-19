@@ -20,6 +20,9 @@ def landing(request):
         request.session['email'] = ''
     return render(request,'display.html')
 
+def about(request):
+    return render(request, 'about.html')
+
 
 # Create your views here.
 def home_view(request):
