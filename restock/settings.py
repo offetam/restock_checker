@@ -90,7 +90,6 @@ DATABASES = {
         'PORT': 5432,
     }
 }
-"""
 
 
 DATABASES={
@@ -103,21 +102,17 @@ DATABASES={
         'PORT': 5432,
     }
 }
-import dj_database_url
-db_from_env=dj_database_url.config(conn_max_age=600)
-DATABASES['default'].update(db_from_env)
 """
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'd6mh92as4udhr3',
-        'USER': 'atnrqzacambchr',
-        'PASSWORD': 'f89095e9aaffd76ec7465a1f8889ab02525a2f51fdf730462d3827994417956f',
-        'HOST': 'ec2-44-198-236-169.compute-1.amazonaws.com',
+        'NAME': 'd5vfibqm8oio0b',
+        'USER': 'vwcfjnjxkzmkwb',
+        'PASSWORD': '898b41227b96c80db5d016e8a38b8717d0879b171ec50cd0ab54a01a20b5b8cd',
+        'HOST': 'ec2-34-197-181-65.compute-1.amazonaws.com',
         'PORT': 5432,
     }
 }
-"""
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
@@ -155,7 +150,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-#STATIC_ROOT = " "
 STATIC_URL = '/static/'
 
 #STATICFILES_DIRS = [os.path.join(BASE_DIR,'static')]
