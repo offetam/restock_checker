@@ -47,9 +47,13 @@ def extract_info(item):
         review = int(re.findall(r'\((.*)\)',review_parent)[0])
     else:
         review = 0
+        
+    #get image
+    image_parent = str(item.find_all('div', 'image-container'))
+    image = re.findall('(?<=srcset=").*?(?= 1x)', image_parent)[0]
     
     
-    result = [sku,price,stock,star,review]
+    result = [sku,price,stock,star,review,image]
     return result
 
 
@@ -89,5 +93,5 @@ driver.close()
 #save data to csv
 with open('gamestop_update.csv', 'w', newline='', encoding='utf-8') as f:
     writer = csv.writer(f)
-    writer.writerow(['Sku','Price','Stock','Review','Number_of_Reviews'])
+    writer.writerow(['Sku','Price','Stock','Review','Number_of_Reviews','Images'])
     writer.writerows(records)
