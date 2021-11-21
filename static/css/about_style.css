@@ -108,18 +108,27 @@ nav ul li ul li a:hover {
   font-size: 62px;
 }
 
-.text-box1 {
-  width: 90%;
-  color: rgb(0, 0, 0);
-  position: absolute;
-  text-align: center;
-  padding: 0px 100px;
-}
-
 .text-box p {
   margin: 10px 0 40px;
   font-size: 14px;
   color: #fff;
+}
+
+.about {
+  width: 40%;
+  color: rgb(0, 0, 0);
+  position: absolute;
+  top: 200px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+  text-align: center;
+}
+
+.text-box2 {
+  text-align: center;
+  top: 300px;
+  position: absolute;
 }
 
 .column {
