@@ -151,3 +151,26 @@ nav ul li ul li a:hover {
   display: flex;
   justify-content: space-around;
 }
+
+.search_container {
+  height: 25px;
+  padding: 20px 0px 0px 260px;
+}
+
+.search_form {
+  margin: 0 auto;
+  width: 600px;
+}
+
+.search_form input[type="text"] {
+  height: 20px;
+  float: left;
+  width: 65%;
+  flex: 1;
+  outline: none;
+  border: 2.5px solid gray;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 20px;
+  padding: 5px;
+}
