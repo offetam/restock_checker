@@ -17,21 +17,21 @@
             <p><a href="{% url 'landing' %}"><img src='{% static "imgs/logo3.png" %}'></a></p>
                 <ul>
                     <li>
-                        <a href="">Graphic Crads</a>
+                        <a href="">Graphic Cards</a>
                         <ul>
                             <li>
-                                <a href="">GeForce RTX 3070</a>
-                                <a href="">GeForce RTX 3080</a>
-                                <a href="">GeForce RTX 3090</a>
+                                <a href="{% url 'home' %}?product=3070">GeForce RTX 3070</a>
+                                <a href="{% url 'home' %}?product=3080">GeForce RTX 3080</a>
+                                <a href="{% url 'home' %}?product=3090">GeForce RTX 3090</a>
                             </li>
                         </ul>
                     </li>
                     <li>
-                        <a href="">Consoles</a>
+                        <a>Consoles</a>
                         <ul>
                             <li>
-                                <a href="">PLAYSTATION 5</a>
-                                <a href="">XBOX ONE X</a>
+                                <a href="{% url 'home' %}?product=Playstation">PLAYSTATION 5</a>
+                                <a href="{% url 'home' %}?product=Xbox">XBOX ONE X</a>
                             </li>
                         </ul>
                     </li>
@@ -50,6 +50,13 @@
                                 <a href="{% url 'login' %}"> Login </a>
                             {% endif %}
                     </li>
+                    <li>
+                        <div class = "search_container">
+                            <form id = "searchbar" class = "search_form">
+                                <input type="text" class = "searchtext" name="product" placeholder="Search for Products">
+                            </form>
+                          </div>
+                    </li>
                 </ul>
             </nav>
     <div class="text-box">
@@ -57,7 +64,7 @@
         <p>
             The best place to get notifications for in demand items.
         </p>
-        <a href="" class="hero-btn">Want to learn more about Restock?</a>
+        <a href="{% url 'about' %}" class="hero-btn">Want to learn more about Restock?</a>
     </section>
 
     <section class="items">

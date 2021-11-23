@@ -1,0 +1,170 @@
+*{
+  font-family: "Source Sans Pro", sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.logo_img{
+	height: 80px;
+	width: auto;
+}
+
+h1{
+	text-align: center;
+}
+
+.empty_container{
+	height: 25px;
+}
+
+.wrapper{
+	display: grid;
+  grid-auto-rows: 200px;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-gap: 1rem;
+  background-color: #F8F8FF;
+  color: #444;
+	height: 50%;
+	margin: 0 auto;
+	width: 80%;
+}
+
+.notifcheck{
+	margin-right: 25px;
+}
+
+.box{
+  background-color: #444;
+  color: #fff;
+  border-radius: 5px;
+	padding: 1rem;
+  font-size: 110%;
+	vertical-align: top;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+	font-family: sans-serif;
+	font-weight: bold;
+}
+
+.box_text:hover{
+	cursor: pointer;
+	text-decoration: underline;
+	color: #00BFFF;
+}
+
+div div img{
+  height: 100px;
+  width: auto;
+}
+
+.vendor_img{
+  width: 25%;
+  text-align: center;
+}
+
+div div:hover{
+  cursor:pointer;
+}
+
+/* img {
+	height: .85em;
+} */
+
+table{
+	border: 2.5px solid gray;
+}
+
+body
+{
+	/*background: linear-gradient(to right, #6699ff 0%, #ffcc99 100%) !important;*/
+	height: 100%;
+	width: 100%;
+}
+
+.td-product-header:hover{
+	text-decoration: underline;
+	color: blue;
+	cursor: pointer;
+}
+
+.header
+{
+	height: 80px;
+	width: 100%;
+	background-color:#b1cbbb;
+	display:block;
+	padding-left: 8%;
+	padding-right: 8%;
+	box-sizing: border-box;
+}
+
+#fa-home{
+	color: white;
+}
+
+#fa-home:hover{
+	color: blue;
+}
+
+.logo_container
+{
+	height: 100%;
+	display: table;
+	float: left;
+}
+
+.logo
+{
+	vertical-align: middle;
+}
+
+.inner_header
+{
+	vertical-align: middle;
+	align-items: center;
+}
+
+nav
+{
+	vertical-align: middle;
+	flex: 1;
+	text-align: right;
+	margin-right: 40px;
+}
+
+nav ul li{
+	list-style: none;
+	display: inline-block;
+	color: #000;
+	font-size: 13px;
+	font-weight: bold;
+	margin-left: 60px;
+}
+
+nav ul li a
+{
+	vertical-align: text-top;
+	height: 80px;
+  text-decoration: none;
+  font-size: 20px;
+  color: white;
+  font-family: sans-serif;
+	font: bold;
+}
+
+a:hover
+{
+  color: blue;
+}
+
+#logo_image
+{
+	max-width:100%;
+	height:80px;
+}
+
+.logo_product{
+  margin-left: 5%;
+}

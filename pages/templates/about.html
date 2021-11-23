@@ -1,0 +1,139 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="with=device-width, initial-scale = 1.0">
+    <title>Restock - About Page</title>
+    <link rel="shortcut icon" href='{% static "imgs/logo3.png" %}'>
+    <link rel="stylesheet" href='{% static "/css/about_style.css" %}''>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <section class="header1">
+        <nav>
+        <p><a href="{% url 'landing' %}"><img src='{% static "imgs/logo3.png" %}'></a></p>
+            <ul>
+                <li>
+                    <a>Graphic Crads</a>
+                    <ul>
+                        <li>
+                            <a href="{% url 'home' %}?product=3070">GeForce RTX 3070</a>
+                            <a href="{% url 'home' %}?product=3080">GeForce RTX 3080</a>
+                            <a href="{% url 'home' %}?product=3090">GeForce RTX 3090</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a>Consoles</a>
+                    <ul>
+                        <li>
+                            <a href="{% url 'home' %}?product=Playstation">PLAYSTATION 5</a>
+                            <a href="{% url 'home' %}?product=Xbox">XBOX ONE X</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                  <a href="{% url 'home' %}">Products</a>
+                </li>
+                  {% if request.session.email != '' %}
+                  <li>
+                    <a href="{% url 'notification' %}">Notifications</a>
+                  </li>
+                  {% endif %}
+                <li>
+                  {% if request.session.email != '' %}
+                  <a href="{% url 'signout' %}">Sign Out</a>
+                  {% else %}
+                  <a href="{% url 'login' %}"> Login </a>
+                  {% endif %}
+                </li>
+                <li>
+                  <div class = "search_container">
+                      <form id = "searchbar" class = "search_form">
+                          <input type="text" class = "searchtext" name="product" placeholder="Search for Products">
+                      </form>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+        <div class="about">
+            <h1>Welcome to Restock</h1>
+            <p>
+              The best place to get notifications for in demand items.<br><br>
+              Restock was created to help users get notified and informed when in demand items are back in stock.
+              Our goal is to help our users get the items they want without wasting time searching and navigating through various websites.
+              As of right now we are tracking Graphics cards and consoles from various vendors such as Adorama, Amazon, BestBuy, GameStop,
+              MicroCenter and B&H. When a user clicks on a product from a specific vendor they will be introduce to the price,
+              the reviews, the stock availabilty, the url link, and a graph showing stock trends of the product. Hopefully with the information
+              we provide to our users they will purchase any item they are looking for.
+            </p>
+        </div>
+        <div class="text-box2">
+          <h2> <br> Restock Team </h2>
+            <div class="row">
+              <div class="column">
+                <div class="card">
+                  <img src='{% static "imgs/oscar.png" %}'alt="oscar" style="width:100%">
+                  <div class="container">
+                    <h2>Oscar</h2>
+                    <p class="title">Founder of Restock</p>
+                    <p>Some text that describes me lorem ipsum ipsum lorem.</p>
+                    <p>oscar@example.com</p>
+                  </div>
+                </div>
+              </div>
+              <div class="column">
+                <div class="card">
+                  <img src='{% static "imgs/alden.png" %}' alt="alden" style="width:100%">
+                  <div class="container">
+                    <h2>Alden</h2>
+                    <p class="title">Founder of Restock</p>
+                    <p>Some text that describes me lorem ipsum ipsum lorem.</p>
+                    <p>alden@example.com</p>
+                  </div>
+                </div>
+              </div>
+              <div class="column">
+                <div class="card">
+                  <img src='{% static "imgs/ethan.png" %}' alt="ethan" style="width:100%">
+                  <div class="container">
+                    <h2>Ethan</h2>
+                    <p class="title">Founder of Restock</p>
+                    <p>Some text that describes me lorem ipsum ipsum lorem.</p>
+                    <p>ethan@example.com</p>
+                  </div>
+                </div>
+              </div>
+              <div class="column">
+                <div class="card">
+                  <img src='{% static "imgs/danny.png" %}' alt="danny" style="width:100%">
+                  <div class="container">
+                    <h2>Danny</h2>
+                    <p class="title">Founder of Restock</p>
+                    <p>Some text that describes me small pp ipsum lorem.</p>
+                    <p>danny@example.com</p>
+                  </div>
+                </div>
+              </div>
+              <div class="column">
+                <div class="card">
+                  <img src='{% static "imgs/david.png" %}' alt="david" style="width:100%">
+                  <div class="container">
+                    <h2>David</h2>
+                    <p class="title">Founder of Restock</p>
+                    <p>Some text that describes me lorem ipsum ipsum lorem.</p>
+                    <p>david@example.com</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+    </section>
+
+
+</body>
+</html>

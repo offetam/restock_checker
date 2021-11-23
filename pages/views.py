@@ -16,16 +16,27 @@ import pandas as pd
 import random
 
 def landing(request):
+    if 'email' not in request.session:
+        request.session['email'] = ''
+    if(request.GET.get("product") is not None):
+        x = request.GET.get("product")
+        return home_view(request,x)
     return render(request,'display.html')
+
+def about(request):
+    return render(request, 'about.html')
 
 
 # Create your views here.
-def home_view(request):
+def home_view(request,p = None):
     context ={}
     if 'email' not in request.session:
         request.session['email'] = ''
     if(request.method == 'GET'): #checks if we can GET
-        x = request.GET.get("product") #gets the product name if possible
+        if(p is None):
+            x = request.GET.get("product") #gets the product name if possible
+        else:
+            x = p
         #print(x) #prints the product name the user enters (to check)
         if(x is not None): #checks if the values we're getting is not None
             split_str = x.split(' ')
@@ -43,13 +54,13 @@ def home_view(request):
             combin_bh = BH.objects.none()
             combin_ad = AD.objects.none()
             combin_amzn = Amazon.objects.none()
-            file = 'Trends.csv'
-            df = pd.read_csv(file)
+            #file = 'Trends.csv'
+            #df = pd.read_csv(file)
             #print(df)
-            date = getDates(df)
-            graph_arr = []
+            #date = getDates(df)
+            #graph_arr = []
             for i in uids:
-                indices_list = df[df['UUID']==i.strip('\r')].index.values[0]
+                #indices_list = df[df['UUID']==i.strip('\r')].index.values[0]
                 combin_bb = combin_bb | BestBuy.objects.all().filter(BestBuy_UUID=i)
                 #combin_bb = combin_bb | all_bb.filter(BestBuy_UUID=i).exclude(BestBuy_SKU=0)
                 combin_mc= combin_mc | MicroCenter.objects.all().filter(MicroCenter_UUID=i).exclude(MicroCenter_SKU=0)
@@ -57,23 +68,22 @@ def home_view(request):
                 combin_bh= combin_bh | BH.objects.all().filter(BH_UUID=i).exclude(BH_SKU="")
                 combin_ad= combin_ad | AD.objects.all().filter(AD_UUID=i).exclude(AD_SKU="")
                 combin_amzn = combin_amzn | Amazon.objects.all().filter(Amazon_UUID=i).exclude(Amazon_SKU="")
-                stock = df.loc[indices_list].tolist()
-                name = stock[0]
-                stock.pop(0) #get rid of product name from the list
-                stock.pop(0) #get rid of uuid from the list
-                stock = fixStock(stock)
+                #stock = df.loc[indices_list].tolist()
+                #name = stock[0]
+                #stock.pop(0) #get rid of product name from the list
+                #stock.pop(0) #get rid of uuid from the list
+                #stock = fixStock(stock)
                 #print(stock)
-                graph_arr.append(get_plot(date,stock,name))
+                #graph_arr.append(get_plot(date,stock,name))
                 #print(i)
-            chart = graph_arr
+            #chart = graph_arr
             context = {'all_enteries' : all_enteries,
             'bb_product' : combin_bb,
             'mc_product' : combin_mc,
             'gs_product' : combin_gs,
             'bh_product' : combin_bh,
             'ad_product' : combin_ad,
-            'amzn_product' : combin_amzn,
-            'chart' : chart}
+            'amzn_product' : combin_amzn}
 
         else:
             all_enteries = products.objects.all() #just gets all products if there's no input
@@ -332,6 +342,20 @@ def fixStock(info):
 
 def product_detail(request, UUID):
     detail = get_object_or_404(products, UUID = UUID)
+    file = 'Trends.csv'
+    df = pd.read_csv(file)
+    date = getDates(df)
+    graph_arr = []
+    indices_list = df[df['UUID']==UUID.strip('\r')].index.values[0]
+    stock = df.loc[indices_list].tolist()
+    name = stock[0]
+    stock.pop(0) #get rid of product name from the list
+    stock.pop(0) #get rid of uuid from the list
+    stock = fixStock(stock)
+    #print(stock)
+    graph_arr.append(get_plot(date,stock,name))
+    #print(i)
+    chart = graph_arr
 
     bb = BestBuy.objects.none() | BestBuy.objects.all().filter(BestBuy_UUID = detail.UUID)
     mc= MicroCenter.objects.none() | MicroCenter.objects.all().filter(MicroCenter_UUID= detail.UUID).exclude(MicroCenter_SKU=0)
@@ -340,7 +364,7 @@ def product_detail(request, UUID):
     ad= AD.objects.none() | AD.objects.all().filter(AD_UUID= detail.UUID).exclude(AD_SKU="")
     amzn = Amazon.objects.none() | Amazon.objects.all().filter(Amazon_UUID= detail.UUID).exclude(Amazon_SKU="")
 
-    context = {'bb':bb,'mc': mc,'gs':gs,'bh':bh,'ad':ad,'amzn':amzn}
+    context = {'bb':bb,'mc': mc,'gs':gs,'bh':bh,'ad':ad,'amzn':amzn,'chart':chart}
 
     return render(request, 'details.html', context)
 
