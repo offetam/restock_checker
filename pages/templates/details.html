@@ -227,5 +227,8 @@
       {% endfor %}
     </div>
 </div>
+{% for x in chart %}
+  <img src="data:image/png;base64, {{x|safe}}" style="width:600px;height:600px">
+{% endfor %}
 </body>
 </html>
