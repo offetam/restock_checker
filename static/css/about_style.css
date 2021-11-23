@@ -3,6 +3,15 @@
   padding: 0;
   font-family: "Source Sans Pro", sans-serif;
 }
+.header {
+  min-height: 100vh;
+  width: 100%;
+  background-image: linear-gradient(rgba(4, 9, 30, 0.7), rgba(4, 9, 30, 0.7)),
+    url(abs_2080build_21.jpg);
+  background-position: center;
+  background-size: cover;
+  position: relative;
+}
 
 nav {
   width: 100%;
@@ -99,27 +108,18 @@ nav ul li ul li a:hover {
   font-size: 62px;
 }
 
+.text-box1 {
+  width: 90%;
+  color: rgb(0, 0, 0);
+  position: absolute;
+  text-align: center;
+  padding: 0px 100px;
+}
+
 .text-box p {
   margin: 10px 0 40px;
   font-size: 14px;
   color: #fff;
-}
-
-.about {
-  width: 40%;
-  color: rgb(0, 0, 0);
-  position: absolute;
-  top: 200px;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: -1;
-  text-align: center;
-}
-
-.text-box2 {
-  text-align: center;
-  top: 300px;
-  position: absolute;
 }
 
 .column {
@@ -135,27 +135,4 @@ nav ul li ul li a:hover {
   margin: 5%;
   display: flex;
   justify-content: space-around;
-}
-
-.search_container {
-  height: 25px;
-  padding: 20px 0px 0px 260px;
-}
-
-.search_form {
-  margin: 0 auto;
-  width: 600px;
-}
-
-.search_form input[type="text"] {
-  height: 20px;
-  float: left;
-  width: 65%;
-  flex: 1;
-  outline: none;
-  border: 2.5px solid gray;
-  border-radius: 5px;
-  text-align: center;
-  font-size: 20px;
-  padding: 5px;
 }
