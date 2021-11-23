@@ -16,6 +16,9 @@ import pandas as pd
 import random
 
 def landing(request):
+    if(request.GET.get("product") is not None):
+        x = request.GET.get("product")
+        return home_view(request,x)
     return render(request,'display.html')
 
 def about(request):
@@ -23,12 +26,15 @@ def about(request):
 
 
 # Create your views here.
-def home_view(request):
+def home_view(request,p = None):
     context ={}
     if 'email' not in request.session:
         request.session['email'] = ''
     if(request.method == 'GET'): #checks if we can GET
-        x = request.GET.get("product") #gets the product name if possible
+        if(p is None):
+            x = request.GET.get("product") #gets the product name if possible
+        else:
+            x = p
         #print(x) #prints the product name the user enters (to check)
         if(x is not None): #checks if the values we're getting is not None
             split_str = x.split(' ')
