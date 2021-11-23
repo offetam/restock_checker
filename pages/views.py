@@ -16,6 +16,8 @@ import pandas as pd
 import random
 
 def landing(request):
+    if 'email' not in request.session:
+        request.session['email'] = ''
     if(request.GET.get("product") is not None):
         x = request.GET.get("product")
         return home_view(request,x)
