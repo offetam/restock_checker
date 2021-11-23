@@ -61,6 +61,11 @@ div div img{
 
 .vendor_img{
   width: 25%;
+  text-align: center;
+}
+
+div div:hover{
+  cursor:pointer;
 }
 
 /* img {
