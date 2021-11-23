@@ -19,6 +19,7 @@ driver = webdriver.Chrome(options=chrome_options)
 agent={"User-Agent":'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.81 Safari/537.36', "Accept-Encoding": "*",
     "Connection": "keep-alive"}
 def cleanWord(word):
+    word=str(word)
     word=word.replace(" ","")
     return str(word)
 def cleanPrice(word):
@@ -78,9 +79,9 @@ def updateBest():
             sku=re.findall('(?<=sku-item" data-sku-id=").*?(?=">)',str(i))
             price=re.findall('(?<=-->).*?(?=</span>)',str(i))
             status=re.findall('(?<=data-button-state=").*?(?=" data-sku-id)',str(i))
-            xd=zip(price,status,sku)
-            records.append(list(xd))
-    
+            records.append([sku[0],price[0],status[0]])
+            
+   
     page=requests.get(xboxURL,headers=agent)
     soup=BeautifulSoup(page.content,'html.parser')
     title=soup.findAll('li', class_="sku-item")
@@ -88,8 +89,10 @@ def updateBest():
             sku=re.findall('(?<=sku-item" data-sku-id=").*?(?=">)',str(i))
             price=re.findall('(?<=-->).*?(?=</span>)',str(i))
             status=re.findall('(?<=data-button-state=").*?(?=" data-sku-id)',str(i))
-            xd=zip(price,status,sku)
-            records.append(list(xd))
+            if (len(sku)>0 and len(price)>0 and len(status)>0):
+                if(price[0].isnumeric()):
+                    records.append([sku[0],price[0],status[0]])
+    
     page=requests.get(ps5URL,headers=agent)
     soup=BeautifulSoup(page.content,'html.parser')
     title=soup.findAll('li', class_="sku-item")
@@ -97,10 +100,16 @@ def updateBest():
             sku=re.findall('(?<=sku-item" data-sku-id=").*?(?=">)',str(i))
             price=re.findall('(?<=-->).*?(?=</span>)',str(i))
             status=re.findall('(?<=data-button-state=").*?(?=" data-sku-id)',str(i))
-            xd=zip(price,status,sku)
-            records.append(list(xd))
+            if (len(sku)>0 and len(price)>0 and len(status)>0):
+                if(price[0].isnumeric()):
+                    records.append([sku[0],price[0],status[0]])
     
-    dfnewbest=pd.DataFrame(records,columns=['newPrice','newStatus','BestBuy_SKU'])
+    
+   
+    dfnewbest=pd.DataFrame(records,columns=['BestBuy_SKU','newPrice','newStatus'])#,columns=['newPrice','newStatus','BestBuy_SKU'])
+   
+    
+    
     dfnewbest['newPrice']=dfnewbest['newPrice'].apply(cleanPrice)
     dfnewbest['BestBuy_SKU']=dfnewbest['BestBuy_SKU'].apply(cleanWord)
     dfnewbest['newStatus']=dfnewbest['newStatus'].apply(cleanWord)
@@ -114,6 +123,7 @@ def updateBest():
     listchange.append(onlyChange['newPrice'].tolist())
     listchange.append(onlyChange['newStatus'].tolist())
     inStock=[]
+    print(listchange)
     for i in range(len(listchange[0])):
         if 'OUT' not in listchange[3][i]:
             inStock.append(listchange[0][i])
@@ -121,11 +131,12 @@ def updateBest():
         update('BestBuy',listchange)
     if(len(inStock)>0):
         email_notify('BestBuy',inStock)
-        uptrends(inStock)
+        #uptrends(inStock)
     combinedf['BestBuy_Price']=combinedf.apply(lambda x: x['newPrice'] if x['change']==True else x['BestBuy_Price'],axis=1)
     combinedf['BestBuy_Status']=combinedf.apply(lambda x: x['newStatus'] if x['change']==True else x['BestBuy_Status'],axis=1)
     combinedf=combinedf.drop(columns=['newStatus','newPrice','change'])
     combinedf.to_csv('testingBest.csv',index=False)
+    
 def updateMicro():
     df=pd.read_csv('testingMicro.csv')
     df['MicroCenter_SKU']=df['MicroCenter_SKU'].astype(str)
@@ -426,7 +437,7 @@ def uptrends(arr):
         df[d1]=df.apply(lambda x: 1 if x['UUID']==i and x[d1]!= 1 else x[d1],axis=1)
     df.to_csv('Trends.csv',index=False)
 
-
+"""
 def doupdate():
     updateBest()
     print(1)
@@ -443,5 +454,6 @@ schedule.every().day.at("00:01").do(trends)
 while 1:
     schedule.run_pending()
     time.sleep(1)
-
+"""
+updateBest()
 driver.quit()
