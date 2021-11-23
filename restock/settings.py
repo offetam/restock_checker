@@ -79,30 +79,7 @@ WSGI_APPLICATION = 'restock.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-"""
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'live_restockDB',
-        'USER': 'restockcheck',
-        'PASSWORD': 'Restockcheck000?',
-        'HOST': 'restockdatabase-1.c3ddwyw6w3fp.us-east-2.rds.amazonaws.com',
-        'PORT': 5432,
-    }
-}
 
-
-DATABASES={
-    'default':{
-        'ENGINE' :'django.db.backends.postgresql',
-        'NAME': 'local_restock',
-        'USER': 'asura',
-        'PASSWORD': 'password',
-        'HOST': 'localhost',
-        'PORT': 5432,
-    }
-}
-"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
