@@ -12,7 +12,7 @@ class BestBuy(models.Model):
     BestBuy_price = models.DecimalField(max_digits=10,decimal_places=2)
     BestBuy_Status = models.CharField(max_length=32)
     BestBuy_Ratings = models.DecimalField(max_digits=3,decimal_places=2)
-    BestBuy_Review = models.IntegerField()
+    BestBuy_Review = models.DecimalField(max_digits=5,decimal_places=0)
     BestBuy_ModelNumber = models.CharField(max_length=128)
     BestBuy_SKU = models.IntegerField(primary_key=True)
     BestBuy_URL = models.CharField(max_length=256)
@@ -32,7 +32,7 @@ class Gamestop(models.Model):
     Gamestop_Status = models.CharField(max_length=32)
     Gamestop_UUID = models.ForeignKey(products,on_delete=CASCADE)
     Gamestop_Ratings = models.DecimalField(max_digits=3,decimal_places=2)
-    Gamestop_Reviews = models.IntegerField()
+    Gamestop_Reviews = models.DecimalField(max_digits=5,decimal_places=0)
 
 class BH(models.Model):
     BH_SKU = models.CharField(max_length=32,primary_key=True)
@@ -41,7 +41,7 @@ class BH(models.Model):
     BH_URL = models.CharField(max_length=256)
     BH_UUID = models.ForeignKey(products,on_delete=CASCADE)
     BH_Ratings = models.DecimalField(max_digits=3,decimal_places=2)
-    BH_Reviews = models.IntegerField()
+    BH_Reviews = models.DecimalField(max_digits=5,decimal_places=0)
 
 class AD(models.Model):
     AD_SKU = models.CharField(max_length=32,primary_key=True)
@@ -50,13 +50,13 @@ class AD(models.Model):
     AD_URL = models.CharField(max_length=256)
     AD_UUID = models.ForeignKey(products,on_delete=CASCADE)
     AD_Ratings = models.DecimalField(max_digits=3,decimal_places=2)
-    AD_Reviews = models.IntegerField()
+    AD_Reviews = models.DecimalField(max_digits=5,decimal_places=0)
 
 class Amazon(models.Model):
     Amazon_SKU = models.CharField(max_length=32,primary_key=True)
     Amazon_price = models.DecimalField(max_digits=10,decimal_places=2)
     Amazon_Ratings = models.DecimalField(max_digits=3,decimal_places=2)
-    Amazon_Reviews = models.IntegerField()
+    Amazon_Reviews = models.DecimalField(max_digits=5,decimal_places=0)
     Amazon_Status = models.CharField(max_length=64)
     Amazon_URL = models.CharField(max_length=512)
     Amazon_UUID =models.ForeignKey(products,on_delete=CASCADE)
