@@ -6,10 +6,6 @@
 # Django Section
 
 
-To run server, run the command:
-"python manage.py runserver "
-
-Note: can add a port number in front of runserver to connect to a particular port, else defaults to port 8000
 
 requires:
 
@@ -25,3 +21,11 @@ Note: you'll also need to set your mysql username to **root** , mysql password t
 
 To get the all tables into your database, run the command:
 "python manage.py migrate"
+
+pip install gunicorn
+
+pip install whitenoise
+
+pip install pyscopg2
+
+**No longer uses python manage.py runserver**

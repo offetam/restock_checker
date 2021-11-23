@@ -26,7 +26,7 @@ SECRET_KEY = config("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['restockchecker.herokuapp.com','0.0.0.0','127.0.0.1']
 
 
 # Application definition
@@ -38,17 +38,22 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'pages' #added
+    'pages', #added
+    'django_filters',
+    'storages',
+
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
 ]
 
 ROOT_URLCONF = 'restock.urls'
@@ -77,15 +82,17 @@ WSGI_APPLICATION = 'restock.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'restock',
-        'USER': 'root',
-        'PASSWORD': 'password',
-        'HOST': 'localhost',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'd5vfibqm8oio0b',
+        'USER': 'vwcfjnjxkzmkwb',
+        'PASSWORD': '898b41227b96c80db5d016e8a38b8717d0879b171ec50cd0ab54a01a20b5b8cd',
+        'HOST': 'ec2-34-197-181-65.compute-1.amazonaws.com',
+        'PORT': 5432,
     }
 }
-
-
+import dj_database_url
+db_from_env = dj_database_url.config(conn_max_age=600)
+DATABASES['default'].update(db_from_env)
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
@@ -122,11 +129,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_ROOT = ''
-
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = ( os.path.join('static'), )
+#STATICFILES_DIRS = [os.path.join(BASE_DIR,'static')]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -140,6 +146,19 @@ EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'default from email'
+"""
+#S3 STATIC BUCKET CONFIG
+AWS_ACCESS_KEY_ID = 'AKIA6P2KOWIXETGUKZOL'
+AWS_SECRET_ACCESS_KEY ='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'
+AWS_STORAGE_BUCKET_NAME='restock-static-bucket'
+AWS_S3_REGION_NAME = 'us-east-2'
+
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = False
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+"""
+
 
 #include the necessary mimetypes for django to read js
 if DEBUG:
