@@ -62,6 +62,7 @@ div div img{
 .vendor_img{
   width: 25%;
   text-align: center;
+  background-color: #444
 }
 
 div div:hover{
@@ -165,6 +166,6 @@ a:hover
 	height:80px;
 }
 
-.logo_product{
-  margin-left: 5%;
+.vendor_img{
+  margin-left: 1%;
 }
