@@ -6,12 +6,13 @@ import pandas as pd
 import re
 import time
 import csv
+from webdriver_manager.chrome import ChromeDriverManager
 
 # open chrome
 chrome_options = Options()
 #chrome_options.add_argument("--headless") #REMOVE COMMENTS FOR HEADLESS
 chrome_options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.61 Safari/537.36")
-driver = webdriver.Chrome(options=chrome_options)
+driver = webdriver.Chrome(ChromeDriverManager().install(),options=chrome_options)
 #driver = webdriver.Chrome()
 
 
