@@ -49,7 +49,7 @@
     <div class = "logo_product" style = "font-size:25px;">
       {% for i in bb %}
       <div class = "vendor_img" onclick = "alert('a')"><img style ='max-height:100%;vertical-align:middle;width:auto;' src = 'https://pisces.bbystatic.com/image2/BestBuy_US/Gallery/BestBuy_Logo_2020-190616.png'/></img> </div>
-      <div style = "display:none;">
+      <div>
         <div>
           Name:
           {{i.BestBuy_UUID.product}}
@@ -73,6 +73,9 @@
         <div>
           Click URL to purchase product!
           <a href= '{{i.BestBuy_URL}}'>URL</a>
+        </div>
+        <div>
+          <img src = '{{i.BestBuy_Image}}' alt='FAILED' onerror=this.src="{% static '/imgs/logo3.png' %}">
         </div>
       </div>
     {% endfor %}
