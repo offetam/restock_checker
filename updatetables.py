@@ -142,14 +142,19 @@ def updateMicro():
         title2_string=str(title2)
         title3=soup.findAll('div', class_="content-wrapper")
         title3_string=str(title3)
+        title4 = soup.findAll('img', class_='productImageZoom')
+        title4_string = str(title4)
         uniqueprice=re.findall('(?<=</span>).*?(?=</span>)',title2_string)
         sku=re.findall('(?<=<div class="SKUNumber">).*?(?=</div></div>)',title3_string)
+        image=re.findall('(?<=src=).*?(?=/>)', title4_string)
         if len(sku)==0:
             sku.append('0')
         if len(uniqueprice)==0:
             uniqueprice.append('0')
-        records.append([sku[0],uniqueprice[0]])
-    dfnewmicro=pd.DataFrame(records,columns=['MicroCenter_SKU','newPrice'])
+        if len(image)==0:
+            image.append('none')
+        records.append([sku[0],uniqueprice[0],image[0]])
+    dfnewmicro=pd.DataFrame(records,columns=['MicroCenter_SKU','newPrice', 'newIMG'])
     
     dfnewmicro['MicroCenter_SKU']=dfnewmicro['MicroCenter_SKU'].apply(cleanWord)
     dfnewmicro['newPrice']=dfnewmicro['newPrice'].apply(cleanPrice)
