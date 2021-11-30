@@ -75,7 +75,7 @@
           <a href= '{{i.BestBuy_URL}}'>URL</a>
         </div>
         <div>
-          <img src = '{{i.BestBuy_Image}}' alt='FAILED' onerror=this.src="{% static '/imgs/no_image.png' %}">
+          <img src = '{{i.BestBuy_Image}}' style = "width:300px;height:auto" alt='FAILED' onerror=this.src="{% static '/imgs/no_image.png' %}">
         </div>
       </div>
     {% endfor %}
@@ -107,6 +107,9 @@
           Click URL to purchase product!
           <a href= '{{i.Gamestop_URL}}'>URL</a>
         </div>
+        <div>
+          <img src = '{{i.Gamestop_Image}}' style = "width:300px;height:auto" alt='FAILED' onerror=this.src="{% static '/imgs/no_image.png' %}">
+        </div>
         {% endfor %}
       </div>
 
@@ -126,6 +129,9 @@
             <a href= '{{i.MicroCenter_URL}}'>URL</a>
           </div>
           {% endfor %}
+        </div>
+        <div>
+          <img src = '{{i.MicroCenter_Image}}' style = "width:300px;height:auto" alt='FAILED' onerror=this.src="{% static '/imgs/no_image.png' %}">
         </div>
       </div>
 
@@ -157,6 +163,9 @@
           <div>
             Click URL to purchase product!
             <a href= '{{i.BH_URL}}'>URL</a>
+          </div>
+          <div>
+            <img src = '{{i.BH_Image}}' style = "width:300px;height:auto" alt='FAILED' onerror=this.src="{% static '/imgs/no_image.png' %}">
           </div>
           {% endfor %}
         </div>
@@ -190,6 +199,9 @@
             Click URL to purchase product!
             <a href= '{{i.AD_URL}}'>URL</a>
           </div>
+          <div>
+            <img src = '{{i.AD_Image}}' style = "width:300px;height:auto" alt='FAILED' onerror=this.src="{% static '/imgs/no_image.png' %}">
+          </div>
           {% endfor %}
         </div>
     </div>
@@ -220,6 +232,9 @@
         <div>
           Click URL to purchase product!
           <a href= '{{i.Amazon_URL}}'>URL</a>
+        </div>
+        <div>
+          <img src = '{{i.Amazon_Image}}' style = "width:300px;height:auto" alt='FAILED' onerror=this.src="{% static '/imgs/no_image.png' %}">
         </div>
         {% endfor %}
       </div>
