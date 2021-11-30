@@ -128,10 +128,10 @@
             Click URL to purchase product!
             <a href= '{{i.MicroCenter_URL}}'>URL</a>
           </div>
+          <div>
+            <img src = '{{i.MicroCenter_Image}}' style = "width:300px;height:auto" alt='FAILED' onerror=this.src="{% static '/imgs/no_image.png' %}">
+          </div>
           {% endfor %}
-        </div>
-        <div>
-          <img src = '{{i.MicroCenter_Image}}' style = "width:300px;height:auto" alt='FAILED' onerror=this.src="{% static '/imgs/no_image.png' %}">
         </div>
       </div>
 
