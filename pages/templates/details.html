@@ -45,11 +45,17 @@
 <body>
     <script>0</script>
     <div></div>
+
+
+    <div class = "mainDetails">
+      Here is where details will go into
+    </div>
+
     <br>
     <div class = "logo_product" style = "font-size:25px;">
       {% for i in bb %}
-      <div class = "vendor_img" onclick = "alert('a')"><img style ='max-height:100%;vertical-align:middle;width:auto;' src = 'https://pisces.bbystatic.com/image2/BestBuy_US/Gallery/BestBuy_Logo_2020-190616.png'/></img> </div>
-      <div>
+      <div id = "bb_logo" class = "vendor_img" onclick = "selectInfo('bestbuy');return false;"><img style ='max-height:100%;vertical-align:middle;width:auto;' src = 'https://pisces.bbystatic.com/image2/BestBuy_US/Gallery/BestBuy_Logo_2020-190616.png'/></img> </div>
+      <div style = "display:none;">
         <div>
           Name:
           {{i.BestBuy_UUID.product}}
@@ -81,7 +87,7 @@
     {% endfor %}
 
     {% for i in gs %}
-    <div class = "vendor_img" onclick = "alert('a')"><img style ='max-height:100px;max-width:100%;vertical-align:middle;width:auto;' src = '{% static "/imgs/gamestop.PNG" %}'></img> </div>
+    <div id = "bb_logo" class = "vendor_img" onclick = "alert('a')"><img style ='max-height:100px;max-width:100%;vertical-align:middle;width:auto;' src = '{% static "/imgs/gamestop.PNG" %}'></img> </div>
       <div style = "display:none;">
         <div>
           Name:
@@ -114,7 +120,7 @@
       </div>
 
       {% for i in mc %}
-      <div class = "vendor_img" onclick = "alert('a')"><img style ='max-height:100px;max-width:100%;vertical-align:middle;width:auto;' src = '{% static "/imgs/microcenter.PNG" %}'></img>
+      <div id = "mc_logo" class = "vendor_img" onclick = "alert('a')"><img style ='max-height:100px;max-width:100%;vertical-align:middle;width:auto;' src = '{% static "/imgs/microcenter.PNG" %}'></img>
         <div style = "display:none;">
           <div>
             Name:
@@ -138,7 +144,7 @@
 
 
       {% for i in bh %}
-      <div class = "vendor_img" onclick = "alert('a')"><img style ='max-height:100%;max-width:100%;vertical-align:middle;width:auto;' src = 'https://yt3.ggpht.com/kS4t4QRwLD-q1BhhiRVzVzQimW65zDkopFa8dD14i56oc8ii0G253j6RqC3HxcZ-ytzDhUV-=s900-c-k-c0x00ffffff-no-rj'></img> </div>
+      <div id = "bh_logo" class = "vendor_img" onclick = "alert('a')"><img style ='max-height:100%;max-width:100%;vertical-align:middle;width:auto;' src = 'https://yt3.ggpht.com/kS4t4QRwLD-q1BhhiRVzVzQimW65zDkopFa8dD14i56oc8ii0G253j6RqC3HxcZ-ytzDhUV-=s900-c-k-c0x00ffffff-no-rj'></img> </div>
         <div style = "display:none;">
           <div>
             Name:
@@ -173,7 +179,7 @@
 
     <div class = "logo_product" style = "font-size:25px;">
       {% for i in ad %}
-      <div class = "vendor_img" onclick = "alert('a')"><img style ='max-height:100px;max-width:100%;vertical-align:middle;width:auto;' src = '{% static "/imgs/Adorama1.png" %}'></img> </div>
+      <div id = "ad_logo" class = "vendor_img" onclick = "alert('a')"><img style ='max-height:100px;max-width:100%;vertical-align:middle;width:auto;' src = '{% static "/imgs/Adorama1.png" %}'></img> </div>
         <div style = "display:none;">
           <div>
             Name:
@@ -207,7 +213,7 @@
     </div>
 
     {% for i in amzn %}
-    <div class = "vendor_img" onclick = "alert('a')"><img style ='max-height:100px;max-width:100%;vertical-align:middle;width:auto;' src = '{% static "/imgs/amazon.PNG" %}'></img> </div>
+    <div id = "amzn_logo" class = "vendor_img" onclick = "alert('a')"><img style ='max-height:100px;max-width:100%;vertical-align:middle;width:auto;' src = '{% static "/imgs/amazon.PNG" %}'></img> </div>
       <div style = "display:none;">
         <div>
           Name:
@@ -254,9 +260,31 @@
 
 
 </div>
+
+
+<!-- Lazy centering, fix later -->
+<center>
 {% for x in chart %}
   Graph for Product
   <img src="data:image/png;base64, {{x|safe}}" style="width:600px;height:600px">
 {% endfor %}
+</center>
 </body>
+
+<script>
+var bb_logo = document.getElementById("bb_logo")
+
+
+// document.getElementById('bb_logo').onclick = function() {
+//   this.style.left = parseFloat(getComputedStyle(this).left) + 42 + 'px';
+// };
+
+  function selectInfo(vendor){
+     bb_logo.style.left = "42px"
+     console.log("shifting bb logo...")
+  }
+
+
+</script>
+
 </html>
