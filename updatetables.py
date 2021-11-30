@@ -78,8 +78,7 @@ def updateBest():
             sku=re.findall('(?<=sku-item" data-sku-id=").*?(?=">)',str(i))
             price=re.findall('(?<=-->).*?(?=</span>)',str(i))
             status=re.findall('(?<=data-button-state=").*?(?=" data-sku-id)',str(i))
-            img = re.findall('(?<=src=").*?(?=" srcset)',str(i))
-            xd=zip(price,status,sku,img)
+            xd=zip(price,status,sku)
             records.append(list(xd))
     
     page=requests.get(xboxURL,headers=agent)
@@ -89,8 +88,7 @@ def updateBest():
             sku=re.findall('(?<=sku-item" data-sku-id=").*?(?=">)',str(i))
             price=re.findall('(?<=-->).*?(?=</span>)',str(i))
             status=re.findall('(?<=data-button-state=").*?(?=" data-sku-id)',str(i))
-            img = re.findall('(?<=src=").*?(?=" srcset)',str(i))
-            xd=zip(price,status,sku,img)
+            xd=zip(price,status,sku)
             records.append(list(xd))
     page=requests.get(ps5URL,headers=agent)
     soup=BeautifulSoup(page.content,'html.parser')
@@ -99,8 +97,7 @@ def updateBest():
             sku=re.findall('(?<=sku-item" data-sku-id=").*?(?=">)',str(i))
             price=re.findall('(?<=-->).*?(?=</span>)',str(i))
             status=re.findall('(?<=data-button-state=").*?(?=" data-sku-id)',str(i))
-            img = re.findall('(?<=src=").*?(?=" srcset)',str(i))
-            xd=zip(price,status,sku,img)
+            xd=zip(price,status,sku)
             records.append(list(xd))
     
     dfnewbest=pd.DataFrame(records,columns=['newPrice','newStatus','BestBuy_SKU'])
@@ -142,18 +139,13 @@ def updateMicro():
         title2_string=str(title2)
         title3=soup.findAll('div', class_="content-wrapper")
         title3_string=str(title3)
-        title4 = soup.findAll('img', class_='productImageZoom')
-        title4_string = str(title4)
         uniqueprice=re.findall('(?<=</span>).*?(?=</span>)',title2_string)
         sku=re.findall('(?<=<div class="SKUNumber">).*?(?=</div></div>)',title3_string)
-        image=re.findall('(?<=src=).*?(?=/>)', title4_string)
         if len(sku)==0:
             sku.append('0')
         if len(uniqueprice)==0:
             uniqueprice.append('0')
-        if len(image)==0:
-            image.append('none')
-        records.append([sku[0],uniqueprice[0],image[0]])
+        records.append([sku[0],uniqueprice[0]])
     dfnewmicro=pd.DataFrame(records,columns=['MicroCenter_SKU','newPrice', 'newIMG'])
     
     dfnewmicro['MicroCenter_SKU']=dfnewmicro['MicroCenter_SKU'].apply(cleanWord)
