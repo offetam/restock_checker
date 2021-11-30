@@ -168,4 +168,11 @@ a:hover
 
 .vendor_img{
   margin-left: 1%;
+  position:relative;
+
+}
+
+.mainDetails{
+  position: absolute;
+  left: 35%;
 }
