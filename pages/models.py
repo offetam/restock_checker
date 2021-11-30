@@ -45,6 +45,7 @@ class BH(models.Model):
     BH_UUID = models.ForeignKey(products,on_delete=CASCADE)
     BH_Ratings = models.DecimalField(max_digits=3,decimal_places=2)
     BH_Reviews = models.DecimalField(max_digits=5,decimal_places=0)
+    BH_Image = models.CharField(max_length=256)
 
 class AD(models.Model):
     AD_SKU = models.CharField(max_length=32,primary_key=True)
@@ -54,6 +55,7 @@ class AD(models.Model):
     AD_UUID = models.ForeignKey(products,on_delete=CASCADE)
     AD_Ratings = models.DecimalField(max_digits=3,decimal_places=2)
     AD_Reviews = models.DecimalField(max_digits=5,decimal_places=0)
+    AD_Image = models.CharField(max_length=256)
 
 class Amazon(models.Model):
     Amazon_SKU = models.CharField(max_length=32,primary_key=True)
