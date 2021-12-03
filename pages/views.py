@@ -24,6 +24,11 @@ def landing(request):
     return render(request,'display.html')
 
 def about(request):
+    if 'email' not in request.session:
+        request.session['email'] = ''
+    if(request.GET.get("product") is not None):
+        x = request.GET.get("product")
+        return home_view(request,x)
     return render(request, 'about.html')
 
 
@@ -42,7 +47,7 @@ def home_view(request,p = None):
             split_str = x.split(' ')
             all_enteries = products.objects.all()
             for i in split_str:
-                all_enteries = all_enteries.filter(product__contains=i) #checks if any product name contains x
+                all_enteries = all_enteries.filter(product__icontains=i) #checks if any product name contains x
             #context = {'all_enteries': all_enteries} #creates a dictionary with our enteries
             uids =[]
             for i in all_enteries:
