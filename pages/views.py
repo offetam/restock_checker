@@ -304,7 +304,8 @@ def update(StoreName,arr):
                 user_obj.Gamestop_Status=arr[3][i]
             user_obj.save()
     return 0
-
+def addProduct():
+    return 1
 def get_graph():
     buffer = BytesIO()
     plt.savefig(buffer,format='png')
