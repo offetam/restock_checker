@@ -24,6 +24,11 @@ def landing(request):
     return render(request,'display.html')
 
 def about(request):
+    if 'email' not in request.session:
+        request.session['email'] = ''
+    if(request.GET.get("product") is not None):
+        x = request.GET.get("product")
+        return home_view(request,x)
     return render(request, 'about.html')
 
 
