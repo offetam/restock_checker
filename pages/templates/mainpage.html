@@ -22,7 +22,7 @@
       <input type="checkbox" class = "notifcheck" id="product" name="id" value={{product.UUID}}>
       <div class = "box_text">
         <div class = "temp" onclick = "displayInfo('{{product.UUID.strip}}','{{product.product.strip}}', '{{product.BestBuy_price}}');return false;">
-          <img src='{% static "/imgs/ps5.jpg" %}' style="width: 100%; height: auto;" alt = '{{product.product}}'></img>
+          <img src='{{product.Image}}' style="width: 100%; height: auto;" alt = '{{product.product}}' onerror=this.src="{% static '/imgs/no_image.png' %}"></img>
           <div class = "product_name">
             {{product.product}} (Short Info)
           </div>
