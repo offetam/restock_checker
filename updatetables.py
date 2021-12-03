@@ -1,4 +1,4 @@
-from django.db.models.expressions import F
+
 import pandas as pd 
 import time
 from pandas.core.indexes.base import Index 
@@ -9,7 +9,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.action_chains import ActionChains
 import numpy as np
-from pages.views import update,email_notify
+#from pages.views import update,email_notify,addProduct
 import schedule
 from datetime import date
 chrome_options = Options()
@@ -136,7 +136,6 @@ def updateBest():
     combinedf['BestBuy_Status']=combinedf.apply(lambda x: x['newStatus'] if x['change']==True else x['BestBuy_Status'],axis=1)
     combinedf=combinedf.drop(columns=['newStatus','newPrice','change'])
     combinedf.to_csv('testingBest.csv',index=False)
-    
 def updateMicro():
     df=pd.read_csv('testingMicro.csv')
     df['MicroCenter_SKU']=df['MicroCenter_SKU'].astype(str)
@@ -437,6 +436,68 @@ def uptrends(arr):
         df[d1]=df.apply(lambda x: 1 if x['UUID']==i and x[d1]!= 1 else x[d1],axis=1)
     df.to_csv('Trends.csv',index=False)
 
+def newBest():
+    df=pd.read_csv('testingBest.csv')
+    
+    URL='https://www.bestbuy.com/site/searchpage.jsp?cp='
+    xboxURL='https://www.bestbuy.com/site/searchpage.jsp?st=xbox&_dyncharset=UTF-8&_dynSessConf=&id=pcat17071&type=page&sc=Global&cp=1&nrp=&sp=&qp=&list=n&af=true&iht=y&usc=All+Categories&ks=960&keys=keys'
+    ps5URL='https://www.bestbuy.com/site/searchpage.jsp?st=ps5&_dyncharset=UTF-8&_dynSessConf=&id=pcat17071&type=page&sc=Global&cp=1&nrp=&sp=&qp=&list=n&af=true&iht=y&usc=All+Categories&ks=960&keys=keys'
+    end='&id=pcat17071&st=graphics+card'
+    records=[]
+    for x in range(1,8,1):
+        page=requests.get(URL+str(x)+end, headers=agent)
+        soup=BeautifulSoup(page.content,'html.parser')
+        title=soup.findAll('li', class_="sku-item")
+        
+        for i in title:
+            sku=re.findall('(?<=sku-item" data-sku-id=").*?(?=">)',str(i))
+            price=re.findall('(?<=-->).*?(?=</span>)',str(i))
+            status=re.findall('(?<=data-button-state=").*?(?=" data-sku-id)',str(i))
+            rating=re.findall('(?<=class="visually-hidden">).*?(?=</p>)',str(i))
+            
+            if 'Not yet reviewed' in rating[0]:
+                records.append([sku[0],price[0],status[0],0,0])
+            else:
+                
+                rate=re.findall('(?<=rating, ).*?(?= out)',rating[0])
+                rate=float(rate[0])
+                review=re.findall('(?<=with ).*?(?= review)',rating[0])
+                reviews=int(review[0])
+                records.append([sku[0],price[0],status[0],rate,reviews])
+    """
+    page=requests.get(xboxURL,headers=agent)
+    soup=BeautifulSoup(page.content,'html.parser')
+    title=soup.findAll('li', class_="sku-item")
+    for i in title:
+            sku=re.findall('(?<=sku-item" data-sku-id=").*?(?=">)',str(i))
+            price=re.findall('(?<=-->).*?(?=</span>)',str(i))
+            status=re.findall('(?<=data-button-state=").*?(?=" data-sku-id)',str(i))
+            if (len(sku)>0 and len(price)>0 and len(status)>0):
+                if(price[0].isnumeric()):
+                    records.append([sku[0],price[0],status[0]])
+    
+    page=requests.get(ps5URL,headers=agent)
+    soup=BeautifulSoup(page.content,'html.parser')
+    title=soup.findAll('li', class_="sku-item")
+    for i in title:
+            sku=re.findall('(?<=sku-item" data-sku-id=").*?(?=">)',str(i))
+            price=re.findall('(?<=-->).*?(?=</span>)',str(i))
+            status=re.findall('(?<=data-button-state=").*?(?=" data-sku-id)',str(i))
+            if (len(sku)>0 and len(price)>0 and len(status)>0):
+                if(price[0].isnumeric()):
+                    records.append([sku[0],price[0],status[0]])
+    """
+    dfnewbest=pd.DataFrame(records,columns=['BestBuy_SKU','newPrice','newStatus','Rating','Review'])
+    dfnewbest['newPrice']=dfnewbest['newPrice'].apply(cleanPrice)
+    df['BestBuy_SKU']=df['BestBuy_SKU'].apply(cleanWord)
+    dfnewbest['BestBuy_SKU']=dfnewbest['BestBuy_SKU'].apply(cleanWord)
+    dfnewbest['newStatus']=dfnewbest['newStatus'].apply(cleanWord)
+    dfnewbest=dfnewbest.drop_duplicates(subset=['BestBuy_SKU'])
+    combinedf=pd.merge(df,dfnewbest,on='BestBuy_SKU',how='right',indicator=True).query('_merge=="right_only"').drop('_merge',1)
+    print(combinedf)
+#def newProduct():
+newBest()
+
 """
 def doupdate():
     updateBest()
@@ -455,5 +516,5 @@ while 1:
     schedule.run_pending()
     time.sleep(1)
 """
-updateBest()
+
 driver.quit()
