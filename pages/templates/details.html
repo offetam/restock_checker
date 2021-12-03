@@ -48,7 +48,40 @@
 
 
     <div class = "mainDetails">
-      Here is where details will go into
+
+        {% for i in bb %}
+        <div> <h2> {{i.BestBuy_UUID.product}} </h2> </div>
+        <div id = "bb_img"> <img src = '{{i.BestBuy_Image}}' style = "height:auto;vertical-align:middle;" alt='FAILED' onerror=this.src="{% static '/imgs/no_image.png' %}"> </div>
+
+        <div id = "bb_info" class = "details">
+          <table>
+            <tr>
+              <td> Price </td>
+              <td> {{i.BestBuy_price}} </td>
+            </tr>
+            <tr>
+              <td> Stock Status </td>
+              <td> {{i.BestBuy_Status}} </td>
+            </tr>
+            <tr>
+              <td> Ratings </td>
+              <td> {{i.BestBuy_Ratings}} </td>
+            </tr>
+            <tr>
+              <td> Num Reviews </td>
+              <td> {{i.BestBuy_Review}} </td>
+            </tr>
+            <tr>
+              <!-- <td> Url to product </td> -->
+              <td> <a href= '{{i.BestBuy_URL}}'>URL To Product</a> </td>
+            </tr>
+          </table>
+
+
+
+        </div>
+        {% endfor %}
+
     </div>
 
     <br>
@@ -78,10 +111,10 @@
         </div>
         <div>
           Click URL to purchase product!
-          <a href= '{{i.BestBuy_URL}}'>URL</a>
+          <a href= '{{i.BestBuy_URL}}'>URL To Product </a>
         </div>
         <div>
-          <img src = '{{i.BestBuy_Image}}' style = "width:300px;height:auto" alt='FAILED' onerror=this.src="{% static '/imgs/no_image.png' %}">
+          <img style = "width:35%;" src = '{{i.BestBuy_Image}}' style = "width:300px;height:auto" alt='FAILED' onerror=this.src="{% static '/imgs/no_image.png' %}">
         </div>
       </div>
     {% endfor %}
@@ -134,11 +167,12 @@
             Click URL to purchase product!
             <a href= '{{i.MicroCenter_URL}}'>URL</a>
           </div>
-          {% endfor %}
         </div>
         <div>
-          <img src = '{{i.MicroCenter_Image}}' style = "width:300px;height:auto" alt='FAILED' onerror=this.src="{% static '/imgs/no_image.png' %}">
+          <img src = '{{i.MicroCenter_Image}}' style = "width:300px;height:auto;display:none;" alt='FAILED' onerror=this.src="{% static '/imgs/no_image.png' %}">
         </div>
+
+        {% endfor %}
       </div>
 
 
@@ -264,8 +298,8 @@
 
 <!-- Lazy centering, fix later -->
 <center>
+Graph for Product
 {% for x in chart %}
-  Graph for Product
   <img src="data:image/png;base64, {{x|safe}}" style="width:600px;height:600px">
 {% endfor %}
 </center>
@@ -274,6 +308,20 @@
 <script>
 var bb_logo = document.getElementById("bb_logo")
 
+var bestbuyArray = []; //data array to store products to compare.
+var bharray = [];
+var mcArray = [];
+var adArray = [];
+var gsArray = [];
+var amznArray = [];
+
+
+{% for bproduct in bb_product %} //push bestbuy data to the array
+  bestbuyArray.push('{{bproduct.BestBuy_UUID.UUID.strip}}, {{bproduct.BestBuy_UUID.product}}, {{bproduct.BestBuy_price}}, {{bproduct.BestBuy_Status}}, {{bproduct.BestBuy_Ratings}}, {{bproduct.BestBuy_Review}}, {{bproduct.BestBuy_URL}}, {{bproduct.BestBuy_Image}}')
+{% endfor %}
+
+
+console.log(bestbuyArray)
 
 // document.getElementById('bb_logo').onclick = function() {
 //   this.style.left = parseFloat(getComputedStyle(this).left) + 42 + 'px';
