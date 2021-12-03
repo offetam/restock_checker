@@ -175,4 +175,13 @@ a:hover
 .mainDetails{
   position: absolute;
   left: 35%;
+  width: 65%;
+  height: 60%;
+
+}
+
+#bb_img{
+  position: relative;
+  top:50%;
+  transform: translateY(-50%);
 }
