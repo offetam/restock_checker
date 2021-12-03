@@ -156,7 +156,7 @@ def updateMicro():
         if len(uniqueprice)==0:
             uniqueprice.append('0')
         records.append([sku[0],uniqueprice[0]])
-    dfnewmicro=pd.DataFrame(records,columns=['MicroCenter_SKU','newPrice'])
+    dfnewmicro=pd.DataFrame(records,columns=['MicroCenter_SKU','newPrice', 'newIMG'])
     
     dfnewmicro['MicroCenter_SKU']=dfnewmicro['MicroCenter_SKU'].apply(cleanWord)
     dfnewmicro['newPrice']=dfnewmicro['newPrice'].apply(cleanPrice)
