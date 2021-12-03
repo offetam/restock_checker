@@ -5,6 +5,7 @@ from django.db.models.deletion import CASCADE
 # Create your models here.
 class products(models.Model):
     product = models.CharField(max_length=254)
+    Image = models.CharField(max_length=256)
     UUID = models.CharField(max_length=128,primary_key=True)
 
 #BestBuy table
