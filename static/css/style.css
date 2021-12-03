@@ -55,6 +55,13 @@ nav ul li a {
   padding: 25px 16px;
   display: block;
 }
+nav ul li p{
+  color: rgb(255, 255, 255);
+  text-decoration: none;
+  font-size: 15px;
+  padding: 10px 32px;
+  display: block;
+}
 
 nav ul li ul {
   display: none;
