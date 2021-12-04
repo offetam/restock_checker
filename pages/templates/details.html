@@ -21,107 +21,193 @@
 <body>
     <script>0</script>
 
-
+<!--  -->
 <div class = "compareTable">
-  {% for i in bb %}
   <ul class="row">
-     <li class="legend">{{i.BestBuy_UUID.product}}</li>
-     <li> <img src = '{{i.BestBuy_Image}}' style = "height:150px;width:auto;" alt='FAILED' onerror=this.src="{% static '/imgs/no_image.png' %}"><br/><br />BestBuy (add img instead?)</li>
+     <li class="legend">{{detail.product}}</li>
+
+
+  {% for i in bb %}
+        <li> <img src = '{{i.BestBuy_Image}}' style = "height:150px;width:auto;" alt='FAILED' onerror=this.src="{% static '/imgs/no_image.png' %}"><br/><br />BestBuy (add img instead?)</li>
+  {% endfor %}
 
   {% for j in gs %}
-     <li><img src = '{{j.Gamestop_Image}}' style = "height:150px;width:auto" alt='FAILED' onerror=this.src="{% static '/imgs/no_image.png' %}"><br/><br/> Gamestop</li>
+       <li><img src = '{{j.Gamestop_Image}}' style = "height:150px;width:auto" alt='FAILED' onerror=this.src="{% static '/imgs/no_image.png' %}"><br/><br/> Gamestop</li>
+  {% endfor %}
 
   {% for k in mc %}
      <li><img src = '{{k.MicroCenter_Image}}' style = "height:150px;width:auto" alt='FAILED' onerror=this.src="{% static '/imgs/no_image.png' %}"><br/> <br/> Microcenter</li>
+  {% endfor %}
 
   {% for l in bh %}
      <li><img src = '{{l.BH_Image}}' style = "height:150px;width:auto" alt='FAILED' onerror=this.src="{% static '/imgs/no_image.png' %}"><br/> <br/> B&H</li>
+  {% endfor %}
 
   {% for m in ad %}
      <li><img src = '{{m.AD_Image}}' style = "height:150px;width:auto" alt='FAILED' onerror=this.src="{% static '/imgs/no_image.png' %}"><br/> <br/> Adorama</li>
+  {% endfor %}
 
   {% for n in amzn %}
      <li><img src = '{{n.Amazon_Image}}' style = "height:150px;width:auto" alt='FAILED' onerror=this.src="{% static '/imgs/no_image.png' %}"><br/> <br/> Amazon </li>
+  {% endfor %}
  </ul>
 
  <ul class="row"> <!-- Prices -->
        <li class="legend">Vendor</li>
-
+  {% for i in bb %}
        <li><img style = "height:100px;width:150px;" src = "{% static 'imgs/bestbuy.png' %}"></li>
+  {% endfor %}
+
+  {% for i in gs %}
        <li><img style = "width:200px;height:150px;" src = "{% static 'imgs/gamestop.PNG' %}"> </li>
+  {% endfor %}
+
+  {% for i in mc %}
        <li><img style = "width:200px;height:150px;" src = "{% static 'imgs/microcenter.PNG' %}"> </li>
+  {% endfor %}
+
+  {% for i in bh %}
        <li><img style = "width:150px;height:150px;" src = "{% static 'imgs/BH_logo.png' %}"> </li>
+  {% endfor %}
+
+  {% for i in ad %}
        <li><img style = "width:150px;height:150px;" src = "{% static 'imgs/adorama.PNG' %}"> </li>
+  {% endfor %}
+
+  {% for i in amzn %}
        <li><img style = "width:175px;height:150px;" src = "{% static 'imgs/amazon.PNG' %}"> </li>
+  {% endfor %}
 </ul>
 
  <ul class="row"> <!-- Prices -->
        <li class="legend">Price</li>
 
+
+{% for i in bb %}
        <li>BB Price: {{i.BestBuy_price}}</li>
+{% endfor %}
+
+{% for j in gs %}
        <li>Gaem: {{j.Gamestop_price}}</li>
+{% endfor %}
+
+{% for k in mc %}
        <li>Macro: {{k.MicroCenter_Price}}</li>
+{% endfor %}
+
+{% for l in bh %}
        <li>Bee H: {{l.BH_price}}</li>
+{% endfor %}
+
+{% for m in ad %}
        <li>Addy: {{m.AD_price}}</li>
+{% endfor %}
+
+{% for n in amzn %}
        <li>Emyzon: {{n.Amazon_price}} (If 0.00 to be fixed later...)</li>
+{% endfor %}
+
+
 </ul>
 
 <ul class="row"> <!-- Ratings -->
       <li class="legend">Availability</li>
 
+{% for i in bb %}
       {% if i.BestBuy_Status == 'SOLD_OUT'%}
         <li>BB: Out of Stock</li>
       {% else %}
         <li>BB: {{i.BestBuy_Status}}</li>
       {% endif %}
+{% endfor %}
 
+{% for j in gs %}
       <li>Gaem: {{j.Gamestop_Status}}</li>
+{% endfor %}
 
+{% for k in mc %}
       <li>Macro: N/A </li>
+{% endfor %}
 
+
+{% for l in bh %}
       {% if l.BH_Status == 'Not in Stock'%}
         <li>Bee H: Out of Stock</li>
       {% else %}
         <li>Bee H: {{l.BH_Status}}</li>
       {% endif %}
+{% endfor %}
 
+{% for m in ad %}
       {% if m.AD_Status == 'Not in Stock'%}
         <li>Addy: Out of Stock</li>
       {% else %}
         <li>Addy: {{m.AD_Status}}</li>
       {% endif %}
+{% endfor %}
 
+{% for n in amzn %}
       <li>Emyzon: {{n.Amazon_Status}}</li>
+{% endfor %}
 </ul>
 
 <ul class="row"> <!-- Ratings -->
       <li class="legend">Ratings & Num Reviews</li>
 
+
+{% for i in bb %}
       <li>BB Star: {{i.BestBuy_Ratings}} , Reviews: {{i.BestBuy_Review}}</li>
+{% endfor %}
+
+{% for j in gs %}
       <li>Gaem: {{j.Gamestop_Ratings}}, Reviews: {{j.Gamestop_Reviews}}</li>
+{% endfor %}
+
+{% for i in mc %}
       <li>Macro: N/A </li>
+{% endfor %}
+
+{% for l in bh %}
       <li>Bee H: {{l.BH_Ratings}}, Reviews: {{l.BH_Reviews}}</li>
+{% endfor %}
+
+{% for m in ad %}
       <li>Addy: {{m.AD_Ratings}}, Reviews: {{m.AD_Reviews}}</li>
+{% endfor %}
+
+{% for n in amzn %}
       <li>Emyzon: {{n.Amazon_Ratings}}, Reviews: {{n.Amazon_Reviews}}</li>
+{% endfor %}
 </ul>
 
 <ul class="row"> <!-- URL -->
     <li class="legend"></li>
+
+{% for i in bb %}
     <li><a href={{i.BestBuy_URL}} class="calltoaction">Link</a></li>
+{% endfor %}
+
+{% for j in gs %}
     <li><a href={{j.Gamestop_URL}} class="calltoaction">Link</a></li>
+{% endfor %}
+
+{% for k in mc %}
     <li><a href={{k.MicroCenter_URL}} class="calltoaction">Link</a></li>
+{% endfor %}
+
+{% for l in bh %}
     <li><a href={{l.BH_URL}} class="calltoaction">Link</a></li>
+{% endfor %}
+
+{% for m in ad %}
     <li><a href={{m.AD_URL}} class="calltoaction">Link</a></li>
+{% endfor %}
+
+{% for n in amzn %}
     <li><a href={{n.Amazon_URL}} class="calltoaction">Link</a></li>
+{% endfor %}
+
 </ul>
-
-      {% endfor %} <!-- End for of all tables-->
-      {% endfor %}
-      {% endfor %}
-      {% endfor %}
-      {% endfor %}
-      {% endfor %}
-
 </div>
 
 
