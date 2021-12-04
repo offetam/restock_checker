@@ -192,3 +192,8 @@ footer {
   background-color: #525252;
   color: white;
 }
+
+h1 {
+  padding: 50px;
+  font-size: 30px;
+}
