@@ -11,6 +11,8 @@
   background-size: cover;
   position: relative;
   font-size: larger;
+  background-image: linear-gradient(rgba(4, 9, 30, 0.7), rgba(4, 9, 30, 0.7)),
+    url("/static/imgs/3090.jpg");
 }
 
 nav {
@@ -76,9 +78,17 @@ nav ul li ul li a:hover {
   background-color: #8f8f8f;
 }
 
+nav ul li p {
+  color: rgb(255, 255, 255);
+  text-decoration: none;
+  font-size: 15px;
+  padding: 10px 32px;
+  display: block;
+}
+
 .about {
   max-width: 50%;
-  color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
   position: absolute;
   top: 50%;
   left: 50%;
@@ -135,4 +145,11 @@ nav ul li ul li a:hover {
   font-size: 20px;
   padding: 5px;
   z-index: -1;
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+  background-color: #525252;
+  color: white;
 }

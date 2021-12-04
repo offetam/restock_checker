@@ -1,4 +1,6 @@
+
 {% load static %}
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -58,6 +60,11 @@
                       </form>
                     </div>
               </li>
+              <li>
+                {% if request.session.email != '' %}
+                    <p>{{request.session.email}}</p>
+                {% endif %}
+            </li>
             </ul>
         </nav>
         <div class="about">
@@ -136,6 +143,11 @@
         
                 
     </section>
+    <footer>
+      <p>Restock Checker, Copyright &copy; Fall 2021</p>
+      <p>Hunter College Capstone Project By: Danny Li, Alden Lee, Ethan Tam, Oscar Andrade, David Xue</p>
+
+  </footer>
         
 </body>
 </html>
