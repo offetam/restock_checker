@@ -2,7 +2,7 @@
   margin-top: 2.5%;
   display:flex;
   flex-direction: column;
-  position: sticky;
+  position: relative;
   left:10%;
 }
 
