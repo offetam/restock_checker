@@ -1,49 +1,26 @@
+{% extends "./base.html" %}
+{% block title %}Restock - details{% endblock %}
 {% load static %}
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
+<!---
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- <link rel="stylesheet" type="text/css" href='{% static "/css/notification.css" %}'> -->
-      <link rel="stylesheet" type="text/css" href='{% static "/css/details.css" %}'>
+    <link rel="stylesheet" type="text/css" href='{% static "/css/details.css" %}'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"> <!-- css for the search icon (fa fa-search) -->
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;700&display=swap" rel="stylesheet">
     <title>Restock - Expanded Info</title>
     <link rel="shortcut icon" href='{% static "imgs/logo3.png" %}'>
-</head>
+</head>-->
 
-<header>
-<div class = "header">
-		<div class = "inner_header">
-      <div class = "logo_container">
-        <a href="{% url 'landing' %}"><img class = "logo_img" src = '{% static "/imgs/logo3.png" %}'></img></a>
-      </div>
-      <div class = "empty_container">
-        <!-- format for our li tags -->
-      </div>
-			<nav>
-			  <ul class = "navigation"> <!--  Header to use on other pages -->
-				  <li>
-            {% if request.session.email != '' %}
-                <a href="{% url 'signout' %}">Sign Out</a>
-            {% else %}
-                <a href="{% url 'login' %}"> Login </a>
-            {% endif %}
-					</li>
-          <li>
-            {% if request.session.email != '' %}
-            <a href="{% url 'notification' %}">Notification</a>
-            {% endif %}
-          </li>
-				</ul>
-			</nav>
-		</div>
-</div>
-</header>
 
 <body>
     <script>0</script>
+
     <div></div>
 
 
@@ -51,10 +28,10 @@
   {% for i in bb %}
   <ul class="row">
      <li class="legend">{{i.BestBuy_UUID.product}}</li>
-     <li> <img src = '{{i.BestBuy_Image}}' style = "height:150px;width:auto;" alt='FAILED' onerror=this.src="{% static '/imgs/no_image.png' %}"><br/>BestBuy (add img instead?)</li>
+     <li> <img src = '{{i.BestBuy_Image}}' style = "height:150px;width:auto;" alt='FAILED' onerror=this.src="{% static '/imgs/no_image.png' %}"><br/><br />BestBuy (add img instead?)</li>
 
   {% for j in gs %}
-     <li><img src = '{{j.Gamestop_Image}}' style = "height:150px;width:auto" alt='FAILED' onerror=this.src="{% static '/imgs/no_image.png' %}"><br/>Gamestop</li>
+     <li><img src = '{{j.Gamestop_Image}}' style = "height:150px;width:auto" alt='FAILED' onerror=this.src="{% static '/imgs/no_image.png' %}"><br/><br/><img src = "{% static 'imgs/gamestop.PNG' %}"> </li>
 
   {% for k in mc %}
      <li><img src = '{{k.MicroCenter_Image}}' style = "height:150px;width:auto" alt='FAILED' onerror=this.src="{% static '/imgs/no_image.png' %}"><br/>Microcenter</li>
@@ -71,6 +48,17 @@
  </ul>
 
  <ul class="row"> <!-- Prices -->
+       <li class="legend">Vendor</li>
+
+       <li><img src = "{% static 'imgs/bestbuy.png' %}"></li>
+       <li><img src = "{% static 'imgs/gamestop.PNG' %}"> </li>
+       <li>Macro: {{k.MicroCenter_Price}}</li>
+       <li>Bee H: {{l.BH_price}}</li>
+       <li>Addy: {{m.AD_price}}</li>
+       <li>Emyzon: {{n.Amazon_price}} (If 0.00 to be fixed later...)</li>
+</ul>
+
+ <ul class="row"> <!-- Prices -->
        <li class="legend">Price</li>
 
        <li>BB Price: {{i.BestBuy_price}}</li>
@@ -81,6 +69,33 @@
        <li>Emyzon: {{n.Amazon_price}} (If 0.00 to be fixed later...)</li>
 </ul>
 
+<ul class="row"> <!-- Ratings -->
+      <li class="legend">Availability</li>
+
+      {% if i.BestBuy_Status == 'SOLD_OUT'%}
+        <li>BB: Out of Stock</li>
+      {% else %}
+        <li>BB: {{i.BestBuy_Status}}</li>
+      {% endif %}
+
+      <li>Gaem: {{j.Gamestop_Status}}</li>
+
+      <li>Macro: N/A </li>
+
+      {% if l.BH_Status == 'Not in Stock'%}
+        <li>Bee H: Out of Stock</li>
+      {% else %}
+        <li>Bee H: {{l.BH_Status}}</li>
+      {% endif %}
+
+      {% if m.AD_Status == 'Not in Stock'%}
+        <li>Addy: Out of Stock</li>
+      {% else %}
+        <li>Addy: {{m.AD_Status}}</li>
+      {% endif %}
+
+      <li>Emyzon: {{n.Amazon_Status}}</li>
+</ul>
 
 <ul class="row"> <!-- Ratings -->
       <li class="legend">Ratings & Num Reviews</li>
@@ -102,12 +117,19 @@
     <li><a href={{m.AD_URL}} class="calltoaction">Link</a></li>
     <li><a href={{n.Amazon_URL}} class="calltoaction">Link</a></li>
 </ul>
+
+      {% endfor %} <!-- End for of all tables-->
       {% endfor %}
       {% endfor %}
       {% endfor %}
       {% endfor %}
       {% endfor %}
-      {% endfor %}
+
+</div>
+
+
+
+
 <!-- </div>
 
     <br>
@@ -199,7 +221,6 @@
         </div>
 
         {% endfor %}
-
       </div>
 
 
@@ -363,3 +384,4 @@ Graph for Product
 </script>
 
 </html>
+{% endblock %}
