@@ -370,7 +370,7 @@ def product_detail(request, UUID):
     ad= AD.objects.none() | AD.objects.all().filter(AD_UUID= detail.UUID).exclude(AD_SKU="")
     amzn = Amazon.objects.none() | Amazon.objects.all().filter(Amazon_UUID= detail.UUID).exclude(Amazon_SKU="")
 
-    context = {'bb':bb,'mc': mc,'gs':gs,'bh':bh,'ad':ad,'amzn':amzn,'chart':chart}
+    context = {'bb':bb,'mc': mc,'gs':gs,'bh':bh,'ad':ad,'amzn':amzn,'chart':chart,'detail':detail}
 
     return render(request, 'details.html', context)
 
