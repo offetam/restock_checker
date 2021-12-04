@@ -26,7 +26,7 @@
 <!--  -->
 <div class = "compareTable" style = "z-index:0">
   <ul class="row">
-     <li class="legend">{{detail.product}}</li>
+     <li style = "color:#C2C094;" class="legend">{{detail.product}}</li>
 
 
   {% for i in bb %}
@@ -57,27 +57,27 @@
  <ul class="row"> <!-- Prices -->
        <li class="legend">Vendor</li>
   {% for i in bb %}
-       <li><img style = "height:100px;width:150px;" src = "{% static 'imgs/bestbuy.png' %}"></li>
+       <li><div><img style = "height:100px;width:150px;" src = "{% static 'imgs/bestbuy.png' %}"></div></li>
   {% endfor %}
 
   {% for i in gs %}
-       <li><img style = "width:200px;height:150px;" src = "{% static 'imgs/gamestop.PNG' %}"> </li>
+       <li><div><img style = "width:225px;height:150px;" src = "{% static 'imgs/gamestop.PNG' %}"></div></li>
   {% endfor %}
 
   {% for i in mc %}
-       <li><img style = "width:200px;height:150px;" src = "{% static 'imgs/microcenter.PNG' %}"> </li>
+       <li><div><img style = "width:200px;height:150px;" src = "{% static 'imgs/microcenter.PNG' %}"></div></li>
   {% endfor %}
 
   {% for i in bh %}
-       <li><img style = "width:150px;height:150px;" src = "{% static 'imgs/BH_logo.png' %}"> </li>
+       <li><div><img style = "width:150px;height:150px;" src = "{% static 'imgs/BH_logo.png' %}"></div></li>
   {% endfor %}
 
   {% for i in ad %}
-       <li><img style = "width:150px;height:150px;" src = "{% static 'imgs/adorama.PNG' %}"> </li>
+       <li><div><img style = "width:150px;height:150px;" src = "{% static 'imgs/adorama.PNG' %}"></div></li>
   {% endfor %}
 
   {% for i in amzn %}
-       <li><img style = "width:175px;height:150px;" src = "{% static 'imgs/amazon.PNG' %}"> </li>
+       <li><div><img style = "width:175px;height:150px;" src = "{% static 'imgs/amazon.PNG' %}"></div></li>
   {% endfor %}
 </ul>
 
@@ -186,27 +186,27 @@
     <li class="legend"></li>
 
 {% for i in bb %}
-    <li><a href={{i.BestBuy_URL}} class="calltoaction">Link</a></li>
+    <li><a href={{i.BestBuy_URL}} class="calltoaction">Link!</a></li>
 {% endfor %}
 
 {% for j in gs %}
-    <li><a href={{j.Gamestop_URL}} class="calltoaction">Link</a></li>
+    <li><a href={{j.Gamestop_URL}} class="calltoaction">Link!</a></li>
 {% endfor %}
 
 {% for k in mc %}
-    <li><a href={{k.MicroCenter_URL}} class="calltoaction">Link</a></li>
+    <li><a href={{k.MicroCenter_URL}} class="calltoaction">Link!</a></li>
 {% endfor %}
 
 {% for l in bh %}
-    <li><a href={{l.BH_URL}} class="calltoaction">Link</a></li>
+    <li><a href={{l.BH_URL}} class="calltoaction">Link!</a></li>
 {% endfor %}
 
 {% for m in ad %}
-    <li><a href={{m.AD_URL}} class="calltoaction">Link</a></li>
+    <li><a href={{m.AD_URL}} class="calltoaction">Link!</a></li>
 {% endfor %}
 
 {% for n in amzn %}
-    <li><a href={{n.Amazon_URL}} class="calltoaction">Link</a></li>
+    <li><a href={{n.Amazon_URL}} class="calltoaction">Link!</a></li>
 {% endfor %}
 
 </ul>
