@@ -159,6 +159,7 @@ nav ul li ul li a:hover {
   margin: 5%;
   display: flex;
   justify-content: space-around;
+  align-items: center;
 }
 
 .search_container {
