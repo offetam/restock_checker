@@ -20,7 +20,6 @@ h1 {
   grid-auto-rows: 450px;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   grid-gap: 1rem;
-  background-color: #f8f8ff;
   color: #444;
   height: 50%;
   margin: 0 auto;
@@ -75,14 +74,6 @@ body {
   background-size: cover;
   position: relative;
   font-size: larger;
-}
-
-#fa-home {
-  color: white;
-}
-
-#fa-home:hover {
-  color: blue;
 }
 
 .logo_container {
