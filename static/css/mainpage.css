@@ -127,6 +127,7 @@ nav ul li {
   float: left;
   list-style: none;
   position: relative;
+  z-index: 55;
 }
 
 nav ul li a {
@@ -160,6 +161,7 @@ nav ul li ul li a {
 
 nav ul li ul li a:hover {
   background-color: #8f8f8f;
+
 }
 
 nav ul li p {

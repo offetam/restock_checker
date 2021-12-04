@@ -22,13 +22,13 @@
     <script>0</script>
 
 <!--  -->
-<div class = "compareTable">
+<div class = "compareTable" style = "z-index:0">
   <ul class="row">
      <li class="legend">{{detail.product}}</li>
 
 
   {% for i in bb %}
-        <li> <img src = '{{i.BestBuy_Image}}' style = "height:150px;width:auto;" alt='FAILED' onerror=this.src="{% static '/imgs/no_image.png' %}"><br/><br />BestBuy (add img instead?)</li>
+        <li> <img src = '{{i.BestBuy_Image}}' style = "height:150px;width:auto;" alt='FAILED' onerror=this.src="{% static '/imgs/no_image.png' %}"><br/><br />BestBuy </li>
   {% endfor %}
 
   {% for j in gs %}
