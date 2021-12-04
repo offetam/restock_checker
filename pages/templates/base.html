@@ -14,40 +14,68 @@
 
 <body>
     <header>
-        <div class = "header">
-            <div class = "inner_header">
-          <div class = "logo_container">
-            <a href="{% url 'landing' %}"><img class = "logo_img" src = '{% static "/imgs/logo3.png" %}'></img></a>
-          </div>
-    
-          <div class = "search_container">
-            <form id = "searchbar" class = "search_form">
-                <input type="text" class = "searchtext" name="product" placeholder="Search for Products"><button type="submit" value="Search!"><i class="fa fa-search" id = "search_button"></i> Search</button>
-            </form>
-          </div>
-    
-                <nav>
-                  <ul class = "navigation"> <!--  Header to use on other pages -->
-                      <li>
-                {% if request.session.email != '' %}
-                    <a href="{% url 'signout' %}">Sign Out</a>
-                {% else %}
-                    <a href="{% url 'login' %}"> Login </a>
-                {% endif %}
+      <nav>
+        <p><a href="{% url 'landing' %}"><img src='{% static "imgs/logo3.png" %}'></a></p>
+            <ul>
+                <li>
+                    <a>Graphic Cards</a>
+                    <ul>
+                        <li>
+                            <a href="{% url 'home' %}?product=3070">GeForce RTX 3070</a>
+                            <a href="{% url 'home' %}?product=3080">GeForce RTX 3080</a>
+                            <a href="{% url 'home' %}?product=3090">GeForce RTX 3090</a>
                         </li>
-              <li>
-                {% if request.session.email != '' %}
-                <a href="{% url 'notification' %}">Notification</a>
-                {% endif %}
-              </li>
                     </ul>
-                </nav>
-            </div>
-    
-    </div>
+                </li>
+                <li>
+                    <a>Consoles</a>
+                    <ul>
+                        <li>
+                            <a href="{% url 'home' %}?product=Playstation">PLAYSTATION 5</a>
+                            <a href="{% url 'home' %}?product=Xbox">XBOX ONE X</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="{% url 'home' %}">Products</a>
+                </li>
+                    {% if request.session.email != '' %}
+                    <li>
+                      <a href="{% url 'notification' %}">Notifications</a>
+                    </li>
+                    {% endif %}
+                <li>
+                        {% if request.session.email != '' %}
+                            <a href="{% url 'signout' %}">Sign Out</a>
+                        {% else %}
+                            <a href="{% url 'login' %}"> Login </a>
+                        {% endif %}
+                </li>
+                <li>
+                    <div class = "search_container">
+                        <form id = "searchbar" class = "search_form">
+                            <input type="text" class = "searchtext" name="product" placeholder="Search for Products">
+                        </form>
+                      </div>
+                </li>
+                <li>
+                    {% if request.session.email != '' %}
+                        <p>{{request.session.email}}</p>
+                    {% endif %}
+                </li>
+            </ul>
+        </nav>
     </header>
 
 
     <div id ="content" > {% block content %} {% endblock %}</div>
+
+    <section>
+      <footer>
+        <p>Restock Checker, Copyright &copy; Fall 2021</p>
+        <p>Hunter College Capstone Project By: Danny Li, Alden Lee, Ethan Tam, Oscar Andrade, David Xue</p>
+      
+      </footer>
+    </section>
 </body>
 </html>

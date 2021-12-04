@@ -1,42 +1,24 @@
+{% extends "./base.html" %}
+{% block title %}Restock - notification{% endblock %}
 {% load static %}
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
+  <!---
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href='{% static "/css/notification.css" %}'>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"> <!-- css for the search icon (fa fa-search) -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">  css for the search icon (fa fa-search) 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;700&display=swap" rel="stylesheet">
     <title>Restock - Notification</title>
     <link rel="shortcut icon" href='{% static "imgs/logo3.png" %}'>
-</head>
+</head>-->
 
-<header>
-<div class = "header">
-		<div class = "inner_header">
-      <div class = "logo_container">
-        <a href="{% url 'landing' %}"><img class = "logo_img" src = '{% static "/imgs/logo3.png" %}'></img></a>
-      </div>
-      <div class = "empty_container">
-        <!-- format for our li tags -->
-      </div>
-			<nav>
-			  <ul class = "navigation"> <!--  Header to use on other pages -->
-				  <li>
-            {% if request.session.email != '' %}
-                <a href="{% url 'signout' %}">Sign Out</a>
-            {% else %}
-                <a href="{% url 'login' %}"> Login </a>
-            {% endif %}
-					</li>
-          <li>
-            <a href="{% url 'home' %}">Products</a>
-          </li>
-				</ul>
-			</nav>
-		</div>
-</div>
-</header>
+
 
 
 <body>
@@ -46,11 +28,8 @@
         </tr>
         <form>
           <div class = "header_container" style = "padding: 1rem;">
-          {% if request.session.email != '' %}
-              <h1 style="color:#008080; text-align:right; padding-left: 1.25rem; position:absolute">Welcome: {{request.session.email}}</h1>
-          {% endif %}
             <h1>
-                  <button class= "notifbutton" type="submit" value="submit">Remove from Notification<i style = "margin-left: 7.5px; margin-right: 7.5px;" class="fa fa-times" aria-hidden="true"></i></button>
+                  <button class= "removenotifbutton" type="submit" value="submit">Remove from Notification<i style = "margin-left: 7.5px; margin-right: 7.5px;" class="fa fa-times" aria-hidden="true"></i></button>
             </h1>
           </div>
         {% for items in notify %}
@@ -64,5 +43,7 @@
         {% endfor %}
         </form>
     </table>
+    
 </body>
 </html>
+{% endblock %}
