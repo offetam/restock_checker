@@ -1,5 +1,8 @@
 {% extends "./base.html" %}
 {% load static %}
+{% block styles %}
+<link rel="stylesheet" type="text/css" href='{% static "/css/mainpage.css" %}'>
+{% endblock %}
 {% block title %}Restock - Products{% endblock %}
 {% block content %}
 <!DOCTYPE html>
