@@ -1,14 +1,17 @@
+
 {% load static %}
+
 <!DOCTYPE html>
 <html>
 <head>
+    <title>Restock</title>
     <meta name="viewport" content="with=device-width, initial-scale = 1.0">
-    <title>Restock - Launch Page</title>
     <link rel="shortcut icon" href='{% static "imgs/logo3.png" %}'>
     <link rel="stylesheet" href='{% static "/css/style.css" %}''>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
 
@@ -35,15 +38,15 @@
                             </li>
                         </ul>
                     </li>
-                    <li>
+                    <li class = "clickable">
                         <a href="{% url 'home' %}">Products</a>
                     </li>
                         {% if request.session.email != '' %}
-                        <li>
+                        <li class = "clickable">
                           <a href="{% url 'notification' %}">Notifications</a>
                         </li>
                         {% endif %}
-                    <li>
+                    <li class = "clickable">
                             {% if request.session.email != '' %}
                                 <a href="{% url 'signout' %}">Sign Out</a>
                             {% else %}
@@ -53,10 +56,11 @@
                     <li>
                         <div class = "search_container">
                             <form id = "searchbar" class = "search_form">
-                                <input type="text" class = "searchtext" name="product" placeholder="Search for Products">
+                                <input type="text" style = "font-family: FontAwesome, sans-serif;" class = "searchtext" name="product" placeholder="&#xf002 Search for Products">
                             </form>
                           </div>
                     </li>
+
                     <li>
                         {% if request.session.email != '' %}
                             <p>{{request.session.email}}</p>
@@ -74,7 +78,7 @@
 
     <section class="items">
         <h1>
-            Items we track
+            Items We Track
         </h1>
         <div class="row">
             <div class = "items-col">
@@ -82,40 +86,40 @@
                 <p>The Graphics Cards that we track range from 3000 series cards
                     <br>from NVIDIA and AMD Radeon 6000 Series graphics cards.
                 </p>
-                <img src='{% static "imgs/gpu3080.jpg" %}'>
+                <img src='{% static "imgs/gpu3080.jpg" %}' style="padding-top: 30px;">
             </div>
             <div class = "items-col">
                 <h3>Consoles</h3>
                 <p>The hottest consoles that came out in 2020 <br>
                     the PlayStation 5 and the Xbox Series X
                 </p>
-                <img src='{% static "imgs/ps5.jpg" %}'>
+                <img src='{% static "imgs/ps5.jpg" %}' style="padding-top: 30px;">
             </div>
         </div>
     </section>
 
     <section class="vendors">
         <h1>
-            The vendors we use to track each product.
+            The Vendors We Track Products For
         </h1>
         <div class="row2">
             <div class = "items-col2">
                 <img src='{% static "imgs/adorama.png" %}' width="200">
             </div>
             <div class = "items-col2">
-                <img src='{% static "imgs/Amazon-logo.png" %}' width="200">
+                <img src='{% static "imgs/Amazon-logo.png" %}' width="200" style="padding-top: 20px;">
             </div>
             <div class = "items-col2">
-                <img src='{% static "imgs/bestbuy.png" %}' width="200">
+                <img src='{% static "imgs/bestbuy.png" %}' width="190">
             </div>
             <div class = "items-col2">
-                <img src='{% static "imgs/gamestop.PNG" %}' width="200">
+                <img src='{% static "imgs/gamestop.PNG" %}' width="190">
             </div>
             <div class = "items-col2">
-                <img src='{% static "imgs/micro-center-logo.png" %}' width="200">
+                <img src='{% static "imgs/micro-center-logo.png" %}' width="280">
             </div>
             <div class = "items-col2">
-                <img src='{% static "imgs/BH_logo.png" %}' width="200">
+                <img src='{% static "imgs/BH_logo.png" %}' width="130">
             </div>
         </div>
     </section>

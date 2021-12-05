@@ -7,27 +7,39 @@
 .header1 {
   min-height: 100vh;
   width: 100%;
+  /* max-width: 100%;width: 100%;*/
   background-position: center;
   background-size: cover;
   position: relative;
   font-size: larger;
+  background-image: linear-gradient(rgba(4, 9, 30, 0.7), rgba(4, 9, 30, 0.7)),
+    url("/static/imgs/3090.jpg");
 }
 
 nav {
   width: 100%;
-  height: 70px;
+  height: 60px;
   background-color: #045b8d;
 }
 
 nav img {
-  width: 70px;
-  padding: 3px;
+  width: 60px;
+  z-index: -1;
+}
+
+.clickable:hover{
+  background-color: #8f8f8f;
+}
+
+.nav-links {
+  flex: 1;
+  text-align: center;
 }
 
 nav p {
   font-family: "Source Sans Pro", sans-serif;
   color: #fff;
-  font-size: 24px;
+  font-size: 15px;
   line-height: 55px;
   float: left;
   padding: 0px 20px;
@@ -47,7 +59,16 @@ nav ul li a {
   color: rgb(255, 255, 255);
   text-decoration: none;
   font-size: 15px;
-  padding: 25px 16px;
+  padding: 20px 16px;
+  display: block;
+}
+
+/*email doesnt want to go to the header*/
+nav ul li p {
+  color: rgb(255, 255, 255);
+  text-decoration: none;
+  font-size: 15px;
+  padding: 2px 32px;
   display: block;
 }
 
@@ -78,7 +99,7 @@ nav ul li ul li a:hover {
 
 .about {
   max-width: 50%;
-  color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
   position: absolute;
   top: 50%;
   left: 50%;
@@ -119,12 +140,12 @@ nav ul li ul li a:hover {
 
 .search_form {
   margin: 0 auto;
-  width: 600px;
+  width: 500px;
   z-index: -1;
 }
 
 .search_form input[type="text"] {
-  height: 55px;
+  height: 45px;
   float: left;
   width: 100%;
   flex: 1;
@@ -132,7 +153,14 @@ nav ul li ul li a:hover {
   border: 2.5px solid gray;
   border-radius: 5px;
   text-align: center;
-  font-size: 20px;
+  font-size: 18px;
   padding: 5px;
   z-index: -1;
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+  background-color: #525252;
+  color: white;
 }
