@@ -246,6 +246,7 @@ form.search_form button {
   left: 0px;
   right: 0px;
   bottom: 0px;
+  text-align: left;
 }
 
 .exit_popup:hover {
