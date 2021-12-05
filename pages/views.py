@@ -304,8 +304,15 @@ def update(StoreName,arr):
                 user_obj.Gamestop_Status=arr[3][i]
             user_obj.save()
     return 0
-def addProduct():
-    return 1
+def addProduct(arr):
+    for x in range(len(arr[0])):
+        newproduct=products(product=arr[0][x],Image=arr[1][x],UUID=arr[2][x])
+        newproduct.save()
+def addtovendor(store,arr):
+    if store=='BestBuy':
+        for x in range(len(arr[0])):
+            newbest=BestBuy(BestBuy_price=arr[0][x],BestBuy_Status=arr[1][x],BestBuy_Ratings=arr[2][x],BestBuy_Review=arr[3][x],BestBuy_ModelNumber=arr[4][x],BestBuy_SKU=arr[5][x],BestBuy_URL=arr[6][x],BestBuy_Image=arr[7][x],BestBuy_UUID_id=arr[8][x])
+            newbest.save()
 def get_graph():
     buffer = BytesIO()
     plt.savefig(buffer,format='png')
