@@ -19,11 +19,13 @@ h1 {
   display: grid;
   grid-auto-rows: 450px;
   grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-rows: auto 1fr auto;
   grid-gap: 1rem;
   color: #444;
   height: 50%;
   margin: 0 auto;
   width: 80%;
+  text-align:center;
 }
 
 .notifcheck {
@@ -324,5 +326,8 @@ footer {
   padding: 20px;
   background-color: #525252;
   color: white;
-  margin-top: 561px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
