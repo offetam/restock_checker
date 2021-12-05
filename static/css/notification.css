@@ -5,8 +5,6 @@
   font-family: "Source Sans Pro", sans-serif;
 }
 
-
-
 .logo_img {
   height: 80px;
   width: auto;
@@ -54,10 +52,6 @@ h1 {
   cursor: pointer;
   text-decoration: underline;
   color: #00bfff;
-}
-
-img {
-  height: 0.85em;
 }
 
 table {
@@ -108,9 +102,8 @@ nav {
 }
 
 nav img {
-  height: 70px;
   width: 70px;
-  padding: 3px;
+  z-index: -1;
 }
 
 nav p {
@@ -164,7 +157,6 @@ nav ul li ul li a {
 
 nav ul li ul li a:hover {
   background-color: #8f8f8f;
-
 }
 
 nav ul li p {
@@ -194,10 +186,6 @@ td {
   border: 2px solid black;
   font-family: sans-serif;
   font-weight: bold;
-}
-
-a:hover {
-  color: blue;
 }
 
 #logo_image {
