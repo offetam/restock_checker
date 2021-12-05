@@ -124,6 +124,7 @@ nav ul li {
   float: left;
   list-style: none;
   position: relative;
+  z-index: 55;
 }
 
 nav ul li a {
