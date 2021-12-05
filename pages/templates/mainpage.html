@@ -1,5 +1,8 @@
 {% extends "./base.html" %}
 {% load static %}
+{% block styles %}
+<link rel="stylesheet" type="text/css" href='{% static "/css/mainpage.css" %}'>
+{% endblock %}
 {% block title %}Restock - Products{% endblock %}
 {% block content %}
 <!DOCTYPE html>
@@ -13,9 +16,6 @@
 <body>
   <form>
     <div class = "header_container">
-    {% if request.session.email != '' %}
-        <!--<h1 style="color:#008080; text-align:right; padding-left: 1.75rem; position:absolute">Welcome: {{request.session.email}}</h1>-->
-    {% endif %}
          <h1 style = "margin-top: 1rem;">Products <button class= "notifbutton" type="submit" value="submit">Notify<i style = "margin-left: 7.5px;" class="fa fa-clock-o"></i></button>
          </h1>
     </div>
@@ -25,7 +25,7 @@
       <input type="checkbox" class = "notifcheck" id="product" name="id" value={{product.UUID}}>
       <div class = "box_text">
         <div class = "temp" onclick = "displayInfo('{{product.UUID.strip}}','{{product.product.strip}}', '{{product.BestBuy_price}}');return false;">
-          <div><img src='{{product.Image}}' style="width: 70%; max-height:250px;" alt = '{{product.product}}' onerror=this.src="{% static '/imgs/no_image.png' %}"></img></div>
+          <div><img src='{{product.Image}}' style="align-items: center;width: 75%; max-height:275px;" alt = '{{product.product}}' onerror=this.src="{% static '/imgs/no_image.png' %}"></img></div>
           <div class = "product_name">
             {{product.product}} (Short Info)
           </div>
