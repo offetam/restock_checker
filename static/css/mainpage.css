@@ -103,7 +103,6 @@ nav {
 
 nav img {
   width: 70px;
-  padding: 3px;
   z-index: -1;
 }
 
@@ -341,7 +340,7 @@ footer {
   }
 
   nav img {
-    width: 50px;
+    width: 60px;
     z-index: -1;
   }
 
