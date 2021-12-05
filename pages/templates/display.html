@@ -10,6 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
 
@@ -54,7 +55,7 @@
                     <li>
                         <div class = "search_container">
                             <form id = "searchbar" class = "search_form">
-                                <input type="text" class = "searchtext" name="product" placeholder="Search for Products">
+                                <input type="text" style = "font-family: FontAwesome, sans-serif;" class = "searchtext" name="product" placeholder="&#xf002 Search for Products">
                             </form>
                           </div>
                     </li>
@@ -84,14 +85,14 @@
                 <p>The Graphics Cards that we track range from 3000 series cards
                     <br>from NVIDIA and AMD Radeon 6000 Series graphics cards.
                 </p>
-                <img src='{% static "imgs/gpu3080.jpg" %}'>
+                <img src='{% static "imgs/gpu3080.jpg" %}' style="padding-top: 30px;">
             </div>
             <div class = "items-col">
                 <h3>Consoles</h3>
                 <p>The hottest consoles that came out in 2020 <br>
                     the PlayStation 5 and the Xbox Series X
                 </p>
-                <img src='{% static "imgs/ps5.jpg" %}'>
+                <img src='{% static "imgs/ps5.jpg" %}' style="padding-top: 30px;">
             </div>
         </div>
     </section>
@@ -129,4 +130,3 @@
 
 </body>
 </html>
-

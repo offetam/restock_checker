@@ -5,8 +5,7 @@
   font-family: "Source Sans Pro", sans-serif;
 }
 
-body {
-}
+
 
 .logo_img {
   height: 80px;
@@ -87,14 +86,6 @@ body {
   box-sizing: border-box;
 }
 
-#fa-home {
-  color: white;
-}
-
-#fa-home:hover {
-  color: blue;
-}
-
 .logo_container {
   height: 100%;
   display: table;
@@ -111,31 +102,78 @@ body {
 }
 
 nav {
-  vertical-align: middle;
-  flex: 1;
-  text-align: right;
-  margin-right: 40px;
+  width: 100%;
+  height: 70px;
+  background-color: #045b8d;
+}
+
+nav img {
+  height: 70px;
+  width: 70px;
+  padding: 3px;
+}
+
+nav p {
+  font-family: "Source Sans Pro", sans-serif;
+  color: #fff;
+  font-size: 24px;
+  line-height: 55px;
+  float: left;
+  padding: 0px 20px;
+}
+
+nav ul {
+  float: left;
 }
 
 nav ul li {
+  float: left;
   list-style: none;
-  display: inline-block;
-  color: #000;
-  font-size: 13px;
-  font-weight: bold;
-  margin-left: 60px;
+  position: relative;
+  z-index: 55;
 }
 
 nav ul li a {
-  vertical-align: text-top;
-  height: 80px;
+  color: rgb(255, 255, 255);
   text-decoration: none;
-  font-size: 20px;
-  color: white;
-  font-family: sans-serif;
-  font: bold;
+  font-size: 15px;
+  padding: 25px 16px;
+  display: block;
 }
 
+nav ul li ul {
+  display: none;
+  position: absolute;
+  background-color: #045b8d;
+  padding: 10px;
+  border-radius: 0px 0px 4px 4px;
+}
+
+nav ul li:hover ul {
+  display: block;
+}
+
+nav ul li ul li {
+  width: 180px;
+  border-radius: 4px;
+}
+
+nav ul li ul li a {
+  padding: 8px 14px;
+}
+
+nav ul li ul li a:hover {
+  background-color: #8f8f8f;
+
+}
+
+nav ul li p {
+  color: rgb(255, 255, 255);
+  text-decoration: none;
+  font-size: 15px;
+  padding: 10px 32px;
+  display: block;
+}
 table th {
   background: linear-gradient(45deg, #49a09d, #5f2c82);
   color: white;
