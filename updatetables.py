@@ -1,4 +1,4 @@
-
+import uuid
 import pandas as pd 
 import time
 from pandas.core.indexes.base import Index 
@@ -9,15 +9,132 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.action_chains import ActionChains
 import numpy as np
-#from pages.views import update,email_notify,addProduct
+from pages.views import update,email_notify,addProduct,addtovendor
 import schedule
+from fuzzywuzzy import fuzz
+from fuzzywuzzy import process
 from datetime import date
+
 chrome_options = Options()
 chrome_options.add_argument("User-Agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.81 Safari/537.36")
 chrome_options.add_argument("--headless")
 driver = webdriver.Chrome(options=chrome_options)
 agent={"User-Agent":'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.81 Safari/537.36', "Accept-Encoding": "*",
     "Connection": "keep-alive"}
+def fuzzy_merge(df_1, df_2, key1, key2, threshold):
+    list1 = df_1[key1].tolist()
+    list2 = df_2[key2].tolist()
+    mat1=[]
+    mat2=[]
+    for i in list1:
+        mat1.append(process.extractOne(i,list2,scorer=fuzz.token_set_ratio))
+    df_1['matches']=mat1
+    p=[]
+    for j in df_1['matches']:
+        if j[1]>=threshold:
+            p.append(j[0])
+        mat2.append(",".join(p))        
+        p=[]
+    df_1['matches']=mat2
+    return df_1
+def name(word):
+    word=word.replace("Technologies","")
+    word=word.replace("  "," ")
+    return word
+def normBestbuy(word):
+    word=word.replace('(rev2.0)',"Rev 2")
+    word=word.replace("- ","")
+    word=word.replace("-"," ")
+    word=word.replace("PCI Express","PCIe")
+    word=word.replace("PCI EXPRESS","PCIe")
+    word=word.replace("Black","")
+    word=word.replace(";","")
+    word=word.replace("Steel and","")
+    word=word.replace("Titanium and","")
+    word=word.replace("/Silver","")
+    word=word.replace("/Gray","")
+    word=word.replace("Dark Platinum and","")
+    word=word.replace("White","")
+    word=word.replace("Unlocked Desktop Processor","")
+    word=word.replace("Locked Desktop Processor","")
+    word=word.replace("Socket ","")
+    word=word.replace("\"","")
+    word=word.replace("$","")
+    word=word.replace("LIGHT HASH RATE","")
+    word=word.replace("LHR","")
+    word=word.replace("  "," ")
+    
+    if word[0:14]=='NVIDIA GeForce':
+        word=word.replace('NVIDIA GeForce','NVIDIA GeForce Founder Edition')
+    return word.strip()
+def normMicro(word):
+    word=word.replace(" -","")
+    word=word.replace("-"," ")
+    word=word.replace("Single-Fan ","")
+    word=word.replace("Single Fan","")
+    word=word.replace("Dual-Fan ","")
+    word=word.replace("Dual Fan","")
+    word=word.replace("Triple-Fan ","")
+    word=word.replace("Triple Fan","")
+    word=word.replace("Overclocked","OC")
+    word=word.replace("Heatsink Not Included","")
+    word=word.replace("Quad","4")
+    word=word.replace("Six","6")
+    word=word.replace("Eight","8")
+    word=word.replace("Ten","10")
+    word=word.replace(" Boxed Processor","")
+    word=word.replace("\"","")
+    word=word.replace("LHR","")
+    word=word.replace("  "," ")
+    word=word.replace("White","")
+    return word
+def normGame(word):
+    word=word.replace("PCI Express","PCIe")
+    word=word.replace("Triple Fan","")
+    word=word.replace("Dual Fan","")
+    if "Gaming X" in word:
+        word="MSI "+word
+    if 'NVIDIA GeForce' in word:
+        word=word
+    else:
+        word=word.replace('GeForce','NVIDIA GeForce')
+    return word
+def normAdor(word):
+    word=word.replace("\"","")
+    word=word.replace("New Arrival - ","")
+    word=word.replace("RGB ","")
+    word=word.replace(",","")
+    word=word.replace("Triple Fan","")
+    word=word.replace("Dual Fan","")
+    word=word.replace("Dual-Fan","")
+    word=word.replace("iCX3 Cooling","")
+    word=word.replace("iCX3 Technology","")
+    word=word.replace("Single Fan","")
+    word=word.replace("  "," ")
+    word=word.replace("Black ","")
+    
+    return word
+def normBH(word):
+    word=word.replace("Technologies ","")
+    word=word.replace("LHR","")
+    word=word.replace("Edition","")
+    word=word.replace("(Rev 1.0","R1")
+    word=word.replace("(Rev 2.0","R2")
+    word=word.replace("(Rev. 2.0)","R2")
+    word=word.replace("  "," ")
+    word=word.replace("BLACK","")
+    word=word.replace("Black","")
+    return word
+def normAMZN(word):
+    if 'Card' in word:
+        i= word.index('Card')
+        word=word[:i+4]
+    word=word.replace(",","")
+    if "-" in word:
+        i=word.index("-")
+        word=word[:i]
+    
+    return word
 def cleanWord(word):
     word=str(word)
     word=word.replace(" ","")
@@ -27,6 +144,12 @@ def cleanPrice(word):
     word=word.replace("$","")
     word=word.replace(",","")
     return float(word)
+def addproducts(df):
+    listadd=[]
+    listadd.append(df['BestBuy_Name'].tolist())
+    listadd.append(df['BestBuy_Image'].tolist())
+    listadd.append(df['UUID'].tolist())
+    addProduct(listadd)
 def updateBest():
     """
     df=pd.read_csv('testingBest.csv')
@@ -435,10 +558,9 @@ def uptrends(arr):
     for i in arr:
         df[d1]=df.apply(lambda x: 1 if x['UUID']==i and x[d1]!= 1 else x[d1],axis=1)
     df.to_csv('Trends.csv',index=False)
-
 def newBest():
     df=pd.read_csv('testingBest.csv')
-    
+    df=df[['BestBuy_SKU']]
     URL='https://www.bestbuy.com/site/searchpage.jsp?cp='
     xboxURL='https://www.bestbuy.com/site/searchpage.jsp?st=xbox&_dyncharset=UTF-8&_dynSessConf=&id=pcat17071&type=page&sc=Global&cp=1&nrp=&sp=&qp=&list=n&af=true&iht=y&usc=All+Categories&ks=960&keys=keys'
     ps5URL='https://www.bestbuy.com/site/searchpage.jsp?st=ps5&_dyncharset=UTF-8&_dynSessConf=&id=pcat17071&type=page&sc=Global&cp=1&nrp=&sp=&qp=&list=n&af=true&iht=y&usc=All+Categories&ks=960&keys=keys'
@@ -454,49 +576,90 @@ def newBest():
             price=re.findall('(?<=-->).*?(?=</span>)',str(i))
             status=re.findall('(?<=data-button-state=").*?(?=" data-sku-id)',str(i))
             rating=re.findall('(?<=class="visually-hidden">).*?(?=</p>)',str(i))
+            product=re.findall('(?<=<a href=").*?(?=">)',str(i))
+            img = re.findall('(?<=src=").*?(?=" srcset)',str(i))
+            model=re.findall('(?<=sku-value">).*?(?=</span>)',str(i))
+            name=re.findall('(?<=<a href=").*?(?=</a>)',str(i))
+            namesplit=name[0].split(">")
             
             if 'Not yet reviewed' in rating[0]:
-                records.append([sku[0],price[0],status[0],0,0])
+                if len(model)>1:
+                    records.append([price[0],status[0],0,0,model[0],sku[0],"https://www.bestbuy.com"+product[0],img[0],namesplit[1]])
+                else:
+                    records.append([price[0],status[0],0,0,"None",sku[0],"https://www.bestbuy.com"+product[0],img[0],namesplit[1]])
             else:
                 
                 rate=re.findall('(?<=rating, ).*?(?= out)',rating[0])
                 rate=float(rate[0])
                 review=re.findall('(?<=with ).*?(?= review)',rating[0])
                 reviews=int(review[0])
-                records.append([sku[0],price[0],status[0],rate,reviews])
-    """
-    page=requests.get(xboxURL,headers=agent)
-    soup=BeautifulSoup(page.content,'html.parser')
-    title=soup.findAll('li', class_="sku-item")
-    for i in title:
-            sku=re.findall('(?<=sku-item" data-sku-id=").*?(?=">)',str(i))
-            price=re.findall('(?<=-->).*?(?=</span>)',str(i))
-            status=re.findall('(?<=data-button-state=").*?(?=" data-sku-id)',str(i))
-            if (len(sku)>0 and len(price)>0 and len(status)>0):
-                if(price[0].isnumeric()):
-                    records.append([sku[0],price[0],status[0]])
-    
-    page=requests.get(ps5URL,headers=agent)
-    soup=BeautifulSoup(page.content,'html.parser')
-    title=soup.findAll('li', class_="sku-item")
-    for i in title:
-            sku=re.findall('(?<=sku-item" data-sku-id=").*?(?=">)',str(i))
-            price=re.findall('(?<=-->).*?(?=</span>)',str(i))
-            status=re.findall('(?<=data-button-state=").*?(?=" data-sku-id)',str(i))
-            if (len(sku)>0 and len(price)>0 and len(status)>0):
-                if(price[0].isnumeric()):
-                    records.append([sku[0],price[0],status[0]])
-    """
-    dfnewbest=pd.DataFrame(records,columns=['BestBuy_SKU','newPrice','newStatus','Rating','Review'])
-    dfnewbest['newPrice']=dfnewbest['newPrice'].apply(cleanPrice)
+                if len(model)>1:
+                    records.append([price[0],status[0],rate,reviews,model[0],sku[0],"https://www.bestbuy.com"+product[0],img[0],namesplit[1]])
+                else:
+                    records.append([price[0],status[0],rate,reviews,"None",sku[0],"https://www.bestbuy.com"+product[0],img[0],namesplit[1]])
+   
+    dfnewbest=pd.DataFrame(records,columns=['BestBuy_Price','BestBuy_Status','BestBuy_Rating','BestBuy_Review','BestBuy_Model Number','BestBuy_SKU','BestBuy_Link','BestBuy_Image','BestBuy_Name'])
+    dfnewbest['BestBuy_Name']=dfnewbest['BestBuy_Name'].apply(normBestbuy)
+    dfnewbest['BestBuy_Price']=dfnewbest['BestBuy_Price'].apply(cleanPrice)
     df['BestBuy_SKU']=df['BestBuy_SKU'].apply(cleanWord)
     dfnewbest['BestBuy_SKU']=dfnewbest['BestBuy_SKU'].apply(cleanWord)
-    dfnewbest['newStatus']=dfnewbest['newStatus'].apply(cleanWord)
+    dfnewbest['BestBuy_Status']=dfnewbest['BestBuy_Status'].apply(cleanWord)
     dfnewbest=dfnewbest.drop_duplicates(subset=['BestBuy_SKU'])
+    
     combinedf=pd.merge(df,dfnewbest,on='BestBuy_SKU',how='right',indicator=True).query('_merge=="right_only"').drop('_merge',1)
-    print(combinedf)
-#def newProduct():
-newBest()
+    combinedf=combinedf.drop_duplicates(subset=['BestBuy_Name'])
+    
+    productdf=pd.read_csv('testing1.csv')
+    
+    dfmatch=fuzzy_merge(productdf,combinedf,'Product_Name','BestBuy_Name',99)
+    dfmatch=dfmatch[dfmatch.matches != '']
+    dfmatch=dfmatch.drop_duplicates(subset=['matches'])
+    
+    notnew=pd.merge(dfmatch,combinedf,left_on='matches',right_on='BestBuy_Name',how='left')
+    notnew=notnew.drop_duplicates(subset=['Product_Name'])
+    notnew=notnew[['BestBuy_Price','BestBuy_Status','BestBuy_Rating','BestBuy_Review','BestBuy_Model Number','BestBuy_SKU','BestBuy_Link','BestBuy_Image','UUID']]
+    
+    list1=notnew['BestBuy_SKU'].tolist()
+    addbest=combinedf[~combinedf.BestBuy_SKU.isin(list1)]
+    addbest['UUID']=addbest.apply(lambda x: uuid.uuid4(),axis=1)
+    
+    df=pd.read_csv('testingBest.csv')
+    checkUUID=pd.merge(df,notnew,on='UUID',how='inner')
+    list2=checkUUID['UUID'].tolist()
+    notnew=notnew[~notnew.UUID.isin(list2)]
+    
+    
+    addproduct=addbest[['BestBuy_Name','BestBuy_Image','UUID']]
+    addproducts(addproduct)
+    
+    addbest=addbest[['BestBuy_Price','BestBuy_Status','BestBuy_Rating','BestBuy_Review','BestBuy_Model Number','BestBuy_SKU','BestBuy_Link','BestBuy_Image','UUID']]
+    addbest=pd.concat([addbest,notnew])
+    
+    
+    data=[]
+    data.append(addbest['BestBuy_Price'].tolist())
+    data.append(addbest['BestBuy_Status'].tolist())
+    data.append(addbest['BestBuy_Rating'].tolist())
+    data.append(addbest['BestBuy_Review'].tolist())
+    data.append(addbest['BestBuy_Model Number'].tolist())
+    data.append(addbest['BestBuy_SKU'].tolist())
+    data.append(addbest['BestBuy_Link'].tolist())
+    data.append(addbest['BestBuy_Image'].tolist())
+    data.append(addbest['UUID'].tolist())
+    addtovendor("BestBuy",data)
+    
+    #156
+    #423
+    dftest=pd.read_csv('testing1.csv')
+    addproduct=addproduct.rename(columns={'BestBuy_Name':'Product_Name','BestBuy_Image':'Image_URL'})
+    addtoproduct=pd.concat([dftest,addproduct])
+    addtoproduct.to_csv('testing1.csv',index=False)
+    addtobest=pd.concat([addbest,df])
+    addtobest.to_csv("testingBest.csv",index=False)
+def newMicro():
+    return 1   
+
+#newBest()
 
 """
 def doupdate():
