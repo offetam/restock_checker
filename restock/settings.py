@@ -149,19 +149,6 @@ EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'default from email'
-"""
-#S3 STATIC BUCKET CONFIG
-AWS_ACCESS_KEY_ID = 'AKIA6P2KOWIXETGUKZOL'
-AWS_SECRET_ACCESS_KEY ='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'
-AWS_STORAGE_BUCKET_NAME='restock-static-bucket'
-AWS_S3_REGION_NAME = 'us-east-2'
-
-AWS_S3_FILE_OVERWRITE = False
-AWS_DEFAULT_ACL = False
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-"""
-
 
 #include the necessary mimetypes for django to read js
 if DEBUG:
