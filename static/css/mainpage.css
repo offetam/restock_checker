@@ -25,7 +25,7 @@ h1 {
   height: 50%;
   margin: 0 auto;
   width: 80%;
-  text-align:center;
+  text-align: center;
 }
 
 .notifcheck {
@@ -325,4 +325,108 @@ footer {
   bottom: 0;
   left: 0;
   right: 0;
+}
+
+@media only screen and (max-width: 1200px) {
+  nav {
+    width: 100%;
+    height: 30px;
+    background-color: #919394;
+  }
+
+  nav img {
+    width: 30px;
+    padding: 2px;
+    z-index: -1;
+    height: 30px;
+  }
+
+  .nav-links {
+    flex: 1;
+    text-align: center;
+  }
+
+  nav p {
+    font-family: "Source Sans Pro", sans-serif;
+    color: #fff;
+    font-size: 12px;
+    line-height: 55px;
+    float: left;
+    padding: 0px 20px;
+  }
+
+  nav ul {
+    float: left;
+  }
+
+  nav ul li {
+    float: left;
+    list-style: none;
+    position: relative;
+  }
+
+  nav ul li a {
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    font-size: 12px;
+    padding: 9px 16px;
+    display: block;
+  }
+  nav ul li p {
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    font-size: 15px;
+    padding: 10px 32px;
+    display: block;
+  }
+
+  nav ul li ul {
+    display: none;
+    position: absolute;
+    background-color: #045b8d;
+    padding: 10px;
+    border-radius: 0px 0px 4px 4px;
+  }
+
+  nav ul li:hover ul {
+    display: block;
+  }
+
+  nav ul li ul li {
+    width: 180px;
+    border-radius: 4px;
+  }
+
+  nav ul li ul li a {
+    padding: 8px 14px;
+  }
+
+  nav ul li ul li a:hover {
+    background-color: #8f8f8f;
+  }
+
+  .search_container {
+    height: 25px;
+    z-index: -1;
+  }
+
+  .search_form {
+    margin: 0 auto;
+    width: 200px;
+    z-index: -1;
+  }
+
+  .search_form input[type="text"] {
+    height: 30px;
+    float: left;
+    width: 100%;
+    flex: 1;
+    outline: none;
+    border: 2.5px solid gray;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 12px;
+    padding: 5px;
+    z-index: -1;
+  }
 }
