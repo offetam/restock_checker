@@ -39,15 +39,15 @@
                         </li>
                     </ul>
                 </li>
-                <li>
+                <li class = "clickable">
                     <a href="{% url 'home' %}">Products</a>
                 </li>
                     {% if request.session.email != '' %}
-                    <li>
+                    <li class = "clickable">
                       <a href="{% url 'notification' %}">Notifications</a>
                     </li>
                     {% endif %}
-                <li>
+                <li class = "clickable">
                         {% if request.session.email != '' %}
                             <a href="{% url 'signout' %}">Sign Out</a>
                         {% else %}

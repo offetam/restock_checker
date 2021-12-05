@@ -211,7 +211,7 @@ def signout(request):
     #print(request.session['email'])
     request.session['email']= '' #just changes the user that's currently using the page
     #print(request.session['email'])
-    return home_view(request)
+    return landing(request)
 
 def notification(request):
     if(request.session['email']==""):
