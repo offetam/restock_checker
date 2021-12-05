@@ -4,17 +4,15 @@ from selenium import webdriver
 import pandas as pd
 import numpy as np
 from selenium.webdriver.chrome.options import Options
+from webdriver_manager.chrome import ChromeDriverManager
 
 
 def get_url(product):
-    #url when searching a product
-    template = "https://www.amazon.com/s?k={}&ref=nb_sb_noss_1"
-    
     #replace every space with a + in order to get a working url
     product = product.replace(' ', '+')
 
-    #replaces {} with product name
-    url = template.format(product)
+    #url when searching a product
+    url = f"https://www.amazon.com/s?k={product}&ref=nb_sb_noss_1"
 
     return url
 
@@ -89,9 +87,10 @@ def get_img(product):
 
 
 def create_a_dataframe(csv_name, product_info):
-    headers = ['ASIN', 'price', 'rating', 'number_of_reviews', 'stock', 'img']
+    headers = ['ASIN', 'price', 'rating', 'number_of_reviews', 'stock', 'img','name','url']
     df = pd.DataFrame(np.array(product_info), columns= headers)
-    df.to_csv(csv_name + ".csv", index = False)
+    #df.to_csv(csv_name + ".csv", index = False)
+    return df
 
 def scrape_amazon():
     #hides chrome
@@ -99,7 +98,7 @@ def scrape_amazon():
     chrome_options.add_argument("--headless")
 
     #open a google chrome search engine
-    driver = webdriver.Chrome(options=chrome_options)
+    driver = webdriver.Chrome(ChromeDriverManager().install(),options=chrome_options)
     
     product_information = []
     searched_item = ['Xbox Series X', 'Playstation 5', '3060 Graphics Card', '3070 Graphics Card', '3080 Graphics Card', '3090 Graphics Card', 'Radeon RX 6900 XT', 'Radeon RX 6800 XT']
@@ -117,18 +116,15 @@ def scrape_amazon():
 
         #loop through each item to get info
         for item in results:
-            record = [item.get('data-asin'), get_item_price(item), get_item_rating(item), get_number_of_reviews(item), get_item_stock(item), get_img(item)]
+            record = [item.get('data-asin'), get_item_price(item), get_item_rating(item), get_number_of_reviews(item), get_item_stock(item), get_img(item), get_item_name(item), get_item_url(item)]
             product_information.append(record)
 
     #closes google chrome 
     driver.quit()
+    print("Total items scraped: " + str(len(product_information)))
 
     #create a dataframe with the data collected
-    create_a_dataframe('amazon_update', product_information)
+    return create_a_dataframe('amazon_update', product_information)
 
-    print("Total items scraped: " + str(len(product_information)))
-    
-
-
-scrape_amazon()
-
+amazon_df = scrape_amazon()
+#print(amazon_df)
