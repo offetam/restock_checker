@@ -216,6 +216,9 @@ def signout(request):
 def notification(request):
     if(request.session['email']==""):
         return redirect('/login')
+    if(request.GET.get("product") is not None):
+        x = request.GET.get("product")
+        return home_view(request,x)
     if(request.method == 'GET'):
         remove_notify = request.GET.getlist('id')
         #print(remove_notify)
@@ -347,6 +350,9 @@ def fixStock(info):
     return info
 
 def product_detail(request, UUID):
+    if(request.GET.get("product") is not None):
+        x = request.GET.get("product")
+        return home_view(request,x)
     detail = get_object_or_404(products, UUID = UUID)
     file = 'Trends.csv'
     df = pd.read_csv(file)
