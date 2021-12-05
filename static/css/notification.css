@@ -71,13 +71,15 @@ body {
 }
 
 .header {
-  height: 80px;
+  min-height: 100vh;
   width: 100%;
-  background-color: #045b8d;
-  display: block;
-  padding-left: 8%;
-  padding-right: 8%;
-  box-sizing: border-box;
+  background-position: center;
+  background-size: cover;
+  position: relative;
+  font-size: larger;
+  display: flex;
+  position: static;
+  float: none;
 }
 
 .logo_container {
@@ -97,19 +99,24 @@ body {
 
 nav {
   width: 100%;
-  height: 70px;
+  height: 60px;
   background-color: #045b8d;
 }
 
 nav img {
-  width: 70px;
+  width: 60px;
   z-index: -1;
+}
+
+.nav-links {
+  flex: 1;
+  text-align: center;
 }
 
 nav p {
   font-family: "Source Sans Pro", sans-serif;
   color: #fff;
-  font-size: 24px;
+  font-size: 15px;
   line-height: 55px;
   float: left;
   padding: 0px 20px;
@@ -123,14 +130,22 @@ nav ul li {
   float: left;
   list-style: none;
   position: relative;
-  z-index: 55;
 }
 
 nav ul li a {
   color: rgb(255, 255, 255);
   text-decoration: none;
   font-size: 15px;
-  padding: 25px 16px;
+  padding: 20px 16px;
+  display: block;
+}
+
+/*email doesnt want to go to the header*/
+nav ul li p {
+  color: rgb(255, 255, 255);
+  text-decoration: none;
+  font-size: 15px;
+  padding: 2px 32px;
   display: block;
 }
 
@@ -159,13 +174,6 @@ nav ul li ul li a:hover {
   background-color: #8f8f8f;
 }
 
-nav ul li p {
-  color: rgb(255, 255, 255);
-  text-decoration: none;
-  font-size: 15px;
-  padding: 10px 32px;
-  display: block;
-}
 table th {
   background: linear-gradient(45deg, #49a09d, #5f2c82);
   color: white;
