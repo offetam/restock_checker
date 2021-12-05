@@ -1,3 +1,58 @@
+.compareTable{
+  /* position:absolute; */
+  display:flex;
+  flex-direction: column;
+  width:80%;
+  margin-left: auto;
+}
+
+.row{
+    list-style: none;
+    display: flex; /* turn children li elements into flex children */
+    flex: 1;
+    flex-wrap: wrap;
+}
+
+.compareTable ul li{
+    background: #545242;
+    font-weight: bold;
+    flex: 1;
+    padding: 10px;
+    border-bottom: 1px solid gray;
+    font-size: 20px;
+
+}
+
+/* the legend column (first li within each row) */
+.legend{
+    background: #6640d8;
+    color: white;
+    border: none;
+    width: 200px;
+    border-bottom: 1px solid white;
+    vertical-align: middle;
+}
+
+/* very first row */
+div.comparetable ul.row:first-of-type li{
+    text-align: center;
+}
+
+/* very last row */
+div.comparetable ul.row:last-of-type li{
+    text-align: center;
+    border-bottom: none;
+    box-shadow: 0 6px 6px rgba(0,0,0,0.23);
+}
+
+
+/* first and last cell within legend column */
+div.comparetable ul.row:first-of-type li.legend.legend,
+div.comparetable ul.row:last-of-type li.legend{
+    background: transparent;
+    box-shadow: none;
+}
+
 *{
   font-family: "Source Sans Pro", sans-serif;
   margin: 0;
@@ -69,9 +124,9 @@ div div:hover{
   cursor:pointer;
 }
 
-/* img {
+img {
 	height: .85em;
-} */
+}
 
 table{
 	border: 2.5px solid gray;
@@ -79,7 +134,7 @@ table{
 
 body
 {
-	/*background: linear-gradient(to right, #6699ff 0%, #ffcc99 100%) !important;*/
+	/* background: linear-gradient(to right, #6699ff 0%, #ffcc99 100%) !important; */
 	height: 100%;
 	width: 100%;
 }
@@ -166,6 +221,7 @@ a:hover
 	height:80px;
 }
 
+/*
 .vendor_img{
   margin-left: 1%;
   position:relative;
@@ -195,4 +251,4 @@ a:hover
 
 .table{
   font-size: 15px;
-}
+} */

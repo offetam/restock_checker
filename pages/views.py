@@ -211,11 +211,14 @@ def signout(request):
     #print(request.session['email'])
     request.session['email']= '' #just changes the user that's currently using the page
     #print(request.session['email'])
-    return home_view(request)
+    return landing(request)
 
 def notification(request):
     if(request.session['email']==""):
         return redirect('/login')
+    if(request.GET.get("product") is not None):
+        x = request.GET.get("product")
+        return home_view(request,x)
     if(request.method == 'GET'):
         remove_notify = request.GET.getlist('id')
         #print(remove_notify)
@@ -354,6 +357,9 @@ def fixStock(info):
     return info
 
 def product_detail(request, UUID):
+    if(request.GET.get("product") is not None):
+        x = request.GET.get("product")
+        return home_view(request,x)
     detail = get_object_or_404(products, UUID = UUID)
     file = 'Trends.csv'
     df = pd.read_csv(file)
@@ -377,7 +383,7 @@ def product_detail(request, UUID):
     ad= AD.objects.none() | AD.objects.all().filter(AD_UUID= detail.UUID).exclude(AD_SKU="")
     amzn = Amazon.objects.none() | Amazon.objects.all().filter(Amazon_UUID= detail.UUID).exclude(Amazon_SKU="")
 
-    context = {'bb':bb,'mc': mc,'gs':gs,'bh':bh,'ad':ad,'amzn':amzn,'chart':chart}
+    context = {'bb':bb,'mc': mc,'gs':gs,'bh':bh,'ad':ad,'amzn':amzn,'chart':chart,'detail':detail}
 
     return render(request, 'details.html', context)
 

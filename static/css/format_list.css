@@ -1,0 +1,119 @@
+.compareTable{
+  margin-top: 2.5%;
+  display:flex;
+  flex-direction: column;
+  position: relative;
+  margin-left: 5%;
+}
+
+.row{
+    list-style: none;
+    display: flex; /* turn children li elements into flex children */
+    flex: 1;
+    flex-wrap: wrap;
+}
+
+.compareTable ul{
+  width:90%; /* table spans whole width */
+
+}
+
+.compareTable ul li{
+    background: #545242;
+    font-weight: bold;
+    flex: 1;
+    padding: 10px;
+    border-bottom: 1px solid gray;
+    font-size: 20px;
+}
+
+
+.compareTable ul li div{
+  text-align: center;
+
+}
+
+/* the legend column (first li within each row) */
+.legend{
+    background: #6640d8;
+    color: white;
+    border: none;
+    width: 200px;
+    border-bottom: 1px solid white;
+    vertical-align: middle;
+}
+
+/* very first row */
+div.comparetable ul.row:first-of-type li{
+    text-align: center;
+}
+
+/* very last row */
+div.comparetable ul.row:last-of-type li{
+    text-align: center;
+    border-bottom: none;
+    /* box-shadow: 0 6px 6px rgba(0,0,0,0.23); */
+}
+
+
+/* first and last cell within legend column */
+div.compareTable ul.row:first-of-type li.legend.legend,
+{
+    background: #A9A587;
+    box-shadow: none;
+}
+
+div.compareTable ul.row:last-of-type li.legend{
+  background: transparent;
+}
+
+.compareTable a{
+
+  color:white;
+  display:inline-block;
+  text-decoration: none;
+  margin: 0.5em auto;
+  background: #9496C2;
+  border-radius: 8px;
+  font-weight: normal;
+  padding: 10px 2rem;
+}
+
+.compareTable a:hover{
+  background: #676798;
+  color: white;
+}
+
+
+
+/*
+.vendor_img{
+  margin-left: 1%;
+  position:relative;
+
+}
+
+.mainDetails{
+  position: absolute;
+  left: 35%;
+  width: 65%;
+  height: 60%;
+
+}
+
+#bb_img{
+  position: relative;
+  top:50%;
+  transform: translateY(-50%);
+  width:35%;
+}
+
+#bb_info{
+  position:absolute;
+  left:40%;
+  top: -50%;
+}
+
+.table{
+  font-size: 15px;
+} */
