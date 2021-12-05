@@ -1,16 +1,13 @@
 {% load static %}
-{% block styles %}
-{% endblock %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
-		<link rel="stylesheet" type="text/css" href='{% static "/css/mainpage.css" %}'>
-    <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css"> <!-- css for the search icon (fa fa-search) -->
+	<!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css"> <!-- css for the search icon (fa fa-search) -->
+    <link rel="stylesheet" type="text/css" href='{% static "/css/mainpage.css" %}'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <!-- <script src = '{% static "/js/main.js" %}'></script>  js file  -->
 
     <title>{% block title %}BASE{% endblock %}</title>
 </head>
@@ -69,15 +66,16 @@
             </ul>
         </nav>
     </header>
-
-
+    
+    
+    {% block styles %}
+    {% endblock %}
     <div id ="content" > {% block content %} {% endblock %}</div>
 
     <section>
       <footer>
         <p>Restock Checker, Copyright &copy; Fall 2021</p>
         <p>Hunter College Capstone Project By: Danny Li, Alden Lee, Ethan Tam, Oscar Andrade, David Xue</p>
-
       </footer>
     </section>
 </body>

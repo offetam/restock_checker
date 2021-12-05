@@ -139,10 +139,6 @@ nav ul li a {
   display: block;
 }
 
-.clickable:hover {
-  background-color: #8f8f8f;
-}
-
 nav ul li ul {
   display: none;
   position: absolute;
@@ -331,10 +327,7 @@ footer {
   padding: 20px;
   background-color: #525252;
   color: white;
-  position: fixed;
   bottom: 0;
-  left: 0;
-  right: 0;
 }
 
 /*
