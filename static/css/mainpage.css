@@ -29,6 +29,7 @@ h1 {
 }
 
 .notifcheck {
+  transform: scale(3.5);
   margin-right: 25px;
 }
 
