@@ -21,32 +21,33 @@
     </div>
     <div class = "wrapper">
       {% for product in all_enteries %}
-    <div class="box" style = "margin-top: 1rem;" value = {{product.UUID}}>
-      <input type="checkbox" class = "notifcheck" id="product" name="id" value={{product.UUID}}>
-      <div class = "box_text">
-        <div class = "temp" onclick = "displayInfo('{{product.UUID.strip}}','{{product.product.strip}}', '{{product.BestBuy_price}}');return false;">
-          <div><img src='{{product.Image}}' style="align-items: center;width: 75%; max-height:275px;" alt = '{{product.product}}' onerror=this.src="{% static '/imgs/no_image.png' %}"></img></div>
-          <div class = "product_name">
-            {{product.product}} (Short Info)
+      <div class="box" style = "margin-top: 1rem;" value = {{product.UUID}}>
+        <input type="checkbox" class = "notifcheck" id="product" name="id" value={{product.UUID}}>
+        <div class = "box_text">
+          <div class = "temp" onclick = "displayInfo('{{product.UUID.strip}}','{{product.product.strip}}', '{{product.BestBuy_price}}');return false;">
+            <div><img src='{{product.Image}}' style="align-items: center;width: 75%; max-height:275px;" alt = '{{product.product}}' onerror=this.src="{% static '/imgs/no_image.png' %}"></img></div>
+            <div class = "product_name">
+              {{product.product}} (Short Info)
+            </div>
+          </div>
+          <!-- {% if product.product == 'MSI GeForce RTX 3090 Gaming X Trio 24GB GDDR6X PCIe 4.0 Graphics Card'%}
+          <div>
+            <img src='{% static "/imgs/msi_3090.png" %}' style="width: 100%; height: auto;" alt = '{{product.product}}'></img>
+          </div>
+          {% elif product.product == 'MSI GeForce RTX 3090 SUPRIM X OC 24GB GDDR6X PCIe 4.0 Graphics Card'%}
+          <div>
+            <img src='{% static "/imgs/msi_3090_suprim.png" %}' style="width: 100%; height: auto;"></img>
+          </div>
+          {% endif %} -->
+          <div class = "checker_temp">
+            <a style = "text-decoration:none; color:#fff;" href="{% url 'product_detail' product.UUID %}">Expanded Details & Graphs</a>
           </div>
         </div>
-        <!-- {% if product.product == 'MSI GeForce RTX 3090 Gaming X Trio 24GB GDDR6X PCIe 4.0 Graphics Card'%}
-        <div>
-          <img src='{% static "/imgs/msi_3090.png" %}' style="width: 100%; height: auto;" alt = '{{product.product}}'></img>
-        </div>
-        {% elif product.product == 'MSI GeForce RTX 3090 SUPRIM X OC 24GB GDDR6X PCIe 4.0 Graphics Card'%}
-        <div>
-          <img src='{% static "/imgs/msi_3090_suprim.png" %}' style="width: 100%; height: auto;"></img>
-        </div>
-        {% endif %} -->
-        <div class = "checker_temp">
-          <a style = "text-decoration:none; color:#fff;" href="{% url 'product_detail' product.UUID %}">Expanded Details & Graphs</a>
+        <div class = "testing-val" style = "display: none;"> <!-- to be used for displaying later? -->
+          {{product.UUID}}
         </div>
       </div>
-      <div class = "testing-val" style = "display: none;"> <!-- to be used for displaying later? -->
-        {{product.UUID}}
-      </div>
-    </div>
+
     {% comment %}<!-- {% for bproduct in bb_product %}
     {% if product.UUID == bproduct.BestBuy_UUID.UUID %}
     <div class = "checker">
@@ -66,7 +67,6 @@
     {% endcomment %}
       {% endfor %}
   </form>
-
   <div class = "fakepopup_data" id = "fakepopup_data" style = "display: none; font-family: sans-serif;">
     <div class = "hidden_div" onclick = "hideDisplayInfo();return false;">
       <div class = "popup_data_info" id = "fakepopup_data_main" value = "" onclick = "event.cancelBubble=true;if(event.stopPropagation) event.stopPropagation();"> <!-- Prevent the innerdiv from activating the hidden_div onclick that hides the display-->
@@ -77,13 +77,14 @@
         EXIT <i class="fa fa-times" aria-hidden="true"></i>
       </div>
   </div>
+
 </body>
+
 {% comment %}
 {% for x in chart %}
   <img src="data:image/png;base64, {{x|safe}}" style="width:600px;height:600px">
 {% endfor %}
 {% endcomment %}
-
 <script type = "text/javascript">
 /* */
 // var bbuy_table = document.getElementById("bestbuy_table"); old test code. Ignore.
