@@ -75,9 +75,9 @@ body {
   background-size: cover;
   position: relative;
   font-size: larger;
-  display:flex;
-  position:static;
-  float:none;
+  display: flex;
+  position: static;
+  float: none;
 }
 
 .logo_container {
@@ -103,6 +103,7 @@ nav {
 nav img {
   width: 70px;
   padding: 3px;
+  z-index: -1;
 }
 
 nav p {
@@ -122,7 +123,6 @@ nav ul li {
   float: left;
   list-style: none;
   position: relative;
-  z-index: 55;
 }
 
 nav ul li a {
@@ -156,7 +156,6 @@ nav ul li ul li a {
 
 nav ul li ul li a:hover {
   background-color: #8f8f8f;
-
 }
 
 nav ul li p {
@@ -185,10 +184,6 @@ td {
   background-color: rgba(255, 255, 255, 0.5);
   padding: 25px;
   border: 2px solid black;
-}
-
-a:hover {
-  color: #00bfff;
 }
 
 #logo_image {
