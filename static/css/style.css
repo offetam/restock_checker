@@ -49,6 +49,10 @@ nav ul li {
   position: relative;
 }
 
+.clickable:hover{
+  background-color: #8f8f8f;
+}
+
 nav ul li a {
   color: rgb(255, 255, 255);
   text-decoration: none;
