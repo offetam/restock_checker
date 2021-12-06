@@ -1,4 +1,6 @@
+
 {% load static %}
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,6 +11,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
@@ -18,7 +21,7 @@
         <p><a href="{% url 'landing' %}"><img src='{% static "imgs/logo3.png" %}'></a></p>
             <ul>
                 <li>
-                    <a>Graphic Crads</a>
+                    <a>Graphic Cards</a>
                     <ul>
                         <li>
                             <a href="{% url 'home' %}?product=3070">GeForce RTX 3070</a>
@@ -28,7 +31,7 @@
                     </ul>
                 </li>
                 <li>
-                    <a>Consoles</a>
+                    <a href="">Consoles</a>
                     <ul>
                         <li>
                             <a href="{% url 'home' %}?product=Playstation">PLAYSTATION 5</a>
@@ -36,15 +39,15 @@
                         </li>
                     </ul>
                 </li>
-                <li>
+                <li class = "clickable">
                   <a href="{% url 'home' %}">Products</a>
                 </li>
-                  {% if request.session.email != '' %}
-                  <li>
+                {% if request.session.email != '' %}
+                  <li class = "clickable">
                     <a href="{% url 'notification' %}">Notifications</a>
                   </li>
-                  {% endif %}
-                <li>
+                {% endif %}
+                <li class = "clickable">
                   {% if request.session.email != '' %}
                   <a href="{% url 'signout' %}">Sign Out</a>
                   {% else %}
@@ -54,86 +57,98 @@
                 <li>
                   <div class = "search_container">
                       <form id = "searchbar" class = "search_form">
-                          <input type="text" class = "searchtext" name="product" placeholder="Search for Products">
+                          <input type="text" style = "font-family: FontAwesome, sans-serif;" class = "searchtext" name="product" placeholder="&#xf002 Search for Products">
                       </form>
                     </div>
-                </li>
+              </li>
+              <li>
+                {% if request.session.email != '' %}
+                    <p>{{request.session.email}}</p>
+                {% endif %}
+              </li>
             </ul>
         </nav>
         <div class="about">
-            <h1>Welcome to Restock</h1>
+          <h1>Welcome to Restock</h1>
             <p>
-              The best place to get notifications for in demand items.<br><br>
-              Restock was created to help users get notified and informed when in demand items are back in stock.
-              Our goal is to help our users get the items they want without wasting time searching and navigating through various websites.
-              As of right now we are tracking Graphics cards and consoles from various vendors such as Adorama, Amazon, BestBuy, GameStop,
-              MicroCenter and B&H. When a user clicks on a product from a specific vendor they will be introduce to the price,
-              the reviews, the stock availabilty, the url link, and a graph showing stock trends of the product. Hopefully with the information
-              we provide to our users they will purchase any item they are looking for.
+                The best place to get notifications for in demand items.<br><br>
+                Restock was created to help users get notified and informed when in demand items are back in stock.
+                Our goal is to help our users get the items they want without wasting time searching and navigating through various websites.
+                As of right now we are tracking Graphics cards and consoles from various vendors such as Adorama, Amazon, BestBuy, GameStop,
+                MicroCenter and B&H. When a user clicks on a product from a specific vendor they will be introduce to the price,
+                the reviews, the stock availabilty, the url link, and a graph showing stock trends of the product. Hopefully with the information
+                we provide to our users they will purchase any item they are looking for.
             </p>
-        </div>
-        <div class="text-box2">
-          <h2> <br> Restock Team </h2>
-            <div class="row">
-              <div class="column">
-                <div class="card">
-                  <img src='{% static "imgs/oscar.png" %}'alt="oscar" style="width:100%">
-                  <div class="container">
-                    <h2>Oscar</h2>
-                    <p class="title">Founder of Restock</p>
-                    <p>Some text that describes me lorem ipsum ipsum lorem.</p>
-                    <p>oscar@example.com</p>
-                  </div>
-                </div>
-              </div>
-              <div class="column">
-                <div class="card">
-                  <img src='{% static "imgs/alden.png" %}' alt="alden" style="width:100%">
-                  <div class="container">
-                    <h2>Alden</h2>
-                    <p class="title">Founder of Restock</p>
-                    <p>Some text that describes me lorem ipsum ipsum lorem.</p>
-                    <p>alden@example.com</p>
-                  </div>
-                </div>
-              </div>
-              <div class="column">
-                <div class="card">
-                  <img src='{% static "imgs/ethan.png" %}' alt="ethan" style="width:100%">
-                  <div class="container">
-                    <h2>Ethan</h2>
-                    <p class="title">Founder of Restock</p>
-                    <p>Some text that describes me lorem ipsum ipsum lorem.</p>
-                    <p>ethan@example.com</p>
-                  </div>
-                </div>
-              </div>
-              <div class="column">
-                <div class="card">
-                  <img src='{% static "imgs/danny.png" %}' alt="danny" style="width:100%">
-                  <div class="container">
-                    <h2>Danny</h2>
-                    <p class="title">Founder of Restock</p>
-                    <p>Some text that describes me small pp ipsum lorem.</p>
-                    <p>danny@example.com</p>
-                  </div>
-                </div>
-              </div>
-              <div class="column">
-                <div class="card">
-                  <img src='{% static "imgs/david.png" %}' alt="david" style="width:100%">
-                  <div class="container">
-                    <h2>David</h2>
-                    <p class="title">Founder of Restock</p>
-                    <p>Some text that describes me lorem ipsum ipsum lorem.</p>
-                    <p>david@example.com</p>
-                  </div>
+        </section>
+        <section class = "team">
+          <h2>Restock Team</h2>
+          <div class="row">
+            <div class="column">
+              <div class="card">
+                <img src='{% static "imgs/oscar.png" %}'alt="oscar" style="width:100%">
+                <div class="container">
+                  <h2>Oscar</h2>
+                  <p class="title">Founder of Restock</p>
+                  <p>Some text that describes me lorem ipsum ipsum lorem.</p>
+                  <p>oscar@example.com</p>
                 </div>
               </div>
             </div>
-        </div>
-    </section>
+            <div class="column">
+              <div class="card">
+                <img src='{% static "imgs/alden.png" %}' alt="alden" style="width:100%">
+                <div class="container">
+                  <h2>Alden</h2>
+                  <p class="title">Founder of Restock</p>
+                  <p>Some text that describes me lorem ipsum ipsum lorem.</p>
+                  <p>alden@example.com</p>
+                </div>
+              </div>
+            </div>
+            <div class="column">
+              <div class="card">
+                <img src='{% static "imgs/ethan.png" %}' alt="ethan" style="width:100%">
+                <div class="container">
+                  <h2>Ethan</h2>
+                  <p class="title">Founder of Restock</p>
+                  <p>Some text that describes me lorem ipsum ipsum lorem.</p>
+                  <p>ethan@example.com</p>
+                </div>
+              </div>
+            </div>
+            <div class="column">
+              <div class="card">
+                <img src='{% static "imgs/danny.png" %}' alt="danny" style="width:100%">
+                <div class="container">
+                  <h2>Danny</h2>
+                  <p class="title">Founder of Restock</p>
+                  <p>Some text that describes me small pp ipsum lorem.</p>
+                  <p>danny@example.com</p>
+                </div>
+              </div>
+            </div>
+            <div class="column">
+              <div class="card">
+                <img src='{% static "imgs/david.png" %}' alt="david" style="width:100%">
+                <div class="container">
+                  <h2>David</h2>
+                  <p class="title">Founder of Restock</p>
+                  <p>Some text that describes me lorem ipsum ipsum lorem.</p>
+                  <p>david@example.com</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
 
+
+
+    </section>
+    <footer>
+      <p>Restock Checker, Copyright &copy; Fall 2021</p>
+      <p>Hunter College Capstone Project By: Danny Li, Alden Lee, Ethan Tam, Oscar Andrade, David Xue</p>
+
+  </footer>
 
 </body>
 </html>

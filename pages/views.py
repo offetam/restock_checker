@@ -24,6 +24,11 @@ def landing(request):
     return render(request,'display.html')
 
 def about(request):
+    if 'email' not in request.session:
+        request.session['email'] = ''
+    if(request.GET.get("product") is not None):
+        x = request.GET.get("product")
+        return home_view(request,x)
     return render(request, 'about.html')
 
 
@@ -42,7 +47,7 @@ def home_view(request,p = None):
             split_str = x.split(' ')
             all_enteries = products.objects.all()
             for i in split_str:
-                all_enteries = all_enteries.filter(product__contains=i) #checks if any product name contains x
+                all_enteries = all_enteries.filter(product__icontains=i) #checks if any product name contains x
             #context = {'all_enteries': all_enteries} #creates a dictionary with our enteries
             uids =[]
             for i in all_enteries:
@@ -206,11 +211,14 @@ def signout(request):
     #print(request.session['email'])
     request.session['email']= '' #just changes the user that's currently using the page
     #print(request.session['email'])
-    return home_view(request)
+    return landing(request)
 
 def notification(request):
     if(request.session['email']==""):
         return redirect('/login')
+    if(request.GET.get("product") is not None):
+        x = request.GET.get("product")
+        return home_view(request,x)
     if(request.method == 'GET'):
         remove_notify = request.GET.getlist('id')
         #print(remove_notify)
@@ -299,7 +307,8 @@ def update(StoreName,arr):
                 user_obj.Gamestop_Status=arr[3][i]
             user_obj.save()
     return 0
-
+def addProduct():
+    return 1
 def get_graph():
     buffer = BytesIO()
     plt.savefig(buffer,format='png')
@@ -341,6 +350,9 @@ def fixStock(info):
     return info
 
 def product_detail(request, UUID):
+    if(request.GET.get("product") is not None):
+        x = request.GET.get("product")
+        return home_view(request,x)
     detail = get_object_or_404(products, UUID = UUID)
     file = 'Trends.csv'
     df = pd.read_csv(file)
@@ -364,7 +376,7 @@ def product_detail(request, UUID):
     ad= AD.objects.none() | AD.objects.all().filter(AD_UUID= detail.UUID).exclude(AD_SKU="")
     amzn = Amazon.objects.none() | Amazon.objects.all().filter(Amazon_UUID= detail.UUID).exclude(Amazon_SKU="")
 
-    context = {'bb':bb,'mc': mc,'gs':gs,'bh':bh,'ad':ad,'amzn':amzn,'chart':chart}
+    context = {'bb':bb,'mc': mc,'gs':gs,'bh':bh,'ad':ad,'amzn':amzn,'chart':chart,'detail':detail}
 
     return render(request, 'details.html', context)
 

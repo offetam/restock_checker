@@ -5,6 +5,7 @@ from django.db.models.deletion import CASCADE
 # Create your models here.
 class products(models.Model):
     product = models.CharField(max_length=254)
+    Image = models.CharField(max_length=256)
     UUID = models.CharField(max_length=128,primary_key=True)
 
 #BestBuy table
@@ -16,6 +17,7 @@ class BestBuy(models.Model):
     BestBuy_ModelNumber = models.CharField(max_length=128)
     BestBuy_SKU = models.IntegerField(primary_key=True)
     BestBuy_URL = models.CharField(max_length=256)
+    BestBuy_Image = models.CharField(max_length=256)
     BestBuy_UUID = models.ForeignKey(products,on_delete=CASCADE)
 
 class MicroCenter(models.Model):
@@ -23,6 +25,7 @@ class MicroCenter(models.Model):
     MicroCenter_SKU = models.IntegerField(primary_key=True)
     MicroCenter_ModelNumber = models.CharField(max_length=128)
     MicroCenter_URL = models.CharField(max_length=256)
+    MicroCenter_Image = models.CharField(max_length=256)
     MicroCenter_UUID = models.ForeignKey(products,on_delete=CASCADE)
 
 class Gamestop(models.Model):
@@ -33,6 +36,7 @@ class Gamestop(models.Model):
     Gamestop_UUID = models.ForeignKey(products,on_delete=CASCADE)
     Gamestop_Ratings = models.DecimalField(max_digits=3,decimal_places=2)
     Gamestop_Reviews = models.DecimalField(max_digits=5,decimal_places=0)
+    Gamestop_Image = models.CharField(max_length=256)
 
 class BH(models.Model):
     BH_SKU = models.CharField(max_length=32,primary_key=True)
@@ -42,6 +46,7 @@ class BH(models.Model):
     BH_UUID = models.ForeignKey(products,on_delete=CASCADE)
     BH_Ratings = models.DecimalField(max_digits=3,decimal_places=2)
     BH_Reviews = models.DecimalField(max_digits=5,decimal_places=0)
+    BH_Image = models.CharField(max_length=256)
 
 class AD(models.Model):
     AD_SKU = models.CharField(max_length=32,primary_key=True)
@@ -51,6 +56,7 @@ class AD(models.Model):
     AD_UUID = models.ForeignKey(products,on_delete=CASCADE)
     AD_Ratings = models.DecimalField(max_digits=3,decimal_places=2)
     AD_Reviews = models.DecimalField(max_digits=5,decimal_places=0)
+    AD_Image = models.CharField(max_length=256)
 
 class Amazon(models.Model):
     Amazon_SKU = models.CharField(max_length=32,primary_key=True)
@@ -59,6 +65,7 @@ class Amazon(models.Model):
     Amazon_Reviews = models.DecimalField(max_digits=5,decimal_places=0)
     Amazon_Status = models.CharField(max_length=64)
     Amazon_URL = models.CharField(max_length=512)
+    Amazon_Image = models.CharField(max_length=512)
     Amazon_UUID =models.ForeignKey(products,on_delete=CASCADE)
 
 class User(models.Model):

@@ -1,49 +1,51 @@
 {% extends "./base.html" %}
 {% load static %}
+{% block styles %}
+<link rel="stylesheet" type="text/css" href='{% static "/css/mainpage.css" %}'>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;700&display=swap" rel="stylesheet">
+{% endblock %}
 {% block title %}Restock - Products{% endblock %}
 {% block content %}
 <!DOCTYPE html>
-
-  <title>Restock - Products</title>
   <link rel="shortcut icon" href='{% static "imgs/logo3.png" %}'>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
 <body>
   <form>
     <div class = "header_container">
-    {% if request.session.email != '' %}
-        <h1 style="color:#008080; text-align:right; padding-left: 1.75rem; position:absolute">Welcome: {{request.session.email}}</h1>
-    {% endif %}
          <h1 style = "margin-top: 1rem;">Products <button class= "notifbutton" type="submit" value="submit">Notify<i style = "margin-left: 7.5px;" class="fa fa-clock-o"></i></button>
          </h1>
     </div>
     <div class = "wrapper">
       {% for product in all_enteries %}
-    <div class="box" style = "margin-top: 1rem;" value = {{product.UUID}}>
-      <input type="checkbox" class = "notifcheck" id="product" name="id" value={{product.UUID}}>
-      <div class = "box_text">
-        <div class = "temp" onclick = "displayInfo('{{product.UUID.strip}}','{{product.product.strip}}', '{{product.BestBuy_price}}');return false;">
-          <img src='{% static "/imgs/ps5.jpg" %}' style="width: 100%; height: auto;" alt = '{{product.product}}'></img>
-          <div class = "product_name">
-            {{product.product}} (Short Info)
+      <div class="box" style = "margin-top: 1rem;" value = {{product.UUID}}>
+        <input type="checkbox" class = "notifcheck" id="product" name="id" value={{product.UUID}}>
+        <div class = "box_text">
+          <div class = "temp" onclick = "displayInfo('{{product.UUID.strip}}','{{product.product.strip}}', '{{product.BestBuy_price}}');return false;">
+            <div><img src='{{product.Image}}' style="align-items: center;width: 75%; max-height:275px;" alt = '{{product.product}}' onerror=this.src="{% static '/imgs/no_image.png' %}"></img></div>
+            <div class = "product_name">
+              {{product.product}} (Short Info)
+            </div>
+          </div>
+          <!-- {% if product.product == 'MSI GeForce RTX 3090 Gaming X Trio 24GB GDDR6X PCIe 4.0 Graphics Card'%}
+          <div>
+            <img src='{% static "/imgs/msi_3090.png" %}' style="width: 100%; height: auto;" alt = '{{product.product}}'></img>
+          </div>
+          {% elif product.product == 'MSI GeForce RTX 3090 SUPRIM X OC 24GB GDDR6X PCIe 4.0 Graphics Card'%}
+          <div>
+            <img src='{% static "/imgs/msi_3090_suprim.png" %}' style="width: 100%; height: auto;"></img>
+          </div>
+          {% endif %} -->
+          <div class = "checker_temp">
+            <a style = "text-decoration:none; color:#fff;" href="{% url 'product_detail' product.UUID %}">Expanded Details & Graphs</a>
           </div>
         </div>
-        <!-- {% if product.product == 'MSI GeForce RTX 3090 Gaming X Trio 24GB GDDR6X PCIe 4.0 Graphics Card'%}
-        <div>
-          <img src='{% static "/imgs/msi_3090.png" %}' style="width: 100%; height: auto;" alt = '{{product.product}}'></img>
-        </div>
-        {% elif product.product == 'MSI GeForce RTX 3090 SUPRIM X OC 24GB GDDR6X PCIe 4.0 Graphics Card'%}
-        <div>
-          <img src='{% static "/imgs/msi_3090_suprim.png" %}' style="width: 100%; height: auto;"></img>
-        </div>
-        {% endif %} -->
-        <div class = "checker_temp">
-          <a style = "text-decoration:none; color:#fff;" href="{% url 'product_detail' product.UUID %}">Expanded Details & Graphs</a>
+        <div class = "testing-val" style = "display: none;"> <!-- to be used for displaying later? -->
+          {{product.UUID}}
         </div>
       </div>
-      <div class = "testing-val" style = "display: none;"> <!-- to be used for displaying later? -->
-        {{product.UUID}}
-      </div>
-    </div>
+
     {% comment %}<!-- {% for bproduct in bb_product %}
     {% if product.UUID == bproduct.BestBuy_UUID.UUID %}
     <div class = "checker">
@@ -63,8 +65,6 @@
     {% endcomment %}
       {% endfor %}
   </form>
-  </div>
-
   <div class = "fakepopup_data" id = "fakepopup_data" style = "display: none; font-family: sans-serif;">
     <div class = "hidden_div" onclick = "hideDisplayInfo();return false;">
       <div class = "popup_data_info" id = "fakepopup_data_main" value = "" onclick = "event.cancelBubble=true;if(event.stopPropagation) event.stopPropagation();"> <!-- Prevent the innerdiv from activating the hidden_div onclick that hides the display-->
@@ -75,13 +75,14 @@
         EXIT <i class="fa fa-times" aria-hidden="true"></i>
       </div>
   </div>
+
 </body>
+
 {% comment %}
 {% for x in chart %}
   <img src="data:image/png;base64, {{x|safe}}" style="width:600px;height:600px">
 {% endfor %}
 {% endcomment %}
-
 <script type = "text/javascript">
 /* */
 // var bbuy_table = document.getElementById("bestbuy_table"); old test code. Ignore.
@@ -124,7 +125,7 @@ var checker = document.getElementById("fakepopup_data_main"); //grab the popupma
 //note that console.log is a print function for javascript.
 
 function displayInfo(product_id, productName, bestbuyData){
-  //console.log(product_id)
+  console.log(bestbuyData)
   document.getElementById("fakepopup_data").style.display = "block"; //display the popup
 
   checkArrayHelper(bestbuyArray, product_id, "bestbuy"); //call thru the helper function to display data checking each brand.
@@ -159,7 +160,7 @@ function displayInfo(product_id, productName, bestbuyData){
         }
         if(firstCompare == false && brand == "mc"){
           firstCompare = true;
-          document.getElementById("fakepopup_data_main").innerHTML += "<summary><h1><img style ='height:0.8em;vertical-align:middle;width:auto;' src = '../static/imgs/microcenter.PNG'/></h1></summary>"; //header for each brand, when we find our first match - display the brand since product is there (but only once)
+          document.getElementById("fakepopup_data_main").innerHTML += "<summary><h1><img style ='height:0.8em;vertical-align:middle;width:auto;' src = '../static/imgs/microcenter.jpg'/></h1></summary>"; //header for each brand, when we find our first match - display the brand since product is there (but only once)
         }
         if(firstCompare == false && brand == "amzn"){
           firstCompare = true;
