@@ -49,7 +49,7 @@ nav ul li {
   position: relative;
 }
 
-.clickable:hover{
+.clickable:hover {
   background-color: #8f8f8f;
 }
 
@@ -202,4 +202,10 @@ footer {
 h1 {
   padding: 50px;
   font-size: 30px;
+}
+
+@media only screen and (max-width: 1500px) {
+  nav ul li p {
+    display: none;
+  }
 }

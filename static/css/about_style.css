@@ -27,7 +27,7 @@ nav img {
   z-index: -1;
 }
 
-.clickable:hover{
+.clickable:hover {
   background-color: #8f8f8f;
 }
 
@@ -163,4 +163,10 @@ footer {
   padding: 20px;
   background-color: #525252;
   color: white;
+}
+
+@media only screen and (max-width: 1500px) {
+  nav ul li p {
+    display: none;
+  }
 }
