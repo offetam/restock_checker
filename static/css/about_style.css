@@ -98,7 +98,6 @@ nav ul li ul li a:hover {
 }
 
 .about {
-  height: static;
   max-width: 50%;
   color: rgb(255, 255, 255);
   position: absolute;
@@ -167,4 +166,8 @@ footer {
   padding: 20px;
   background-color: #525252;
   color: white;
+}
+
+.container p {
+  font-size: 14px;
 }
