@@ -176,17 +176,17 @@ function displayInfo(product_id, productName, bestbuyData){
         }
         console.log(compareUUID.length);
         if(compareUUID.length == 4){
-            document.getElementById("fakepopup_data_main").innerHTML += "<details><summary>Expand for more details</summary><li>Price: " + compareUUID[2] + "</li><li><a class = 'popup_link' href="+ compareUUID[3] + " target='_blank'>[Link to Product]</a></li></details>"; //hard code for details - it auto closes the tag for some reason
+            document.getElementById("fakepopup_data_main").innerHTML += "<details><summary>Expand for more details</summary><li>Price: $" + compareUUID[2] + "</li><li><a class = 'popup_link' href="+ compareUUID[3] + " target='_blank'>[Link to Product]</a></li></details>"; //hard code for details - it auto closes the tag for some reason
         }else{
             if(compareUUID[5] == 0){
               var noRatings = "<li> No ratings found. </li>";
-              document.getElementById("fakepopup_data_main").innerHTML += "<details><summary>Expand for more details</summary><li>Price: " + compareUUID[2] + "</li><li>" + compareUUID[3] + "</li>"+  noRatings + "<li><a class = 'popup_link' href="+ compareUUID[6] + " target='_blank'>[Link to Product]</a></li></details>";
+              document.getElementById("fakepopup_data_main").innerHTML += "<details><summary>Expand for more details</summary><li>Price: $" + compareUUID[2] + "</li><li>" + compareUUID[3] + "</li>"+  noRatings + "<li><a class = 'popup_link' href="+ compareUUID[6] + " target='_blank'>[Link to Product]</a></li></details>";
             }else{
               //console.log(compareUUID[2])
               if(compareUUID[2] == 0.00){
                 document.getElementById("fakepopup_data_main").innerHTML += "<details><summary>Expand for more details</summary><li><li>" + compareUUID[3] + "</li><li> Rating (Out of 5): " + compareUUID[4] + " and Number of Reviews: " + compareUUID[5] +"</li><li><a class = 'popup_link' href="+ compareUUID[6] + " target='_blank'>[Link to Product]</a></li></details>";
               }else{
-                  document.getElementById("fakepopup_data_main").innerHTML += "<details><summary>Expand for more details</summary><li>Price: " + compareUUID[2] + "</li><li>" + compareUUID[3] + "</li><li> Rating (Out of 5): " + compareUUID[4] + " and Number of Reviews: " + compareUUID[5] +"</li><li><a class = 'popup_link' href="+ compareUUID[6] + " target='_blank'>[Link to Product]</a></li></details>";
+                  document.getElementById("fakepopup_data_main").innerHTML += "<details><summary>Expand for more details</summary><li>Price: $" + compareUUID[2] + "</li><li>" + compareUUID[3] + "</li><li> Rating (Out of 5): " + compareUUID[4] + " and Number of Reviews: " + compareUUID[5] +"</li><li><a class = 'popup_link' href="+ compareUUID[6] + " target='_blank'>[Link to Product]</a></li></details>";
               }
             }
         }
