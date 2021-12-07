@@ -1100,11 +1100,6 @@ def addtrends(arr):
     
 
    
-#newBest()
-#newMicro()
-#newAMZN()
-#newGame()
-"""
 def doupdate():
     updateBest()
     print(1)
@@ -1114,13 +1109,22 @@ def doupdate():
     print(3)
     updateGame()
     print(4)
-
+def doadd():
+    newBest()
+    print('ADDED NEW BEST')
+    newMicro()
+    print('ADDED NEW MICRO')
+    newAMZN()
+    print('ADDED NEW AMAZON')
+    newGame()
+    print('ADDED NEW GAME')
 doupdate()
 schedule.every(1).minutes.do(doupdate)
 schedule.every().day.at("00:01").do(trends)
+schedule.every().monday.at("00:01").do(doadd)
 while 1:
     schedule.run_pending()
     time.sleep(1)
-"""
+
 
 driver.quit()
