@@ -9,7 +9,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.action_chains import ActionChains
 import numpy as np
-from pages.views import update,email_notify,addProduct,addtovendor
+#from pages.views import update,email_notify,addProduct,addtovendor
 import schedule
 from fuzzywuzzy import fuzz
 from fuzzywuzzy import process
@@ -630,6 +630,11 @@ def newBest():
     addproduct=addbest[['BestBuy_Name','BestBuy_Image','UUID']]
     addproducts('BestBuy',addproduct)
     
+    list4=[]
+    list4.append(addproduct['BestBuy_Name'].tolist())
+    list4.append(addproduct['UUID'].tolist())
+    addtrends(list4)
+    
     addbest=addbest[['BestBuy_Price','BestBuy_Status','BestBuy_Rating','BestBuy_Review','BestBuy_Model Number','BestBuy_SKU','BestBuy_Link','BestBuy_Image','UUID']]
     addbest=pd.concat([addbest,notnew])
     
@@ -728,6 +733,10 @@ def newMicro():
 
     addproduct=addmicro[['MicroCenter_Name','Product_Image','UUID']]
     addproducts('MicroCenter',addproduct)
+    list4=[]
+    list4.append(addproduct['MicroCenter_Name'].tolist())
+    list4.append(addproduct['UUID'].tolist())
+    addtrends(list4)
     
     addmicro=addmicro[['MicroCenter_Price','MicroCenter_SKU','MicroCenter_Model Number','MicroCenter_Link','Product_Image','UUID']]
     addmicro=pd.concat([addmicro,notnew])
@@ -890,6 +899,11 @@ def newAMZN():
     addproduct=addAMZN[['Amazon_Name','Amazon_Image','UUID']]
     addproducts('Amazon',addproduct)
     
+    list4=[]
+    list4.append(addproduct['Amazon_Name'].tolist())
+    list4.append(addproduct['UUID'].tolist())
+    addtrends(list4)
+    
     addAMZN=addAMZN[['Amazon_SKU','Amazon_Price','Amazon_Ratings','Amazon_Reviews','Amazon_Status','Amazon_URL','Amazon_Image','UUID']]
     addAMZN=pd.concat([addAMZN,notnew])
 
@@ -1029,6 +1043,11 @@ def newGame():
     
     addproducts('GameStop',addproduct)
     
+    list4=[]
+    list4.append(addproduct['Name'].tolist())
+    list4.append(addproduct['UUID'].tolist())
+    addtrends(list4)
+    
     addGame=addGame[['GameStop_SKU','Price','URL','Stock','UUID','Review_y','Number_of_Reviews_y','Images']]
     addGame=addGame.rename(columns={'Price':'Product_Price','URL':'Product_link','Stock':'Product_Stock','Review_y':'Review','Number_of_Reviews_y':'Number_of_Reviews','Images':'Product_Image'})
     addGame=pd.concat([addGame,notnew])
@@ -1069,6 +1088,18 @@ def uptrends(arr):
         df[d1]=df.apply(lambda x: 1 if x['UUID']==i and x[d1]!= 1 else x[d1],axis=1)
     df.to_csv('Trends.csv',index=False)    
 
+def addtrends(arr):
+    df=pd.read_csv('Trends.csv')
+    newarr=[]
+    for x in range(len(arr[0])):
+        newarr.append(arr[0][x])
+        newarr.append(arr[1][x])
+        for i in range(16):
+            newarr.append(-1)
+        df.loc[len(df.index)]=newarr
+    
+
+   
 #newBest()
 #newMicro()
 #newAMZN()
