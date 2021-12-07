@@ -8,12 +8,15 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 <!--<head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <link rel="stylesheet" type="text/css" href='{% static "/css/notification.css" %}'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">  css for the search icon (fa fa-search)
+
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;700&display=swap" rel="stylesheet">
     <title>Restock - Expanded Info</title>
     <link rel="shortcut icon" href='{% static "imgs/logo3.png" %}'>
@@ -57,15 +60,15 @@
  <ul class="row"> <!-- Prices -->
        <li class="legend">Vendor</li>
   {% for i in bb %}
-       <li><div><img style = "height:100px;width:150px;" src = "{% static 'imgs/bestbuy.png' %}"></div></li>
+       <li><div><img style = "height:150px;width:150px;" src = "{% static 'imgs/bestbuy.png' %}"></div></li>
   {% endfor %}
 
   {% for i in gs %}
-       <li><div><img style = "width:225px;height:150px;" src = "{% static 'imgs/gamestop.PNG' %}"></div></li>
+       <li><div><img style = "width:150px;height:150px;" src = "{% static 'imgs/gamestopCheck.png' %}"></div></li>
   {% endfor %}
 
   {% for i in mc %}
-       <li><div><img style = "width:200px;height:150px;" src = "{% static 'imgs/microcenter.PNG' %}"></div></li>
+       <li><div><img style = "width:150px;height:150px;" src = "{% static 'imgs/microcenter1.png' %}"></div></li>
   {% endfor %}
 
   {% for i in bh %}
@@ -73,11 +76,11 @@
   {% endfor %}
 
   {% for i in ad %}
-       <li><div><img style = "width:150px;height:150px;" src = "{% static 'imgs/adorama.PNG' %}"></div></li>
+       <li><div><img style = "width:150px;height:150px;" src = "{% static 'imgs/adorama.png' %}"></div></li>
   {% endfor %}
 
   {% for i in amzn %}
-       <li><div><img style = "width:175px;height:150px;" src = "{% static 'imgs/amazon.PNG' %}"></div></li>
+       <li><div><img style = "width:150px;height:150px;" src = "{% static 'imgs/amazon.jfif' %}"></div></li>
   {% endfor %}
 </ul>
 
@@ -86,27 +89,32 @@
 
 
 {% for i in bb %}
-       <li>{{i.BestBuy_price}}</li>
+       <li>${{i.BestBuy_price}}</li>
 {% endfor %}
 
 {% for j in gs %}
-       <li>{{j.Gamestop_price}}</li>
+       <li>${{j.Gamestop_price}}</li>
 {% endfor %}
 
 {% for k in mc %}
-       <li>{{k.MicroCenter_Price}}</li>
+       <li>${{k.MicroCenter_Price}}</li>
 {% endfor %}
 
 {% for l in bh %}
-       <li>{{l.BH_price}}</li>
+       <li>${{l.BH_price}}</li>
 {% endfor %}
 
 {% for m in ad %}
-       <li>{{m.AD_price}}</li>
+       <li>${{m.AD_price}}</li>
 {% endfor %}
 
 {% for n in amzn %}
-       <li>{{n.Amazon_price}} (If 0.00 to be fixed later...)</li>
+       {% if n.Amazon_price == 0.00 %}
+           <li>N/A</li>
+
+       {% else %}
+          <li>${{n.Amazon_price}}</li>
+       {% endif %}
 {% endfor %}
 
 
@@ -156,13 +164,44 @@
 <ul class="row"> <!-- Ratings -->
       <li class="legend">Ratings & Num Reviews</li>
 
-
 {% for i in bb %}
-      <li>{{i.BestBuy_Ratings}} , Reviews: {{i.BestBuy_Review}}</li>
+      <li>
+        {% if i.BestBuy_Review != 0 %} <!-- This sets some divs to use later in js maybe???? -->
+        <div id = "bb_rating_container" style = "display:none;">
+          <div id = "bb_star_rating" style = "color:yellow;">
+          </div>
+          <span id = "bb_rating" style = "color:white;">
+          {{i.BestBuy_Ratings}}
+          </span>
+        </div>
+        {% endif %}
+
+        {% if i.BestBuy_Review == 0 %}
+          <span>  N/A </span>
+        {% else %}
+          Reviews: {{i.BestBuy_Review}} <!-- Temp Check Code atm -->
+        {% endif %}
+      </li>
 {% endfor %}
 
 {% for j in gs %}
-      <li>{{j.Gamestop_Ratings}}, Reviews: {{j.Gamestop_Reviews}}</li>
+      <li>
+        {% if j.Gamestop_Reviews != 0 %} <!-- This sets some divs to use later in js maybe???? -->
+        <div id = "gs_rating_container" style = "display:none;">
+          <div id = "gs_star_rating" style = "color:yellow;">
+          </div>
+          <span id = "gs_rating" style = "color:white;">
+          {{j.Gamestop_Ratings}}
+          </span>
+        </div>
+        {% endif %}
+
+        {% if j.Gamestop_Reviews == 0 %}
+            <span> N/A </span>
+        {% else %}
+            Reviews: {{j.Gamestop_Reviews}} <!-- Temp Check Code atm -->
+        {% endif %}
+      </li>
 {% endfor %}
 
 {% for i in mc %}
@@ -170,15 +209,63 @@
 {% endfor %}
 
 {% for l in bh %}
-      <li>{{l.BH_Ratings}}, Reviews: {{l.BH_Reviews}}</li>
+      <li>
+        {% if l.BH_Reviews != 0 %} <!-- This sets some divs to use later in js maybe???? -->
+        <div id = "bh_rating_container" style = "display:none;">
+          <div id = "bh_star_rating" style = "color:yellow;">
+          </div>
+          <span id = "bh_rating" style = "color:white;">
+          {{l.BH_Ratings}}
+          </span>
+        </div>
+        {% endif %}
+
+        {% if l.BH_Ratings == 0 %}
+            <span> N/A </span>
+        {% else %}
+            Reviews: {{l.BH_Reviews}} <!-- Temp Check Code atm -->
+        {% endif %}
+      </li>
 {% endfor %}
 
 {% for m in ad %}
-      <li>{{m.AD_Ratings}}, Reviews: {{m.AD_Reviews}}</li>
+      <li>
+        {% if m.AD_Reviews != 0 %} <!-- This sets some divs to use later in js maybe???? -->
+        <div id = "ad_rating_container" style = "display:none;">
+          <div id = "ad_star_rating" style = "color:yellow;">
+          </div>
+          <span id = "ad_rating" style = "color:white;">
+          {{m.AD_Ratings}}
+          </span>
+        </div>
+        {% endif %}
+
+        {% if m.AD_Ratings == 0 %}
+            <span> N/A </span>
+        {% else %}
+            Reviews: {{m.AD_Reviews}} <!-- Temp Check Code atm -->
+        {% endif %}
+      </li>
 {% endfor %}
 
 {% for n in amzn %}
-      <li>{{n.Amazon_Ratings}}, Reviews: {{n.Amazon_Reviews}}</li>
+      <li>
+        {% if n.Amazon_Reviews != 0 %} <!-- This sets some divs to use later in js maybe???? -->
+        <div id = "amzn_rating_container" style = "display:none;">
+          <div id = "amzn_star_rating" style = "color:yellow;">
+          </div>
+          <span id = "amzn_rating" style = "color:white;">
+          {{n.Amazon_Ratings}}
+          </span>
+        </div>
+        {% endif %}
+
+        {% if n.Amazon_Ratings == 0 %}
+            <span> N/A </span>
+        {% else %}
+            Reviews: {{n.Amazon_Reviews}} <!-- Temp Check Code atm -->
+        {% endif %}
+      </li>
 {% endfor %}
 </ul>
 
@@ -212,259 +299,117 @@
 </ul>
 </div>
 
-
-
-
-<!-- </div>
-
-    <br>
-    <div class = "logo_product" style = "font-size:25px;">
-      {% for i in bb %}
-      <div id = "bb_logo" class = "vendor_img" onclick = "selectInfo('bestbuy');return false;"><img style ='max-height:100%;vertical-align:middle;width:auto;' src = 'https://pisces.bbystatic.com/image2/BestBuy_US/Gallery/BestBuy_Logo_2020-190616.png'/></img> </div>
-      <div style = "display:none;">
-        <div>
-          Name:
-          {{i.BestBuy_UUID.product}}
-        </div>
-        <div>
-          Price:
-          {{i.BestBuy_price}}
-        </div>
-        <div>
-          Stock Status:
-          {{i.BestBuy_Status}}
-        </div>
-        <div>
-          Ratings:
-          {{i.BestBuy_Ratings}}
-        </div>
-        <div>
-          Reviews:
-          {{i.BestBuy_Review}}
-        </div>
-        <div>
-          Click URL to purchase product!
-          <a href= '{{i.BestBuy_URL}}'>URL To Product </a>
-        </div>
-        <div>
-          <img style = "width:35%;" src = '{{i.BestBuy_Image}}' style = "width:300px;height:auto" alt='FAILED' onerror=this.src="{% static '/imgs/no_image.png' %}">
-        </div>
-      </div>
-    {% endfor %}
-
-    {% for i in gs %}
-    <div id = "bb_logo" class = "vendor_img" onclick = "alert('a')"><img style ='max-height:100px;max-width:100%;vertical-align:middle;width:auto;' src = '{% static "/imgs/gamestop.PNG" %}'></img> </div>
-      <div style = "display:none;">
-        <div>
-          Name:
-          {{i.Gamestop_UUID.product}}
-        </div>
-        <div>
-          Price:
-          {{i.Gamestop_price}}
-        </div>
-        <div>
-          Stock Status:
-          {{i.Gamestop_Status}}
-        </div>
-        <div>
-          Ratings:
-          {{i.Gamestop_Ratings}}
-        </div>
-        <div>
-          Reviews:
-          {{i.Gamestop_Reviews}}
-        </div>
-        <div>
-          Click URL to purchase product!
-          <a href= '{{i.Gamestop_URL}}'>URL</a>
-        </div>
-        <div>
-          <img src = '{{i.Gamestop_Image}}' style = "width:300px;height:auto" alt='FAILED' onerror=this.src="{% static '/imgs/no_image.png' %}">
-        </div>
-        {% endfor %}
-      </div>
-
-      {% for i in mc %}
-      <div id = "mc_logo" class = "vendor_img" onclick = "alert('a')"><img style ='max-height:100px;max-width:100%;vertical-align:middle;width:auto;' src = '{% static "/imgs/microcenter.PNG" %}'></img>
-        <div style = "display:none;">
-          <div>
-            Name:
-            {{i.MicroCenter_UUID.product}}
-          </div>
-          <div>
-            Price:
-            {{i.MicroCenter_Price}}
-          </div>
-          <div>
-            Click URL to purchase product!
-            <a href= '{{i.MicroCenter_URL}}'>URL</a>
-          </div>
-        </div>
-        <div>
-          <img src = '{{i.MicroCenter_Image}}' style = "width:300px;height:auto;display:none;" alt='FAILED' onerror=this.src="{% static '/imgs/no_image.png' %}">
-        </div>
-
-        {% endfor %}
-      </div>
-
-
-
-      {% for i in bh %}
-      <div id = "bh_logo" class = "vendor_img" onclick = "alert('a')"><img style ='max-height:100%;max-width:100%;vertical-align:middle;width:auto;' src = 'https://yt3.ggpht.com/kS4t4QRwLD-q1BhhiRVzVzQimW65zDkopFa8dD14i56oc8ii0G253j6RqC3HxcZ-ytzDhUV-=s900-c-k-c0x00ffffff-no-rj'></img> </div>
-        <div style = "display:none;">
-          <div>
-            Name:
-            {{i.BH_UUID.product}}
-          </div>
-          <div>
-            Price:
-            {{i.BH_price}}
-          </div>
-          <div>
-            Stock Status:
-            {{i.BH_Status}}
-          </div>
-          <div>
-            Ratings:
-            {{i.BH_Ratings}}
-          </div>
-          <div>
-            Reviews:
-            {{i.BH_Reviews}}
-          </div>
-          <div>
-            Click URL to purchase product!
-            <a href= '{{i.BH_URL}}'>URL</a>
-          </div>
-          <div>
-            <img src = '{{i.BH_Image}}' style = "width:300px;height:auto" alt='FAILED' onerror=this.src="{% static '/imgs/no_image.png' %}">
-          </div>
-          {% endfor %}
-        </div>
-    </div>
-
-    <div class = "logo_product" style = "font-size:25px;">
-      {% for i in ad %}
-      <div id = "ad_logo" class = "vendor_img" onclick = "alert('a')"><img style ='max-height:100px;max-width:100%;vertical-align:middle;width:auto;' src = '{% static "/imgs/Adorama1.png" %}'></img> </div>
-        <div style = "display:none;">
-          <div>
-            Name:
-            {{i.AD_UUID.product}}
-          </div>
-          <div>
-            Price:
-            {{i.AD_price}}
-          </div>
-          <div>
-            Stock Status:
-            {{i.AD_Status}}
-          </div>
-          <div>
-            Ratings:
-            {{i.AD_Ratings}}
-          </div>
-          <div>
-            Reviews:
-            {{i.AD_Reviews}}
-          </div>
-          <div>
-            Click URL to purchase product!
-            <a href= '{{i.AD_URL}}'>URL</a>
-          </div>
-          <div>
-            <img src = '{{i.AD_Image}}' style = "width:300px;height:auto" alt='FAILED' onerror=this.src="{% static '/imgs/no_image.png' %}">
-          </div>
-          {% endfor %}
-        </div>
-    </div>
-
-    {% for i in amzn %}
-    <div id = "amzn_logo" class = "vendor_img" onclick = "alert('a')"><img style ='max-height:100px;max-width:100%;vertical-align:middle;width:auto;' src = '{% static "/imgs/amazon.PNG" %}'></img> </div>
-      <div style = "display:none;">
-        <div>
-          Name:
-          {{i.Amazon_UUID.product}}
-        </div>
-        <div>
-          Price:
-          {{i.Amazon_price}}
-        </div>
-        <div>
-          Stock Status:
-          {{i.Amazon_Status}}
-        </div>
-        <div>
-          Ratings:
-          {{i.Amazon_Ratings}}
-        </div>
-        <div>
-          Reviews:
-          {{i.Amazon_Reviews}}
-        </div>
-        <div>
-          Click URL to purchase product!
-          <a href= '{{i.Amazon_URL}}'>URL</a>
-        </div>
-        <div>
-          <img src = '{{i.Amazon_Image}}' style = "width:300px;height:auto" alt='FAILED' onerror=this.src="{% static '/imgs/no_image.png' %}">
-        </div>
-        {% endfor %}
-      </div>
-
-    <div class = "vendors" style = "font-size:25px;">
-  </div>
-<br>
-<div class = "logo_product" style = "font-size:25px;">
-</div>
-<br>
-
-<div class = "logo_product" style = "font-size:25px;">
-</div>
-<br>
-<div class = "logo_product" style = "font-size:25px;">
-
-
-
+<!-- TESTING CODE
+<div style = "color:yellow">
+  <span class="fa fa-star checked"></span>
+  <span class="fa fa-star checked"></span>
+  <span class="fa fa-star checked"></span>
+  <span class="fa fa-star checked"></span>
+  <span class="fa fa-star-o"></span>
 </div> -->
 
-
 <!-- Lazy centering, fix later -->
+
 <center>
-Graph for Product
 {% for x in chart %}
-  <img src="data:image/png;base64, {{x|safe}}" style="width:600px;height:600px">
+  <img src="data:image/png;base64, {{x|safe}}" style="width:50%;height:auto;">
 {% endfor %}
 </center>
 </body>
 
 <script>
-// var bb_logo = document.getElementById("bb_logo")
-//
-// var bestbuyArray = []; //data array to store products to compare.
-// var bharray = [];
-// var mcArray = [];
-// var adArray = [];
-// var gsArray = [];
-// var amznArray = [];
-//
-//
-// {% for bproduct in bb_product %} //push bestbuy data to the array
-//   bestbuyArray.push('{{bproduct.BestBuy_UUID.UUID.strip}}, {{bproduct.BestBuy_UUID.product}}, {{bproduct.BestBuy_price}}, {{bproduct.BestBuy_Status}}, {{bproduct.BestBuy_Ratings}}, {{bproduct.BestBuy_Review}}, {{bproduct.BestBuy_URL}}, {{bproduct.BestBuy_Image}}')
-// {% endfor %}
-//
-//
-// console.log(bestbuyArray)
-//
-// // document.getElementById('bb_logo').onclick = function() {
-// //   this.style.left = parseFloat(getComputedStyle(this).left) + 42 + 'px';
-// // };
-//
-//   function selectInfo(vendor){
-//      bb_logo.style.left = "42px"
-//      console.log("shifting bb logo...")
-//   }
-//
+//global var for all 5 vendors (renders as null if such element doesnt exist - MICROCENTER excluded (no review data.))
+
+//BestBuy
+var bb_stars = document.getElementById("bb_star_rating") //container for stars to be added to
+var bb_rating = document.getElementById("bb_rating") //rating of bb
+var bb_rating_container = document.getElementById("bb_rating_container") //div holding the hidden rating
+
+//GameStop
+var gs_stars = document.getElementById("gs_star_rating")
+var gs_rating = document.getElementById("gs_rating")
+var gs_rating_container = document.getElementById("gs_rating_container") //div holding the hidden rating
+
+//B&H
+var bh_stars = document.getElementById("bh_star_rating")
+var bh_rating = document.getElementById("bh_rating")
+var bh_rating_container = document.getElementById("bh_rating_container")
+
+//Adorama
+var ad_stars = document.getElementById("ad_star_rating")
+var ad_rating = document.getElementById("ad_rating")
+var ad_rating_container = document.getElementById("ad_rating_container")
+
+var amzn_stars = document.getElementById("amzn_star_rating")
+var amzn_rating = document.getElementById("amzn_rating")
+var amzn_rating_container = document.getElementById("amzn_rating_container")
+
+if(bb_stars != null){
+  // console.log(bb_rating.innerHTML)
+  addStar("bb")
+}
+if(gs_stars != null){
+  addStar("gs")
+}
+if(bh_stars != null){
+  addStar("bh")
+}
+if(ad_stars != null){
+  addStar("ad")
+}
+if(amzn_stars != null){
+    addStar("amzn")
+}
+
+
+function addStar(vendor){ //helper functions for all (5) cases of ratings
+
+  switch(vendor){ //switch case for the 5 vendors (microcenter excluded by default - no rating data available.)
+    case "bb":
+      addtoHTML(bb_rating, bb_stars, bb_rating_container)
+      break;
+    case "gs":
+      addtoHTML(gs_rating, gs_stars, gs_rating_container)
+      break;
+    case "bh":
+      addtoHTML(bh_rating, bh_stars, bh_rating_container)
+      break;
+    case "ad":
+      addtoHTML(ad_rating, ad_stars, ad_rating_container)
+      break;
+    case "amzn":
+      addtoHTML(amzn_rating, amzn_stars, amzn_rating_container)
+      break;
+  }
+}
+
+function addtoHTML(element1, element2, element3){ //helper function to add star ratings
+  console.log(element1)
+  element3.style.display = "block"
+  if(element1.innerHTML >= 4.75){
+    element2.innerHTML += '<span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star checked"></span>'
+  }else if(element1.innerHTML >= 4.25){
+    element2.innerHTML += '<span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star-half-o"></span>'
+  }else if(element1.innerHTML >= 3.75){
+    element2.innerHTML += '<span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star-o"></span>'
+  }else if(element1.innerHTML >= 3.25){
+    element2.innerHTML += '<span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star-half-o"></span><span class="fa fa-star-o"></span>'
+  }else if(element1.innerHTML >= 2.75){
+    element2.innerHTML += '<span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star-o"></span><span class="fa fa-star-o"></span>'
+  }else if(element1.innerHTML >= 2.25){
+    element2.innerHTML += '<span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star-half-o"></span><span class="fa fa-star-o"></span><span class="fa fa-star-o"></span>'
+  }else if(element1.innerHTML >= 1.75){
+    element2.innerHTML += '<span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star-o"></span><span class="fa fa-star-o"></span><span class="fa fa-star-o"></span>'
+  }else if(element1.innerHTML >= 1.25){
+    element2.innerHTML += '<span class="fa fa-star checked"></span><span class="fa fa-star-half-o"></span><span class="fa fa-star-o"></span><span class="fa fa-star-o"></span><span class="fa fa-star-o"></span>'
+  }else if(element1.innerHTML >= 0.75){
+    element2.innerHTML += '<span class="fa fa-star checked"></span><span class="fa fa-star-o"></span><span class="fa fa-star-o"></span><span class="fa fa-star-o"></span><span class="fa fa-star-o"></span>'
+  }else if(element1.innerHTML >= 0.25){
+    element2.innerHTML += '<span class="fa fa-star-half-o"></span><span class="fa fa-star-o"></span><span class="fa fa-star-o"></span><span class="fa fa-star-o"></span><span class="fa fa-star-o"></span>'
+  }else{
+    element2.innerHTML += '<span class="fa fa-star-o"></span><span class="fa fa-star-o"></span><span class="fa fa-star-o"></span><span class="fa fa-star-o"></span><span class="fa fa-star-o"></span>'
+  }
+}
 
 </script>
 
