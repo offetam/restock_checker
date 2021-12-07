@@ -98,7 +98,7 @@ nav ul li ul li a:hover {
 }
 
 .about {
-  max-width: 50%;
+  max-width: 70%;
   color: rgb(255, 255, 255);
   position: absolute;
   top: 50%;
@@ -118,7 +118,7 @@ nav ul li ul li a:hover {
   float: left;
   width: 100%;
   margin-bottom: 16px;
-  padding: 0 4px;
+  padding: 0 8px;
 }
 
 .card {
@@ -127,9 +127,10 @@ nav ul li ul li a:hover {
 }
 
 .row {
-  margin: 5%;
+  margin: 3%;
   display: flex;
   justify-content: space-around;
+  width: 95%;
 }
 
 .team h2 {
