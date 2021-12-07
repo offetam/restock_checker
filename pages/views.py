@@ -15,6 +15,8 @@ from io import BytesIO
 import pandas as pd
 import random
 
+
+
 def landing(request):
     if 'email' not in request.session:
         request.session['email'] = ''
@@ -311,11 +313,25 @@ def addProduct(arr):
     for x in range(len(arr[0])):
         newproduct=products(product=arr[0][x],Image=arr[1][x],UUID=arr[2][x])
         newproduct.save()
+    return 0
 def addtovendor(store,arr):
     if store=='BestBuy':
         for x in range(len(arr[0])):
             newbest=BestBuy(BestBuy_price=arr[0][x],BestBuy_Status=arr[1][x],BestBuy_Ratings=arr[2][x],BestBuy_Review=arr[3][x],BestBuy_ModelNumber=arr[4][x],BestBuy_SKU=arr[5][x],BestBuy_URL=arr[6][x],BestBuy_Image=arr[7][x],BestBuy_UUID_id=arr[8][x])
             newbest.save()
+    if store=='MicroCenter':
+        for x in range(len(arr[0])):
+            newmicro=MicroCenter(MicroCenter_Price=arr[0][x],MicroCenter_SKU=arr[1][x],MicroCenter_ModelNumber =arr[2][x],MicroCenter_URL =arr[3][x],MicroCenter_Image =arr[4][x],MicroCenter_UUID =arr[5][x])
+            newmicro.save()
+    if store=='Amazon':
+        for x in range(len(arr[0])):
+            newAmzn=Amazon(Amazon_SKU=arr[0][x],Amazon_price=arr[1][x],Amazon_Ratings=arr[2][x],Amazon_Reviews=arr[3][x],Amazon_Status=arr[4][x],Amazon_URL=arr[5][x],Amazon_Image=arr[6][x],Amazon_UUID=arr[7][x])
+            newAmzn.save()
+    if store=='GameStop':
+        for x in range(len(arr[0])):
+            newGame=Gamestop(Gamestop_SKU=arr[0][x],Gamestop_price=arr[1][x],Gamestop_URL=arr[2][x],Gamestop_Status=arr[3][x],Gamestop_UUID_id=arr[4][x],Gamestop_Ratings=arr[5][x],Gamestop_Reviews=arr[6][x],Gamestop_Image=arr[7][x])
+            newGame.save()
+    return 0
 def get_graph():
     buffer = BytesIO()
     plt.savefig(buffer,format='png')
