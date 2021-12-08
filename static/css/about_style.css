@@ -27,7 +27,7 @@ nav img {
   z-index: -1;
 }
 
-.clickable:hover{
+.clickable:hover {
   background-color: #8f8f8f;
 }
 
@@ -98,7 +98,7 @@ nav ul li ul li a:hover {
 }
 
 .about {
-  max-width: 50%;
+  max-width: 70%;
   color: rgb(255, 255, 255);
   position: absolute;
   top: 50%;
@@ -115,6 +115,9 @@ nav ul li ul li a:hover {
 }
 
 .column {
+  float: left;
+  width: 100%;
+  margin-bottom: 16px;
   padding: 0 8px;
 }
 
@@ -124,9 +127,10 @@ nav ul li ul li a:hover {
 }
 
 .row {
-  margin: 5%;
+  margin: 3%;
   display: flex;
   justify-content: space-around;
+  width: 95%;
 }
 
 .team h2 {
@@ -163,4 +167,8 @@ footer {
   padding: 20px;
   background-color: #525252;
   color: white;
+}
+
+.container p {
+  font-size: 14px;
 }
