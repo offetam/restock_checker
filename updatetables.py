@@ -9,17 +9,17 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.action_chains import ActionChains
 import numpy as np
-#from pages.views import update,email_notify,addProduct,addtovendor
+from pages.views import update,email_notify,addProduct,addtovendor
 import schedule
 from fuzzywuzzy import fuzz
 from fuzzywuzzy import process
 from datetime import date
 
 chrome_options = Options()
-chrome_options.add_argument("User-Agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.81 Safari/537.36")
+chrome_options.add_argument("User-Agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36")
 chrome_options.add_argument("--headless")
 driver = webdriver.Chrome(options=chrome_options)
-agent={"User-Agent":'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.81 Safari/537.36', "Accept-Encoding": "*",
+agent={"User-Agent":'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36', "Accept-Encoding": "*",
     "Connection": "keep-alive"}
 def fuzzy_merge(df_1, df_2, key1, key2, threshold):
     list1 = df_1[key1].tolist()
@@ -261,7 +261,7 @@ def updateBest():
     listchange.append(onlyChange['newPrice'].tolist())
     listchange.append(onlyChange['newStatus'].tolist())
     inStock=[]
-    print(listchange)
+    
     for i in range(len(listchange[0])):
         if 'OUT' not in listchange[3][i]:
             inStock.append(listchange[0][i])
@@ -427,8 +427,10 @@ def updateGame():
         if record:
             records.append(extract_info(item))
     df=pd.read_csv('testingGame.csv')
+    df['GameStop_SKU']=df['GameStop_SKU'].apply(cleanWord)
     dfnewGame=pd.DataFrame(records,columns=['GameStop_SKU','newPrice','newStock'])
     dfnewGame['newPrice']=dfnewGame['newPrice'].apply(cleanPrice)
+    dfnewGame['GameStop_SKU']=dfnewGame['GameStop_SKU'].apply(cleanWord)
     dfnewGame=dfnewGame.drop_duplicates(subset=['GameStop_SKU'])
     combinedf=pd.merge(df,dfnewGame,on='GameStop_SKU',how='left')
     combinedf['change']=combinedf.apply(lambda x: (((x['Product_Stock']!=x['newStock'])or(x['Product_Price']!=x['newPrice'])) and (((x['newPrice'])>0) and ((len(x['newStock']))>0))),axis=1)
@@ -791,7 +793,7 @@ def newAMZN():
             #use price1 because the price is under the tag a-price
             price2 = price1.find('span', 'a-offscreen').text
         except :
-            price = "Not available"
+            price = 0
             return price
         #get rid of symbols in order to put them in a csv file
         price = price2.replace('$', '')
@@ -804,6 +806,8 @@ def newAMZN():
         try:
             rating = product.i.text
             rating = rating[:3]
+            if len(rating[0])<0:
+                rating=0
         except :
             rating = 0
             return rating
@@ -815,7 +819,7 @@ def newAMZN():
             parent = product.find('div', 'a-row a-size-small')
             number_of_reviews = parent.find('span', 'a-size-base').text
         except:
-            number_of_reviews = "no reviews"
+            number_of_reviews = 0
             return number_of_reviews
         return number_of_reviews
 
@@ -916,6 +920,7 @@ def newAMZN():
     data.append(addAMZN['Amazon_URL'].tolist())
     data.append(addAMZN['Amazon_Image'].tolist())
     data.append(addAMZN['UUID'].tolist())
+    
     addtovendor("Amazon",data)
     
     dftest=pd.read_csv('testing1.csv')
@@ -1087,19 +1092,22 @@ def uptrends(arr):
     for i in arr:
         df[d1]=df.apply(lambda x: 1 if x['UUID']==i and x[d1]!= 1 else x[d1],axis=1)
     df.to_csv('Trends.csv',index=False)    
-
 def addtrends(arr):
     df=pd.read_csv('Trends.csv')
-    newarr=[]
+    
     for x in range(len(arr[0])):
+        newarr=[]
+        arr[1][x]=str(arr[1][x])
         newarr.append(arr[0][x])
-        newarr.append(arr[1][x])
+        newarr.append(arr[1][x].strip())
+        
+
         for i in range(16):
             newarr.append(-1)
         df.loc[len(df.index)]=newarr
-    
+    df.to_csv('Trends.csv',index=False)
 
-   
+ 
 def doupdate():
     updateBest()
     print(1)
@@ -1110,14 +1118,22 @@ def doupdate():
     updateGame()
     print(4)
 def doadd():
-    newBest()
-    print('ADDED NEW BEST')
-    newMicro()
-    print('ADDED NEW MICRO')
-    newAMZN()
-    print('ADDED NEW AMAZON')
+    
+    driver = webdriver.Chrome(options=chrome_options)
     newGame()
     print('ADDED NEW GAME')
+    newBest()
+    print('ADDED NEW BEST')
+    
+    
+    newMicro()
+    print('ADDED NEW MICRO') 
+    
+    
+    newAMZN()
+    print('ADDED NEW AMAZON')
+    driver.quit()
+   
 doupdate()
 schedule.every(1).minutes.do(doupdate)
 schedule.every().day.at("00:01").do(trends)

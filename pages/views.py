@@ -321,11 +321,11 @@ def addtovendor(store,arr):
             newbest.save()
     if store=='MicroCenter':
         for x in range(len(arr[0])):
-            newmicro=MicroCenter(MicroCenter_Price=arr[0][x],MicroCenter_SKU=arr[1][x],MicroCenter_ModelNumber =arr[2][x],MicroCenter_URL =arr[3][x],MicroCenter_Image =arr[4][x],MicroCenter_UUID =arr[5][x])
+            newmicro=MicroCenter(MicroCenter_Price=arr[0][x],MicroCenter_SKU=arr[1][x],MicroCenter_ModelNumber =arr[2][x],MicroCenter_URL =arr[3][x],MicroCenter_Image =arr[4][x],MicroCenter_UUID_id=arr[5][x])
             newmicro.save()
     if store=='Amazon':
         for x in range(len(arr[0])):
-            newAmzn=Amazon(Amazon_SKU=arr[0][x],Amazon_price=arr[1][x],Amazon_Ratings=arr[2][x],Amazon_Reviews=arr[3][x],Amazon_Status=arr[4][x],Amazon_URL=arr[5][x],Amazon_Image=arr[6][x],Amazon_UUID=arr[7][x])
+            newAmzn=Amazon(Amazon_SKU=arr[0][x],Amazon_price=arr[1][x],Amazon_Ratings=arr[2][x],Amazon_Reviews=arr[3][x],Amazon_Status=arr[4][x],Amazon_URL=arr[5][x],Amazon_Image=arr[6][x],Amazon_UUID_id=arr[7][x])
             newAmzn.save()
     if store=='GameStop':
         for x in range(len(arr[0])):
