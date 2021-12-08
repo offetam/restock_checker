@@ -29,3 +29,7 @@ pip install whitenoise
 pip install pyscopg2
 
 **No longer uses python manage.py runserver**
+
+To run program:
+To login to heroku, run: "heroku login"
+To run locally, run: "heroku local"

@@ -23,12 +23,13 @@ h1 {
   grid-gap: 1rem;
   color: #444;
   height: 50%;
-  margin: 0 auto;
+  margin: 0 auto 34%;
   width: 80%;
   text-align: center;
 }
 
 .notifcheck {
+  transform: scale(3.2);
   margin-right: 25px;
 }
 
@@ -139,7 +140,7 @@ nav ul li a {
   display: block;
 }
 
-.clickable:hover{
+.clickable:hover {
   background-color: #8f8f8f;
 }
 
@@ -333,109 +334,3 @@ footer {
   color: white;
   bottom: 0;
 }
-
-/*
-@media only screen and (max-width: 1800px) {
-  nav {
-    width: 100%;
-    height: 60px;
-    background-color: #045b8d;
-  }
-
-  nav img {
-    width: 60px;
-    z-index: -1;
-  }
-
-  .nav-links {
-    flex: 1;
-    text-align: center;
-  }
-
-  nav p {
-    font-family: "Source Sans Pro", sans-serif;
-    color: #fff;
-    font-size: 15px;
-    line-height: 55px;
-    float: left;
-    padding: 0px 20px;
-  }
-
-  nav ul {
-    float: left;
-  }
-
-  nav ul li {
-    float: left;
-    list-style: none;
-    position: relative;
-  }
-
-  nav ul li a {
-    color: rgb(255, 255, 255);
-    text-decoration: none;
-    font-size: 15px;
-    padding: 20px 16px;
-    display: block;
-  }
-
-  email doesnt want to go to the header
-  nav ul li p {
-    color: rgb(175, 91, 91);
-    text-decoration: none;
-    font-size: 15px;
-    padding: 1px 14px;
-    display: block;
-  }
-
-  nav ul li ul {
-    display: none;
-    position: absolute;
-    background-color: #045b8d;
-    padding: 10px;
-    border-radius: 0px 0px 4px 4px;
-  }
-
-  nav ul li:hover ul {
-    display: block;
-  }
-
-  nav ul li ul li {
-    width: 180px;
-    border-radius: 4px;
-  }
-
-  nav ul li ul li a {
-    padding: 8px 14px;
-  }
-
-  nav ul li ul li a:hover {
-    background-color: #8f8f8f;
-  }
-
-  .search_container {
-    height: 25px;
-    z-index: -1;
-  }
-
-  .search_form {
-    margin: 0 auto;
-    width: 500px;
-    z-index: -1;
-  }
-
-  .search_form input[type="text"] {
-    height: 60px;
-    float: left;
-    width: 100%;
-    flex: 1;
-    outline: none;
-    border: 2.5px solid gray;
-    border-radius: 5px;
-    text-align: center;
-    font-size: 18px;
-    padding: 5px;
-    z-index: -1;
-  }
-}
-*/
