@@ -8,7 +8,7 @@ Our Project Aims to allow for people and users to keep track of various high dem
 
 Live version can be found: restockchecker.herokuapp.com 
 
-Note: *NOT LIVE CURRENTLY*
+Note: *LIVE CURRENTLY*
 
 
 
