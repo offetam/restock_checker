@@ -332,9 +332,19 @@ footer {
   padding: 20px;
   background-color: #525252;
   color: white;
-  bottom: 0;
-  position: fixed;
+  bottom: 0px;
+  position: relative;
   width: 100%;
+  position: absolute;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 100px;
 }
 
 .header_container{
