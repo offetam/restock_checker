@@ -8,6 +8,7 @@
 
 h1 {
   text-align: center;
+  margin: auto;
 }
 
 
@@ -74,8 +75,11 @@ td {
   padding: 5px;
   padding-left: 15px;
   border-radius: 5px;
-  margin: 0 auto;
+}
+
+.header_container{
   text-align: center;
+  margin: auto;
 }
 
 .button_container {
