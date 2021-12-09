@@ -20,7 +20,8 @@ def landing(request):
         request.session['email'] = ''
     if(request.GET.get("product") is not None):
         x = request.GET.get("product")
-        return home_view(request,x)
+        x = x.replace(' ','+')
+        return redirect('/home/?product='+x)
     return render(request,'display.html')
 
 def about(request):
@@ -28,7 +29,8 @@ def about(request):
         request.session['email'] = ''
     if(request.GET.get("product") is not None):
         x = request.GET.get("product")
-        return home_view(request,x)
+        x = x.replace(' ','+')
+        return redirect('/home/?product='+x)
     return render(request, 'about.html')
 
 
