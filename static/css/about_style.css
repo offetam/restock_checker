@@ -156,6 +156,10 @@ nav ul li ul li a:hover {
   text-align: center;
 }
 
+.team1 h2 {
+  text-align: center;
+}
+
 .search_container {
   height: 25px;
   z-index: -1;
