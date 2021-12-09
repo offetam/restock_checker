@@ -333,9 +333,10 @@ footer {
   background-color: #525252;
   color: white;
   bottom: 0;
-  padding-bottom: 100px;
+  position: fixed;
+  width: 100%;
 }
 
 .header_container{
-  
+
 }
