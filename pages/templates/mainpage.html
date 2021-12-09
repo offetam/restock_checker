@@ -17,7 +17,7 @@
          <h1 style = "margin-top: 1rem;">Products <button class= "notifbutton" type="submit" value="submit">Notify<i style = "margin-left: 7.5px;" class="fa fa-clock-o"></i></button>
          </h1>
     </div>
-    <div class = "wrapper">
+    <div id = "products" class = "wrapper">
       {% for product in all_enteries %}
       <div class="box" style = "margin-top: 1rem;" value = {{product.UUID}}>
         <input type="checkbox" class = "notifcheck" id="product" name="id" value={{product.UUID}}>
@@ -97,6 +97,9 @@ var amznArray = [];
 var bestbuyimg = "/static/imgs/bestbuy.png";
 
 var checker = document.getElementById("fakepopup_data_main"); //grab the popupmain element
+
+
+
 
 {% for bproduct in bb_product %} //push bestbuy data to the array
   bestbuyArray.push('{{bproduct.BestBuy_UUID.UUID.strip}}, {{bproduct.BestBuy_UUID.product}}, {{bproduct.BestBuy_price}}, {{bproduct.BestBuy_Status}}, {{bproduct.BestBuy_Ratings}}, {{bproduct.BestBuy_Review}}, {{bproduct.BestBuy_URL}}')
