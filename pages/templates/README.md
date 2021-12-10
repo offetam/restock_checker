@@ -1,4 +1,5 @@
 display.html and about.htrml
+
 modified the dropdown and about boxes
 sources used:
 
