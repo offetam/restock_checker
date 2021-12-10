@@ -13,15 +13,22 @@
 
 <body>
   <form>
-    <div class = "header_container">
-         <h1 style = "margin-top: 1rem;">Products <button class= "notifbutton" type="submit" value="submit">Notify<i style = "margin-left: 7.5px;" class="fa fa-clock-o"></i></button>
-         </h1>
+    <div style = "visibility:hidden;">
+        Top Text.
+    </div>
+    <div id = "header_notif" class = "header_container" stlye = "margin: 0 auto">
+      <h1 style = "margin-top: 1rem;">
+        Products
+        {% if request.session.email != '' %}
+            <button class= "notifbutton" type="submit" value="submit">Notify<i style = "margin-left: 7.5px;" class="fa fa-clock-o"></i></button>
+        {% endif %}
+      </h1>
     </div>
     <div class = "wrapper">
       {% for product in all_enteries %}
       <div class="box" style = "margin-top: 1rem;" value = {{product.UUID}}>
         <input type="checkbox" class = "notifcheck" id="product" name="id" value={{product.UUID}}>
-        <div class = "box_text">
+        <div id = "products" class = "box_text">
           <div class = "temp" onclick = "displayInfo('{{product.UUID.strip}}','{{product.product.strip}}', '{{product.BestBuy_price}}');return false;">
             <div><img src='{{product.Image}}' style="align-items: center;width: 75%; max-height:275px;" alt = '{{product.product}}' onerror=this.src="{% static '/imgs/no_image.png' %}"></img></div>
             <div class = "product_name">
@@ -45,24 +52,6 @@
           {{product.UUID}}
         </div>
       </div>
-
-    {% comment %}<!-- {% for bproduct in bb_product %}
-    {% if product.UUID == bproduct.BestBuy_UUID.UUID %}
-    <div class = "checker">
-      {{product.UUID}} is the one.
-      Some useful data here:
-      {{bproduct.BestBuy_price}}
-      {{bproduct.BestBuy_SKU}}
-      {{bproduct.BestBuy_Status}}
-      {{bproduct.BestBuy_Ratings}}
-      {{bproduct.BestBuy_Review}}
-      {{bproduct.BestBuy_ModelNumber}}
-      <a href={{product.BestBuy_URL}}>Link</a>
-      {{product.BestBuy_UUID.UUID}}
-    </div>
-    {% endif %}
-    {% endfor %} -->
-    {% endcomment %}
       {% endfor %}
   </form>
   <div class = "fakepopup_data" id = "fakepopup_data" style = "display: none; font-family: sans-serif;">
@@ -97,6 +86,17 @@ var amznArray = [];
 var bestbuyimg = "/static/imgs/bestbuy.png";
 
 var checker = document.getElementById("fakepopup_data_main"); //grab the popupmain element
+var product_check = document.getElementById("products"); //grab the wrapper div
+var notif_content = document.getElementById("header_notif"); //grab the wrapper div
+
+
+if(product_check == null){
+   notif_content.innerHTML = ""
+   notif_content.innerHTML += "<h1> No results were found. :( Please try another search. </h1>"
+   console.log("no results found")
+}
+
+
 
 {% for bproduct in bb_product %} //push bestbuy data to the array
   bestbuyArray.push('{{bproduct.BestBuy_UUID.UUID.strip}}, {{bproduct.BestBuy_UUID.product}}, {{bproduct.BestBuy_price}}, {{bproduct.BestBuy_Status}}, {{bproduct.BestBuy_Ratings}}, {{bproduct.BestBuy_Review}}, {{bproduct.BestBuy_URL}}')
@@ -176,17 +176,17 @@ function displayInfo(product_id, productName, bestbuyData){
         }
         console.log(compareUUID.length);
         if(compareUUID.length == 4){
-            document.getElementById("fakepopup_data_main").innerHTML += "<details><summary>Expand for more details</summary><li>Price: " + compareUUID[2] + "</li><li><a class = 'popup_link' href="+ compareUUID[3] + " target='_blank'>[Link to Product]</a></li></details>"; //hard code for details - it auto closes the tag for some reason
+            document.getElementById("fakepopup_data_main").innerHTML += "<details><summary>Expand for more details</summary><li>Price: $" + compareUUID[2] + "</li><li><a class = 'popup_link' href="+ compareUUID[3] + " target='_blank'>[Link to Product]</a></li></details>"; //hard code for details - it auto closes the tag for some reason
         }else{
             if(compareUUID[5] == 0){
               var noRatings = "<li> No ratings found. </li>";
-              document.getElementById("fakepopup_data_main").innerHTML += "<details><summary>Expand for more details</summary><li>Price: " + compareUUID[2] + "</li><li>" + compareUUID[3] + "</li>"+  noRatings + "<li><a class = 'popup_link' href="+ compareUUID[6] + " target='_blank'>[Link to Product]</a></li></details>";
+              document.getElementById("fakepopup_data_main").innerHTML += "<details><summary>Expand for more details</summary><li>Price: $" + compareUUID[2] + "</li><li>" + compareUUID[3] + "</li>"+  noRatings + "<li><a class = 'popup_link' href="+ compareUUID[6] + " target='_blank'>[Link to Product]</a></li></details>";
             }else{
               //console.log(compareUUID[2])
               if(compareUUID[2] == 0.00){
                 document.getElementById("fakepopup_data_main").innerHTML += "<details><summary>Expand for more details</summary><li><li>" + compareUUID[3] + "</li><li> Rating (Out of 5): " + compareUUID[4] + " and Number of Reviews: " + compareUUID[5] +"</li><li><a class = 'popup_link' href="+ compareUUID[6] + " target='_blank'>[Link to Product]</a></li></details>";
               }else{
-                  document.getElementById("fakepopup_data_main").innerHTML += "<details><summary>Expand for more details</summary><li>Price: " + compareUUID[2] + "</li><li>" + compareUUID[3] + "</li><li> Rating (Out of 5): " + compareUUID[4] + " and Number of Reviews: " + compareUUID[5] +"</li><li><a class = 'popup_link' href="+ compareUUID[6] + " target='_blank'>[Link to Product]</a></li></details>";
+                  document.getElementById("fakepopup_data_main").innerHTML += "<details><summary>Expand for more details</summary><li>Price: $" + compareUUID[2] + "</li><li>" + compareUUID[3] + "</li><li> Rating (Out of 5): " + compareUUID[4] + " and Number of Reviews: " + compareUUID[5] +"</li><li><a class = 'popup_link' href="+ compareUUID[6] + " target='_blank'>[Link to Product]</a></li></details>";
               }
             }
         }
