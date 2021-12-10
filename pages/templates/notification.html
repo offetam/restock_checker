@@ -13,7 +13,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href='{% static "/css/notification.css" %}'>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">  css for the search icon (fa fa-search) 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">  css for the search icon (fa fa-search)
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;700&display=swap" rel="stylesheet">
@@ -22,22 +22,23 @@
 </head>-->
 
 
-
-
 <body>
-    <table border="1" width="1440">
+    <div style = "visibility:hidden;">
+        Test
+    </div>
+    <table id = "table" border="1" width="1440">
         <tr>
             <th>Notifications List</th>
         </tr>
         <form>
-          <div class = "header_container" style = "padding: 1rem;">
+          <div id = "header_button" class = "header_container" style = "padding: 1rem;text-align center;">
             <h1>
                   <button class= "removenotifbutton" type="submit" value="submit">Remove from Notification<i style = "margin-left: 7.5px; margin-right: 7.5px;" class="fa fa-times" aria-hidden="true"></i></button>
             </h1>
           </div>
-        {% for items in notify %}
         <tr>
-            <td><input style = "margin-right: 7.5px;" type="checkbox" id="product" name="id" value="{{items.product}}">
+          {% for items in notify %}
+            <td id = "temp"><input style = "margin-right: 7.5px;" type="checkbox" id="product" name="id" value="{{items.product}}">
                 <label for="product">
                     {{items.product}}
                 </label><br>
@@ -46,7 +47,25 @@
         {% endfor %}
         </form>
     </table>
-    
+    <div id = "no_result" style = "display:none;text-align:center;"><h1> No products in notification :(. Try adding some!<h1> </div>
 </body>
+
+
+<script type = "text/javascript">
+
+var a = document.getElementById("temp")
+var table = document.getElementById("table")
+var header_button = document.getElementById("header_button")
+var noval = document.getElementById("no_result")
+
+if(a == null){
+  table.style.display = "none"
+  header_button.style.display = "none"
+  noval.style.display = "block"
+  console.log("null")
+}
+
+</script>
+
 </html>
 {% endblock %}

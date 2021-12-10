@@ -6,7 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
     <link rel="shortcut icon" href='{% static "imgs/logo3.png" %}'>
-	<!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css"> <!-- css for the search icon (fa fa-search) -->
     <link rel="stylesheet" type="text/css" href='{% static "/css/mainpage.css" %}'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -55,7 +54,7 @@
                 <li>
                     <div class = "search_container">
                         <form id = "searchbar" class = "search_form">
-                            <input type="text" style = "font-family: FontAwesome, sans-serif;" class = "searchtext" name="product" placeholder="&#xf002 Search for Products">
+                              <input type="text" pattern = "^[^-\s][\w\s-]*(?<! )$" title="Please don't add spaces in front and/or behind the keyword" minlength = "2" style = "font-family: FontAwesome, sans-serif;" class = "searchtext" name="product" placeholder="&#xf002; Search for Products" required>
                         </form>
                       </div>
                 </li>
@@ -67,8 +66,8 @@
             </ul>
         </nav>
     </header>
-    
-    
+
+
     {% block styles %}
     {% endblock %}
     <div id ="content" > {% block content %} {% endblock %}</div>
