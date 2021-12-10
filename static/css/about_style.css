@@ -116,7 +116,7 @@ nav ul li ul li a:hover {
 
 .column {
   float: left;
-  width: 100%;
+  width: 25%;
   margin-bottom: 16px;
   padding: 0 8px;
 }
@@ -133,7 +133,30 @@ nav ul li ul li a:hover {
   width: 95%;
 }
 
+.row1 {
+  margin: 3%;
+  display: flex;
+  justify-content: space-around;
+  width: 95%;
+}
+
+.card1 {
+  padding: 16px 16px;
+  background-color: #5e5e5e;
+}
+
+.column1 {
+  float: left;
+  width: 25%;
+  margin-bottom: 16px;
+  padding: 0 8px;
+}
+
 .team h2 {
+  text-align: center;
+}
+
+.team1 h2 {
   text-align: center;
 }
 
