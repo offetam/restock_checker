@@ -1133,7 +1133,7 @@ def doadd():
     newAMZN()
     print('ADDED NEW AMAZON')
     driver.quit()
-   
+trends()   
 doupdate()
 schedule.every(1).minutes.do(doupdate)
 schedule.every().day.at("00:01").do(trends)
