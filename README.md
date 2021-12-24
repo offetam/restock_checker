@@ -6,7 +6,7 @@
 
 Our Project Aims to allow for people and users to keep track of various high demand items. We've currently implemented an email notification system for users to be notified of restocks. We also have a search bar for users to search the 200 or so products tracked on our page.
 
-Live version can be found: [Live deployed webpage](https://restockchecker.herokuapp.com/).
+Live version can be found: [Restock Checker - Heroku deployed](https://restockchecker.herokuapp.com/).
 
 Note: *LIVE CURRENTLY*
 
